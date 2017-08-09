@@ -166,3 +166,5 @@ D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\bin\Database.exe.config
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\obj\Debug\AIPS_2017.csprojResolveAssemblyReference.cache
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\obj\Debug\AIPS_2017.dll
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\obj\Debug\AIPS_2017.pdb
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\bin\ServiceStack.Text.dll
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\AIPS_2017\bin\ServiceStack.Text.xml

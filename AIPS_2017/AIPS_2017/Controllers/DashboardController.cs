@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Business.DTO;
+using ServiceStack.Text;
 
 namespace AIPS_2017.Controllers
 {
@@ -14,8 +16,9 @@ namespace AIPS_2017.Controllers
             return View();
         }
 
-        public ActionResult SaveConfiguration()
+        public ActionResult SaveConfiguration(string ArrayOfObjects)
         {
+            List<BoxDTO> boxes = (List<BoxDTO>)JsonSerializer.DeserializeFromString(ArrayOfObjects, typeof(List<BoxDTO>));
             return View();
         }
 

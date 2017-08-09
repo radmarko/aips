@@ -32,6 +32,14 @@ var startX = 0;
 var startY = 10;
 var startZ = -17;
 
+var updX = startX;
+var updY = startY;
+var updZ = startZ;
+
+var indexOfSelected = 0;
+
+var inc = 0;
+
 function init(){
 			
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -173,9 +181,10 @@ var kutija = document.getElementById("kutija");
 kutija.addEventListener("click", addKutija, false);
 
 function addKutija() {
-    var b = new Box(10, 4, 6, 0.7, startX, startY, startZ, "box");	
-	b.Draw();
+    var b = new Box(10, 4, 6, 0.7, startX, startY, startZ, "box" + inc);
+    b.Draw();
     objectsOnScene.push(b);
+    inc++;
 }
 
 var fioka = document.getElementById("fioka");    
@@ -272,24 +281,25 @@ function onDocumentMouseDown(event) {
 		var intersects = raycaster.intersectObject(plane);
 		offset.copy(intersects[0].point).sub(plane.position);
 		
-		var name  = selectedObject.name;
+		var name  = selectedObject.Name;
 		
 		for(var i = 0; i < objectsOnScene.length; i++)
 		{
-			if(objectsOnScene[i].name == name){
-				selected = objectsOnScene[i];
+			if(objectsOnScene[i].Name == name){
+                selected = objectsOnScene[i];
+                indexOfSelected = i;
 				break;
 			}
 		}
 		
-		document.getElementById("item-width").value = selected.sirina; 
-		document.getElementById("item-depth").value = selected.dubina;
-		document.getElementById("item-height").value = selected.visina;
-		document.getElementById("item-debljina").value = selected.debljinaDaske;
-		document.getElementById("context-menu-name").text = selected.name;  		
-		document.getElementById("item-posX").value = selected.posX;
-		document.getElementById("item-posY").value = selected.posY;
-		document.getElementById("item-posZ").value = selected.posZ;		
+        document.getElementById("item-width").value = selected.Width; 
+        document.getElementById("item-depth").value = selected.Depth;
+        document.getElementById("item-height").value = selected.Height;
+        document.getElementById("item-debljina").value = selected.BoardThickness;
+        document.getElementById("context-menu-name").text = selected.Name;  		
+        document.getElementById("item-posX").value = selected.PositionX;
+        document.getElementById("item-posY").value = selected.PositionY;
+        document.getElementById("item-posZ").value = selected.PositionZ;		
 		//$("#myModal").modal();
 		
 	}
@@ -343,23 +353,24 @@ function ObjectMouseDown(x, y) {
         var intersects = raycaster.intersectObject(plane);
         offset.copy(intersects[0].point).sub(plane.position);
 
-        var name = selectedObject.name;
+        var name = selectedObject.Name;
 
         for (var i = 0; i < objectsOnScene.length; i++) {
-            if (objectsOnScene[i].name == name) {
+            if (objectsOnScene[i].Name == name) {
                 selected = objectsOnScene[i];
+                indexOfSelected = i;
                 break;
             }
         }
 
-        document.getElementById("item-width").value = selected.sirina;
-        document.getElementById("item-depth").value = selected.dubina;
-        document.getElementById("item-height").value = selected.visina;
-        document.getElementById("item-debljina").value = selected.debljinaDaske;
-        document.getElementById("context-menu-name").text = selected.name;
-        document.getElementById("item-posX").value = selected.posX;
-        document.getElementById("item-posY").value = selected.posY;
-        document.getElementById("item-posZ").value = selected.posZ;
+        document.getElementById("item-width").value = selected.Width;
+        document.getElementById("item-depth").value = selected.Depth;
+        document.getElementById("item-height").value = selected.Height;
+        document.getElementById("item-debljina").value = selected.BoardThickness;
+        document.getElementById("context-menu-name").text = selected.Name;
+        document.getElementById("item-posX").value = selected.PositionX;
+        document.getElementById("item-posY").value = selected.PositionY;
+        document.getElementById("item-posZ").value = selected.PositionZ;
         //$("#myModal").modal();
 
     }
@@ -485,7 +496,7 @@ function ObjectMouseMove(x, y) {
             // now reposition the plane to the selected objects position
             plane.position.copy(intersects[0].object.position);
             // and align with the camera.
-            plane.lookAt(camera.position);
+            //plane.lookAt(camera.position);
         }
     }
 
@@ -501,17 +512,17 @@ function onmouseup(event) {
 		document.getElementById("item-posY").value = selectedObject.position.y;
 		document.getElementById("item-posZ").value = selectedObject.position.z;	
 		
-		selected.posX = selectedObject.position.x;
-		selected.posY = selectedObject.position.y;
-		selected.posZ = selectedObject.position.z;
+        selected.PositionX = selectedObject.position.x;
+        selected.PositionY = selectedObject.position.y;
+        selected.PositionZ = selectedObject.position.z;
 		
-		var name = selected.name;
+		var name = selected.Name;
 		
 		//brise iz niza na sceni
 		var o;
 		for(var i = 0; i < objectsOnScene.length; i++)
 		{
-			if(objectsOnScene[i].name == name){
+			if(objectsOnScene[i].Name == name){
 				o = objectsOnScene[i];
 				objectsOnScene.splice(i, 1);
 				break;
@@ -541,16 +552,16 @@ function ObjectMouseUp(x, y) {
     document.getElementById("item-posY").value = selectedObject.position.y;
     document.getElementById("item-posZ").value = selectedObject.position.z;
 
-    selected.posX = selectedObject.position.x;
-    selected.posY = selectedObject.position.y;
-    selected.posZ = selectedObject.position.z;
+    selected.PositionX = selectedObject.position.x;
+    selected.PositionY = selectedObject.position.y;
+    selected.PositionZ = selectedObject.position.z;
 
-    var name = selected.name;
+    var name = selected.Name;
 
     //brise iz niza na sceni
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].name == name) {
+        if (objectsOnScene[i].Name == name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -579,78 +590,49 @@ animate();
 
 btn_upd.onclick = function(){
 	
-	var name = document.getElementById("context-menu-name").text;
-	
-	var o;
-	for(var i = 0; i < objectsOnScene.length; i++)
-	{
-		if(objectsOnScene[i].name == name){
-			o = objectsOnScene[i];
-			objectsOnScene.splice(i, 1);
-			break;
-		}
-	}
-	
-	var o2;
-	if(name  == "fioka")
-	{
-		o2 = new Fioka();
-		o2.sirina = parseFloat(document.getElementById("item-width").value);
-		o2.dubina = parseFloat(document.getElementById("item-depth").value);
-		o2.visina = parseFloat(document.getElementById("item-height").value);
-		o2.debljinaDaske = parseFloat(document.getElementById("item-debljina").value);	
-		o2.posX = parseFloat(document.getElementById("item-posX").value);
-		o2.posY = parseFloat(document.getElementById("item-posY").value);
-		o2.posZ = parseFloat(document.getElementById("item-posZ").value) ;		
-		o2.name = name;  	
-	}
-	else if(name == "vrata"){
-		o2 = new Vrata();
-		o2.sirina = parseFloat(document.getElementById("item-width").value);
-		o2.dubina = parseFloat(document.getElementById("item-depth").value);
-		o2.visina = parseFloat(document.getElementById("item-height").value);
-		o2.posX = parseFloat(document.getElementById("item-posX").value);
-		o2.posY = parseFloat(document.getElementById("item-posY").value);
-		o2.posZ = parseFloat(document.getElementById("item-posZ").value) ;		
-		o2.name = name;  	
-	}
-	else if(name == "daska"){
-		o2 = new Daska();
-		o2.sirina = parseFloat(document.getElementById("item-width").value);
-		o2.dubina = parseFloat(document.getElementById("item-depth").value);
-		o2.visina = parseFloat(document.getElementById("item-height").value);
-		o2.posX = parseFloat(document.getElementById("item-posX").value);
-		o2.posY = parseFloat(document.getElementById("item-posY").value);
-		o2.posZ = parseFloat(document.getElementById("item-posZ").value) ;		
-		o2.name = name;  	
-	}
-	else {
-		o2 = new Box();
-		o2.sirina = parseFloat(document.getElementById("item-width").value);
-		o2.dubina = parseFloat(document.getElementById("item-depth").value);
-		o2.visina = parseFloat(document.getElementById("item-height").value);
-		o2.debljinaDaske = parseFloat(document.getElementById("item-debljina").value);	
-		o2.posX = parseFloat(document.getElementById("item-posX").value);
-		o2.posY = parseFloat(document.getElementById("item-posY").value);
-		o2.posZ = parseFloat(document.getElementById("item-posZ").value) ;		
-		o2.name = name;  	
-	}
-		
-	objectsOnScene.push(o2);
-	
-	var object = scene.getObjectByName(name);
-	scene.remove(object);	
-	o2.Draw();
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
+    scene.remove(previousObject);
+
+    selected.Width = parseFloat(document.getElementById("item-width").value);
+    selected.Height = parseFloat(document.getElementById("item-height").value);
+    selected.Depth = parseFloat(document.getElementById("item-depth").value);
+    selected.BoardThickness = parseFloat(document.getElementById("item-debljina").value);
+
+    var pomerajX = selected.PositionX;
+    var pomerajY = selected.PositionY;
+    var pomerajZ = selected.PositionZ;
+
+    selected.PositionX += selected.globalX;
+    selected.PositionY += selected.globalY;
+    selected.PositionZ += selected.globalZ;
+
+    selected.globalX += pomerajX;
+    selected.globalY += pomerajY;
+    selected.globalZ += pomerajZ;
+
+    var obj = selected.CreateGeometry();
+
+    scene.add(obj);
+    objects.push(obj);
+
+    objectsOnScene.push(selected);
 }
 
 btn_del.onclick = function(){
 	
-	var name = previousObject.name;
+	var name = previousObject.Name;
 	
 	var o;
 	for(var i = 0; i < objectsOnScene.length; i++)
 	{
-		if(objectsOnScene[i].name == name){
+		if(objectsOnScene[i].Name == name){
 			o = objectsOnScene[i];
 			objectsOnScene.splice(i, 1);
 			break;
@@ -675,7 +657,7 @@ function radius(x, y , z){
 	return Math.sqrt(x*x + y*y + z*z);
 }
 
-
+//ova fja se ne koristi pa ne treba menjati posX, posY,...
 function circles(radius, posX, posY, posZ){	
 
 	radius *= 1.1;
@@ -716,27 +698,20 @@ function dodajPregrade() {
     var brojPregrada = document.getElementById("brojPregrada").value;
     var pregradeVertikalno = document.getElementById("pregradeVertikalno").checked;
 
-    //meshes = [];
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
 
-    //var obj_from_scene = selected.CreateGeometry();
-    //meshes.push(obj_from_scene);
-    //meshes.push(previousObject);
-
-	/*var o;
-	for(var i = 0; i < objectsOnScene.length; i++)
-	{
-		if(objectsOnScene[i].name == name){
-			o = objectsOnScene[i];
-			objectsOnScene.splice(i, 1);
-			break;
-		}
-	}
-	scene.remove(previousObject);
-	*/
     if (pregradeVertikalno == true) {
-        var i = selected.sirina / brojPregrada;
+        var i = selected.Width / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
-            var d = new Daska(selected.debljinaDaske, selected.visina, selected.dubina, - selected.sirina / 2 + (k + 1) * i + startX, startY, startZ, "daska" + k);
+            //var d = new Daska(selected.debljinaDaske, selected.visina, selected.dubina, - selected.sirina / 2 + (k + 1) * i + startX, startY, startZ, "daska" + k);
+            var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + selected.globalX, selected.globalY, selected.globalZ, "daska" + k);
             var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
             //var ob = scene.getObjectByName("daska" + k);
@@ -744,11 +719,13 @@ function dodajPregrade() {
             previousObject.add(mesh);
             selected.childs.push(d);
         }
+        selected.vertikalno = true;
     }
     else {
-        var i = selected.visina / brojPregrada;
+        var i = selected.Height / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
-            var d = new Daska(selected.sirina, selected.debljinaDaske, selected.dubina, startX, - selected.visina / 2 + (k + 1) * i + startY, startZ, "daska" + k);
+            //var d = new Daska(selected.sirina, selected.debljinaDaske, selected.dubina, startX, - selected.visina / 2 + (k + 1) * i + startY, startZ, "daska" + k);
+            var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, selected.globalX, - selected.Height / 2 + (k + 1) * i + selected.globalY, selected.globalZ, "daska" + k);
             var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
             //var ob = scene.getObjectByName("daska" + k);
@@ -756,30 +733,10 @@ function dodajPregrade() {
             previousObject.add(mesh);
             selected.childs.push(d);
         }
+        selected.horizontalno = true;
     }
 
-	/*
-	var geometry = selected.CreateGeometry();
-	//var geometry = mergeMeshes(meshes);
-	var obj = createMesh(geometry, "wood-2.jpg");
-	obj.name = "kompozitni" + inc;
-
-	objects.push(obj);
-	scene.add(obj);
-	
-	var name = previousObject.name;
-	var o;
-	for(var i = 0; i < objects.length; i++)
-	{
-		if(objects[i].name == name){
-			o = objects[i];
-			objects.splice(i, 1);
-			break;
-		}
-	}
-	
-	scene.remove(previousObject);
-	previousObject = obj;*/
+    objectsOnScene.push(selected);
 
 }
 
@@ -789,64 +746,37 @@ $(document).on("click", "#dodajPregrade", function (event) {
 
 
 function dodajFioke() {
-    //meshes = [];
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
 
-    //meshes.push(previousObject);
-
-	/*var name = previousObject.name;
-	
-	var o;
-	for(var i = 0; i < objectsOnScene.length; i++)
-	{
-		if(objectsOnScene[i].name == name){
-			o = objectsOnScene[i];
-			objectsOnScene.splice(i, 1);
-			break;
-		}
-	}
-	scene.remove(previousObject);
-	*/
-    var duz = selected.sirina / (selected.childs.length + 1);
+    var duz = selected.Width / (selected.childs.length + 1);
     var cont = document.getElementById("FiokeContainer");
     var checks = cont.childNodes;
-    var start = - selected.sirina / 2 + duz / 2;
+    var tmp = [];
+    var start = - selected.Width / 2 + duz / 2;
     //var start = previousObject.position.x - selected.sirina / 2 + duz / 2
     for (var i = 0; i < selected.childs.length + 1; i++) {
         if (checks[i].firstChild.checked == true) {
-            var f = new Fioka(duz, selected.visina, selected.dubina, selected.debljinaDaske, start + (i * duz) + startX, startY, startZ, "Fioka" + i);
-            //var f = new Fioka(duz, selected.visina, selected.dubina, selected.debljinaDaske, start + (i * duz) + startX, previousObject.position.y + startY, previousObject.position.z + startZ, "Fioka" + i);
+            //var f = new Fioka(duz, selected.visina, selected.dubina, selected.debljinaDaske, start + (i * duz) + startX, startY, startZ, "Fioka" + i);
+            var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ, "Fioka" + i);
             var mesh = f.CreateGeometry();
             //var obj = createMesh(mesh, "wood-2.jpg");
             previousObject.add(mesh);
             //meshes.push(mesh);
+            tmp[i] = checks[i].firstChild.checked;
             selected.fioke.push(f);
         }
     }
 
-    //var matrix = previousObject.matrix;
+    selected.pozicije_fioka = tmp;
 
-    //var geometry = mergeMeshes(meshes);
-	/*var geometry = selected.CreateGeometry();
-	var obj = createMesh(geometry, "wood-2.jpg");
-	obj.name = "kompozitni" + inc;
-	objects.push(obj);
-	scene.add(obj);
-	*/
-    //obj.matrix = matrix;
-
-	/*var name = previousObject.name;
-	var o;
-	for(var i = 0; i < objects.length; i++)
-	{
-		if(objects[i].name == name){
-			o = objects[i];
-			objects.splice(i, 1);
-			break;
-		}
-	}
-	*/
-    //scene.remove(previousObject);
-    //previousObject =  obj;
+    objectsOnScene.push(selected);
 }
 
 $(document).on("click", "#dodajFioke", function (event) {
@@ -854,34 +784,53 @@ $(document).on("click", "#dodajFioke", function (event) {
 });
 
 function dodajVrata() {
-    meshes = [];
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
 
-    meshes.push(previousObject);
-
-    var duz = selected.sirina / (selected.childs.length + 1);
+    var duz = selected.Width / (selected.childs.length + 1);
     var cont = document.getElementById("VrataContainer");
     var checks = cont.childNodes;
-    var start = - selected.sirina / 2 + duz / 2;
+    var tmp = [];
+    var start = - selected.Width / 2 + duz / 2;
     for (var i = 0; i < selected.childs.length + 1; i++) {
         if (checks[i].firstChild.checked == true) {
-            var v = new Vrata(duz, selected.visina, selected.debljinaDaske, start + (i * duz) + startX, startY, startZ + selected.dubina / 2 - selected.debljinaDaske / 2, "Vrata" + i);
+            //var v = new Vrata(duz, selected.visina, selected.debljinaDaske, start + (i * duz) + startX, startY,  startZ + selected.dubina / 2 - selected.debljinaDaske / 2, "Vrata" + i);
+            var v = new Vrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
             var mesh = v.CreateGeometry();
             //meshes.push(mesh);
             previousObject.add(mesh);
+            tmp[i] = checks[i].firstChild.checked;
             selected.vrata.push(v);
         }
     }
 
-	/*var geometry = mergeMeshes(meshes);
-	var obj = createMesh(geometry, "wood-2.jpg");
-	obj.name = "kompozitni" + objects.length;
-	objects.push(obj);
-	scene.add(obj);*/
+    selected.pozicije_vrata = tmp;
 
-    //scene.remove(previousObject);
-    //previousObject = obj;
+    objectsOnScene.push(selected);
 }
 
 $(document).on("click", "#dodajVrata", function (event) {
     dodajVrata();
 });
+
+function SaveConfiguration()
+{
+    $.ajax({
+        url: '/Dashboard/SaveConfiguration',
+        data: { ArrayOfObjects : JSON.stringify(objectsOnScene) },
+        datatype: 'json',
+        traditional: true,
+        success: function (data) {
+
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}

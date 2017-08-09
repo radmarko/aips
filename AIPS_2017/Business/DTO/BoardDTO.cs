@@ -12,6 +12,7 @@ namespace Business.DTO
         public int BoxId { get; set; }
         public float Width { get; set; }
         public float Height { get; set; }
+        public float Depth { get; set; }
         public float BoardThickness { get; set; }
         public float PositionX { get; set; }
         public float PositionY { get; set; }

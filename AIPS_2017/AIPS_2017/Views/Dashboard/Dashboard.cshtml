@@ -481,7 +481,8 @@
                     @*<button type="button" class="btn btn-primary" onclick="">Save Configuration</button>*@
                     @*videti da li treba neki model, za sad nek bude ovako*@
                     <input type="button" class="btn btn-secondary" value="Delete Configuration" onclick="location.href='@Url.Action("DeleteConfiguration", "Dashboard")'" />
-                    <input type="button" class="btn btn-primary" value="Save Configuration" onclick="location.href='@Url.Action("SaveConfiguration", "Dashboard")'" />
+                    @*<input type="button" class="btn btn-primary" value="Save Configuration" onclick="location.href='@Url.Action("SaveConfiguration", "Dashboard")'" />*@
+                    <input type="button" class="btn btn-primary" id="SaveConfiguration" value="Save Configuration" onclick="SaveConfiguration()" />
                 </div>
             </div>
             <!--

@@ -21,7 +21,7 @@ namespace Business.DataAccess
                     BoxId = doorCreate.BoxId,
                     Width = doorCreate.Width,
                     Height = doorCreate.Height,
-                    BoardThickness = doorCreate.BoardThickness,
+                    BoardThickness = doorCreate.Depth,
                     PositionX = doorCreate.PositionX,
                     PositionY = doorCreate.PositionY,
                     PositionZ = doorCreate.PositionZ,
@@ -61,7 +61,7 @@ namespace Business.DataAccess
                     BoxId = find.BoxId,
                     Width = find.Width,
                     Height = find.Height,
-                    BoardThickness = find.BoardThickness,
+                    Depth = find.BoardThickness,
                     PositionX = find.PositionX,
                     PositionY = find.PositionY,
                     PositionZ = find.PositionZ,
@@ -91,7 +91,7 @@ namespace Business.DataAccess
                 find.BoxId = updateDoor.BoxId;
                 find.Width = updateDoor.Width;
                 find.Height = updateDoor.Height;
-                find.BoardThickness = updateDoor.BoardThickness;
+                find.BoardThickness = updateDoor.Depth;
                 find.PositionX = updateDoor.PositionX;
                 find.PositionY = updateDoor.PositionY;
                 find.PositionZ = updateDoor.PositionZ;
