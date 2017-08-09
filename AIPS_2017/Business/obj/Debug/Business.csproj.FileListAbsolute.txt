@@ -1,0 +1,9 @@
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Business.exe.config
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Business.exe
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Business.pdb
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Database.exe
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Database.pdb
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debug\Database.exe.config
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.exe
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.pdb

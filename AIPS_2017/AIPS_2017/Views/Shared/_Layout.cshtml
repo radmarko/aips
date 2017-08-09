@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <!-- NAVIGACIJA ZA SAJT -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px; opacity:1; background-color: white;">
+        <div class="container-fluid" style="padding-top:0px; padding-bottom:0px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                </button>
+                <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Creative Tim </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right" style="text-align:center;">
+                    <li class="active"> @Html.ActionLink("Home", "Home", "Home", null, new { @style = "color:#337ab7;" }) </li>
+
+
+                    @*izbaciti sesiju*@
+                    @if ((string)Session["Status"] == "user")
+                    {
+
+                        <li> @Html.ActionLink("Hi " + Session["name"].ToString(), "Home", "Home", null, new { @style = "color:#337ab7;" })</li>
+                    }
+                    else
+                    {
+                        <li> @Html.ActionLink("Admin panel", "Admin", "Home", null, new { @style = "color:#337ab7;" }) </li>
+                    }                   
+
+                    <li> <a href="@Url.Action("LogOut", "LogIn")" style="color:#337ab7;"> Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- KRAJ NAVIGACIJE ZA SAJT -->
+    <!-- GLAVNI SADRZAJ ZA SAJT -->
+    <div class="container-fluid body-content" style="margin:0px;padding:0px; margin-top:0px; margin-bottom: 10px;">
+        @RenderBody()
+    </div>
+    <!-- KRAJ GLAVNOG SADRZAJA ZA SAJT -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

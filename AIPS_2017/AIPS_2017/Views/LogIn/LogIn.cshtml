@@ -1,0 +1,113 @@
+﻿@model AIPS_2017.Models.LogInModel
+
+@{
+    ViewBag.Title = "LogIn Page";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+    <link href="~/Content/css/LoginCSS.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</head>
+
+<body>
+
+    <!-- POCETAK ZA CAROUSEL -->
+    <div class="container-fluid" style="padding-right:0px; padding-left:0px; position:absolute; z-index:99; left:0px;">
+
+        <div id="myCarousel" class="carousel slide img-responsive" data-ride="carousel">
+
+
+
+            <!-- FORMA ZA LOG IN -->
+            <div class="form-group" style="opacity:0.9;">
+
+
+                <div class="container-fluid padding-top:10" style="width:500px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align:center; background-color:#337ab7; color:white;"> Start design! </div>
+                        <div class="panel-body">
+                            <form method="post" action="@Url.Action("Home", "LogIn")">
+                                <div class="row" style="padding-bottom: 5px; text-align:center;">
+                                    <!-- USERNAME POCETAK -->
+                                    <div class="col-md-12" style="padding-bottom: 5px;">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @name = "username", @placeholder = "Username", @style = "text-align:center" })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <!-- USERNAME KRAJ    -->
+                                    <!-- PASSWORD POCETAK -->
+                                    <div class="col-md-12">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @name = "password", @id = "password", @placeholder = "Password", @style = "text-align:center" })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <!-- PASSWORD KRAJ    -->
+                                    <!--POGRESNO UNETI PODACI POCETAK-->
+                                    @if (ViewBag.BadLogin != null && ViewBag.BadLogin)
+                                    {
+                                        <p class="text-danger">Incorrect username or password.</p>
+                                    }
+
+                                    <!--POGRESNO UNETI PODACI KRAJ-->
+
+                                </div>
+                                <!-- LOGIN DUGME POCETAK-->
+                                <div class="row" style="padding-bottom: 2px;">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-block">Sign In</button>
+                                    </div>
+                                </div>
+                                <!-- LOGIN DUGME KRAJ -->
+                                <div class="row" style="padding-bottom: 2px; padding-top:5px;">
+                                    <div class="col-md-12" style="text-align:center;">
+                                        <a href="@Url.Action("Registration", "Registration")" style="color:#337ab7;"> Register </a>
+
+                                    </div>
+                                </div>
+                                <!-- REGISTRACIJA LINK KRAJ-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- KRAJ FORME ZA LOG IN -->
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+
+                <div class="item active img-responsive">
+                    <img src="~/Content/img/kitchen/kitchen1.jpg" />
+                </div>
+
+                <div class="item img-responsive">
+                    <img src="~/Content/img/kitchen/kitchen2.jpg" />
+                </div>
+
+                <div class="item img-responsive">
+                    <img src="~/Content/img/kitchen/kitchen3.jpg" />
+                </div>
+            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            </a>
+        </div>
+
+    </div>
+
+    <!-- KRAJ ZA CAROUSEL -->
+</body>
+</html>
+

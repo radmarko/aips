@@ -1,0 +1,5 @@
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\bin\Debug\Database.exe.config
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\bin\Debug\Database.exe
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\bin\Debug\Database.pdb
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\obj\Debug\Database.exe
+C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\obj\Debug\Database.pdb

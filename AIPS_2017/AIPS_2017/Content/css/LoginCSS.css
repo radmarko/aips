@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+
+div#carousel-example-generic {
+    position:absolute;
+	
+}
+
+.form-group {
+    position:absolute;
+    z-index:9999999;
+	top:50%;
+	left:50%;
+	margin-right:-50%;
+	transform: translate(-50%, -50%);
+}
+
+
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+
+  .container-fluid {
+      padding-top: 0px;
+      padding-bottom: 0px;
+  }
+  .navbar {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }

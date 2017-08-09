@@ -1,0 +1,65 @@
+﻿@model AIPS_2017.Models.RegistrationModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link href="~/Content/css/RegistrationCSS.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</head>
+
+<body style="background-image: url('../../Content/img/registration/registration.jpg');">
+    <!-- GLAVNI SADRZAJ -->
+    <div class="container-fluid">
+        <form method="post" action="@Url.Action("LogIn", "Registration")">
+            <div class="row" style="text-align:center;">
+
+                <div class="well" style="margin-left:20%; margin-right:20%; margin-top:2%; opacity:0.8; border-radius:7px;">
+                    <div class="row redRazmak slova">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "ime", @name = "Ime", @placeholder = "First name", })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row redRazmak slova">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @id = "prezime", @name = "Prezime", @placeholder = "Last name" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row redRazmak slova">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "email", @name = "Email", @placeholder = "User name" })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row redRazmak slova">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "lozinka", @name = "Password", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row redRazmak slova">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @id = "potvrdaLozinke", @name = "ConfirmPassword", @placeholder = "Confirm password" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row redRazmak slova" style="text-align:center;">
+                        <span>
+                            <button id="registrujSe" class="btn btn-primary space-vert" data-target="#myModal">Register</button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- KRAJ ZA GLAVNI SADRZAJ -->
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AIPS2017_Database" Class="databaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=PEDJA-PC\SQLEXPRESS;Initial Catalog=AIPS2017_Database;Integrated Security=True" SettingsObjectName="Database.Properties.Settings" SettingsPropertyName="AIPS2017_DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Board" Member="Boards">
+    <Type Name="Board">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Box_Board" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Plan" Member="Plans" ThisKey="Id" OtherKey="UserId" Type="Plan" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Box" Member="Boxes">
+    <Type Name="Box">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Depth" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Box_Board" Member="Boards" ThisKey="Id" OtherKey="BoxId" Type="Board" />
+      <Association Name="Box_Door" Member="Doors" ThisKey="Id" OtherKey="BoxId" Type="Door" />
+      <Association Name="Box_Drawer" Member="Drawers" ThisKey="Id" OtherKey="BoxId" Type="Drawer" />
+      <Association Name="Plan_Box" Member="Plan" ThisKey="PlanId" OtherKey="Id" Type="Plan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Door" Member="Doors">
+    <Type Name="Door">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Box_Door" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Drawer" Member="Drawers">
+    <Type Name="Drawer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Depth" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Box_Drawer" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Plan]" Member="Plans">
+    <Type Name="Plan">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Plan_Box" Member="Boxes" ThisKey="Id" OtherKey="PlanId" Type="Box" />
+      <Association Name="User_Plan" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
