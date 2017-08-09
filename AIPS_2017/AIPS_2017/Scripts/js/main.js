@@ -700,7 +700,7 @@ function dodajPregrade() {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -748,7 +748,7 @@ $(document).on("click", "#dodajPregrade", function (event) {
 function dodajFioke() {
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -786,7 +786,7 @@ $(document).on("click", "#dodajFioke", function (event) {
 function dodajVrata() {
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
