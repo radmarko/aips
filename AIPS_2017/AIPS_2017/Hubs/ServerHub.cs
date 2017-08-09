@@ -23,7 +23,7 @@ namespace AIPS_2017.Hubs
 
         public void DrawDrawer(int getParameter)
         {           
-            Clients.Others.DrawDrawer(getParameter); //fioka
+            Clients.Others.drawDrawer(getParameter); //fioka
         }
 
         public void DrawDoor(int getParameter)
@@ -51,7 +51,8 @@ namespace AIPS_2017.Hubs
         {
             PlanDTO plan = new PlanDTO()
             {
-                UserId = Int32.Parse(id)
+                UserId = Int32.Parse(id),
+                Name = name
             };
 
             int planId = Plans.Create(plan);

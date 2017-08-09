@@ -179,6 +179,7 @@
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\dataTablesBootstrap.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\light-bootstrap-dashboard.css" />
     <Content Include="Content\css\LoginCSS.css" />
@@ -300,9 +301,11 @@
     <Content Include="Content\textures\seafloor.dds" />
     <Content Include="Content\textures\tex_base.pvr" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrapDataTables.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -314,24 +317,17 @@
     <Content Include="Scripts\js\bootstrap-select.js" />
     <Content Include="Scripts\js\bootstrap.min.js" />
     <Content Include="Scripts\js\Box.js" />
-    <Content Include="Scripts\js\boxic.js" />
     <Content Include="Scripts\js\chartist.min.js" />
     <Content Include="Scripts\js\circles.js" />
     <Content Include="Scripts\js\Daska.js" />
-    <Content Include="Scripts\js\daskica.js" />
     <Content Include="Scripts\js\demo.js" />
-    <Content Include="Scripts\js\Fiokaa.js" />
-    <Content Include="Scripts\js\fiokica.js" />
+    <Content Include="Scripts\js\Fioka.js" />
     <Content Include="Scripts\js\jquery-1.10.2.js" />
     <Content Include="Scripts\js\light-bootstrap-dashboard.js" />
-    <Content Include="Scripts\js\maino.js" />
-    <Content Include="Scripts\js\mainold.js" />
-    <Content Include="Scripts\js\mainold2.js" />
-    <Content Include="Scripts\js\main_ni.js" />
+    <Content Include="Scripts\js\main.js" />
     <Content Include="Scripts\js\objekt.js" />
     <Content Include="Scripts\js\three.js" />
-    <Content Include="Scripts\js\Vrataa.js" />
-    <Content Include="Scripts\js\vratica.js" />
+    <Content Include="Scripts\js\Vrata.js" />
     <Content Include="Scripts\libs\ammo.js" />
     <Content Include="Scripts\libs\AsciiEffect.js" />
     <Content Include="Scripts\libs\AssimpJSONLoader.js" />
@@ -468,15 +464,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
     <Content Include="Scripts\libs\CanvasRenderer.js.1" />
     <Content Include="Scripts\libs\ThreeBSP.coffee" />
     <Content Include="Views\LogIn\LogIn.cshtml" />
     <Content Include="Views\Registration\Registration.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

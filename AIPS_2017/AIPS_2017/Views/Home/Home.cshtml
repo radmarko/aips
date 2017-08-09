@@ -50,16 +50,16 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right" style="text-align:center;">
-                    <li class="active"> @Html.ActionLink("Home", "Home", "Home", null, new { @style = "color:#337ab7;" }) </li>
+                    <li class="active"> @Html.ActionLink("Home", "Home", "Home", new { UserId = Model.UserId, Status = Model.Status, Name = Model.Name }, new { @style = "color:#337ab7;" }) </li>
 
                     @if (Model.Status == "user")
                     {
 
-                        <li> @Html.ActionLink("Hi " + Model.Name, "Home", "Home", null, new { @style = "color:#337ab7;" })</li>
+                        <li> @Html.ActionLink("Hi " + Model.Name, "Home", "Home", new { UserId = Model.UserId, Status = Model.Status, Name = Model.Name }, new { @style = "color:#337ab7;" })</li>
                     }
                     else
                     {
-                        <li> @Html.ActionLink("Admin " + Model.Name, "Admin", "Home", null, new { @style = "color:#337ab7;" }) </li>
+                        <li> @Html.ActionLink("Admin " + Model.Name, "Admin", "Home", new { UserId = Model.UserId, Status = Model.Status, Name = Model.Name }, new { @style = "color:#337ab7;" }) </li>
                     }
 
                     <li> <a href="@Url.Action("LogOut", "LogIn")" style="color:#337ab7;"> Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
@@ -168,12 +168,41 @@
                     });
                     td.append(form);
 
-                    var hidden = $('<input></input>', {
+                    var planid = $('<input></input>', {
                         type: 'hidden',
                         name: 'id',
                         value: planId
                     });
-                    form.append(hidden);
+                    form.append(planid);
+
+                    //start home model
+
+                    var UserId = $('<input></input>', {
+                        type: 'hidden',
+                        name: 'UserId',
+                        value: '@Model.UserId'
+                    });
+                    form.append(UserId);
+
+                    var Status = $('<input></input>', {
+                        type: 'hidden',
+                        name: 'Status',
+                        value: '@Model.Status'
+                    });
+                    form.append(Status);
+
+                    var Name = $('<input></input>', {
+                        type: 'hidden',
+                        name: 'Name',
+                        value: '@Model.Name'
+                    });
+                    form.append(Name);
+
+                    //end home model
+
+
+
+
 
                     var button = $('<button></button>', {
                         type: 'submit',

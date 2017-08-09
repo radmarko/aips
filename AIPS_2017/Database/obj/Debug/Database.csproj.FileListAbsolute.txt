@@ -3,3 +3,9 @@ C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\bin\Debu
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\bin\Debug\Database.pdb
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\obj\Debug\Database.exe
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Database\obj\Debug\Database.pdb
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\bin\Debug\Database.exe.config
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\bin\Debug\Database.exe
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\bin\Debug\Database.pdb
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.exe
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.pdb

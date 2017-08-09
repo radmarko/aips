@@ -19,6 +19,7 @@ namespace Business.DataAccess
                 Plan plan = new Plan()
                 {
                     UserId = planCreate.UserId,
+                    Name = planCreate.Name
                 };
 
                 db.Plans.InsertOnSubmit(plan);
@@ -51,6 +52,7 @@ namespace Business.DataAccess
                 {
                     Id = find.Id,
                     UserId = find.UserId,
+                    Name = find.Name
                 };
             }
             catch (Exception e)
@@ -59,6 +61,38 @@ namespace Business.DataAccess
             }
 
             return planRead;
+        }
+
+        public static List<PlanDTO> ReadAll()
+        {
+            List<PlanDTO> plans = new List<PlanDTO>(); ;
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from plan in db.Plans
+                     select plan);
+
+                foreach (Plan plan in find)
+                {
+                    PlanDTO planRead = new PlanDTO()
+                    {
+                        Id = plan.Id,
+                        UserId = plan.UserId,
+                        Name = plan.Name
+                    };
+
+                    plans.Add(planRead);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return plans;
         }
 
         public static void Update(PlanDTO updatePlan)
@@ -73,6 +107,7 @@ namespace Business.DataAccess
                      select plan).Single();
 
                 find.UserId = updatePlan.UserId;
+                find.Name = updatePlan.Name;
 
                 db.SubmitChanges();
             }

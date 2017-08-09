@@ -1757,6 +1757,8 @@ namespace Database
 		
 		private int _UserId;
 		
+		private string _Name;
+		
 		private EntitySet<Box> _Boxes;
 		
 		private EntityRef<User> _User;
@@ -1769,6 +1771,8 @@ namespace Database
     partial void OnIdChanged();
     partial void OnUserIdChanging(int value);
     partial void OnUserIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
 		public Plan()
@@ -1818,6 +1822,26 @@ namespace Database
 					this._UserId = value;
 					this.SendPropertyChanged("UserId");
 					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(MAX)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}

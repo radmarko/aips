@@ -429,7 +429,7 @@ function onDocumentMouseMove(event) {
                 // now reposition the plane to the selected objects position
                 plane.position.copy(intersects[0].object.position);
                 // and align with the camera.
-                plane.lookAt(camera.position);
+                //plane.lookAt(camera.position);
             }
        }
 		

@@ -39,15 +39,6 @@ namespace AIPS_2017.Controllers
 
         public ActionResult LogOut()
         {
-            //if (Session["Id"] != null)
-            //{
-            //    Session["Id"] = null;
-            //    Session["Username"] = null;
-            //    Session["Status"] = null;
-            //    Session["Ime"] = null;
-            //    Session["Instruktor"] = null;
-            //}
-
             return RedirectToAction("LogIn", "LogIn");
         }
 

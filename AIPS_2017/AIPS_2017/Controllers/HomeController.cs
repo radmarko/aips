@@ -3,38 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AIPS_2017.Models;
 
 namespace AIPS_2017.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Home(int UserId, string Status, string Name)
         {
-            return View();
+            HomeModel model = new HomeModel(UserId, Status, Name);
+            return View(model);
         }
 
-        public ActionResult About()
+        public ActionResult Admin(int UserId, string Status, string Name)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            HomeModel model = new HomeModel(UserId, Status, Name);
+            return View(model);
         }
 
-        public ActionResult Contact()
+        public ActionResult CheckPlan(int planId)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return null;
         }
 
-        public ActionResult Home()
+        public ActionResult DeletePlan(int planId, HomeModel model)
         {
-            return View();
-        }
-
-        public ActionResult Admin()
-        {
-            return View();
+            model.DeletePlan(planId);
+            return View("~/Views/Home/Admin.cshtml", model);
         }
     }
 }

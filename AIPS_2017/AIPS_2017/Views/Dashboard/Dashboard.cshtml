@@ -45,6 +45,42 @@
 
 <body>
 
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px; opacity:1; background-color: white;">
+        <div class="container-fluid" style="padding-top:0px; padding-bottom:0px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                    <span class="icon-bar" style="background-color:#337ab7;"></span>
+                </button>
+                <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Creative Tim </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right" style="text-align:center;">
+                    <li class="active"> @Html.ActionLink("Home", "Home", "Home", new { UserId = Int32.Parse(Request["UserId"]), Status = Request["Status"], Name = Request["Name"] }, new { @style = "color:#337ab7;" }) </li>
+
+                    @if (Request["Status"] == "user")
+                    {
+
+                        <li> @Html.ActionLink("Hi " + Request["Name"], "Home", "Home", new { UserId = Int32.Parse(Request["UserId"]), Status = Request["Status"], Name = Request["Name"] }, new { @style = "color:#337ab7;" })</li>
+                    }
+                    else
+                    {
+                        <li> @Html.ActionLink("Admin " + Request["Name"], "Admin", "Home", new { UserId = Int32.Parse(Request["UserId"]), Status = Request["Status"], Name = Request["Name"] }, new { @style = "color:#337ab7;" }) </li>
+                    }
+
+                    <li> <a href="@Url.Action("LogOut", "LogIn")" style="color:#337ab7;"> Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
     <div id="vrataModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -225,7 +261,8 @@
                 <li id="kutija" class="active">
                     <a>
                         <i class="pe-7s-box2"></i>
-                        <input type="button" id="kutija1" value="Kutija" />
+                        <p>Nova Kutija</p>
+                        @*<input type="button" id="kutija1" value="Kutija" />*@
                     </a>
                 </li>
                 @*<li id="fioka" class="active">
@@ -249,19 +286,19 @@
                 $.connection.hub.start().done(function () {
 
                     //dodavanje objekata
-                    $('#daska1').click(function () {
+                    $('#dodajPregrade').click(function () {
                         $.connection.serverHub.server.drawBoard('@Request["id"]');
                     });
 
-                    $('#kutija1').click(function () {
+                    $('#kutija').click(function () {
                         $.connection.serverHub.server.drawBox('@Request["id"]');
                     });
 
-                    $('#fioka1').click(function () {
+                    $('#dodajFioke').click(function () {
                         $.connection.serverHub.server.drawDrawer('@Request["id"]');
                     });
 
-                    $('#vrata1').click(function () {
+                    $('#dodajVrata').click(function () {
                         $.connection.serverHub.server.drawDoor('@Request["id"]');
                     });
 
@@ -283,7 +320,7 @@
                 //odgovor klijenta na dodavanje objekta
                 $.connection.serverHub.client.drawBoard = function (getParameter) {
                     if (@Request["id"] == getParameter)
-                        addDaska();
+                        dodajPregrade();
                 };
 
                 $.connection.serverHub.client.drawBox = function (getParameter) {
@@ -293,12 +330,12 @@
 
                 $.connection.serverHub.client.drawDrawer = function (getParameter) {
                     if (@Request["id"] == getParameter)
-                        addFioka();
+                        dodajFioke();
                 };
 
                 $.connection.serverHub.client.drawDoor = function (getParameter) {
                     if (@Request["id"] == getParameter)
-                        addVrata();
+                        dodajVrata();
                 };
 
                 //manevracije objektom
@@ -332,21 +369,24 @@
                     <li id="daska" class="active">
                         <a data-toggle="modal" data-target="#pregradeModal">
                             <i class="pe-7s-photo-gallery"></i>
-                            <input type="button" id="daska1" value="Dodaj Pregrade" />
+                            <p>Dodaj Pregrade</p>
+                            @*<input type="button" id="daska1" value="Dodaj Pregrade" />*@
                         </a>
                     </li>
 
                     <li id="fioka" class="active">
                         <a data-toggle="modal" data-target="#fiokeModal">
                             <i class="pe-7s-menu"></i>
-                            <input type="button" id="fioka1" value="Dodaj Fioke" />
+                            <p>Dodaj Fioke</p>
+                            @*<input type="button" id="fioka1" value="Dodaj Fioke" />*@
                         </a>
                     </li>
 
                     <li id="vrata" class="active">
                         <a data-toggle="modal" data-target="#vrataModal">
                             <i class="pe-7s-door-lock"></i>
-                            <input type="button" id="vrata1" value="Dodaj Vrata" />
+                            <p>Dodaj Vrata</p>
+                            @*<input type="button" id="vrata1" value="Dodaj Vrata" />*@
                         </a>
                     </li>
 
@@ -440,6 +480,7 @@
                 <div class="modal-footer">
                     @*<button type="button" class="btn btn-primary" onclick="">Save Configuration</button>*@
                     @*videti da li treba neki model, za sad nek bude ovako*@
+                    <input type="button" class="btn btn-secondary" value="Delete Configuration" onclick="location.href='@Url.Action("DeleteConfiguration", "Dashboard")'" />
                     <input type="button" class="btn btn-primary" value="Save Configuration" onclick="location.href='@Url.Action("SaveConfiguration", "Dashboard")'" />
                 </div>
             </div>
@@ -467,11 +508,11 @@
     <!--  Charts Plugin -->
     <script src="~/Scripts/js/chartist.min.js"></script>
     
-    <script src="~/Scripts/js/main_ni.js"></script>
-    <script src="~/Scripts/js/Fiokaa.js"></script>
-    <script src="~/Scripts/js/Vrataa.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/Box.js"></script>
     <script src="~/Scripts/js/Daska.js"></script>
+    <script src="~/Scripts/js/Fioka.js"></script>
+    <script src="~/Scripts/js/Vrata.js"></script>      
     <script src="~/Scripts/js/Circles.js"></script>
     <script src="~/Scripts/js/objekt.js"></script>
 
