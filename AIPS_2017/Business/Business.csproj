@@ -53,6 +53,7 @@
     <Compile Include="DTO\BoxDTO.cs" />
     <Compile Include="DTO\DoorDTO.cs" />
     <Compile Include="DTO\DrawerDTO.cs" />
+    <Compile Include="DTO\ObjectDTO.cs" />
     <Compile Include="DTO\PlanDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Program.cs" />

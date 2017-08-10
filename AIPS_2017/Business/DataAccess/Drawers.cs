@@ -27,7 +27,8 @@ namespace Business.DataAccess
                     PositionY = drawerCreate.PositionY,
                     PositionZ = drawerCreate.PositionZ,
                     Name = drawerCreate.Name,
-                    Texture = drawerCreate.Texture
+                    Texture = drawerCreate.Texture,
+                    pregrada = drawerCreate.pregrada
                 };
 
                 db.Drawers.InsertOnSubmit(drawer);
@@ -68,7 +69,8 @@ namespace Business.DataAccess
                     PositionY = find.PositionY,
                     PositionZ = find.PositionZ,
                     Name = find.Name,
-                    Texture = find.Texture
+                    Texture = find.Texture,
+                    pregrada = find.pregrada
                 };
             }
             catch (Exception e)
@@ -100,6 +102,7 @@ namespace Business.DataAccess
                 find.PositionZ = updateDrawer.PositionZ;
                 find.Name = updateDrawer.Name;
                 find.Texture = updateDrawer.Texture;
+                find.pregrada = updateDrawer.pregrada;
 
                 db.SubmitChanges();
             }

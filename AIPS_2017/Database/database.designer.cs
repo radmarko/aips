@@ -143,6 +143,8 @@ namespace Database
 		
 		private float _Height;
 		
+		private float _Depth;
+		
 		private float _BoardThickness;
 		
 		private float _PositionX;
@@ -169,6 +171,8 @@ namespace Database
     partial void OnWidthChanged();
     partial void OnHeightChanging(float value);
     partial void OnHeightChanged();
+    partial void OnDepthChanging(float value);
+    partial void OnDepthChanged();
     partial void OnBoardThicknessChanging(float value);
     partial void OnBoardThicknessChanged();
     partial void OnPositionXChanging(float value);
@@ -273,6 +277,26 @@ namespace Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Depth", DbType="Real NOT NULL")]
+		public float Depth
+		{
+			get
+			{
+				return this._Depth;
+			}
+			set
+			{
+				if ((this._Depth != value))
+				{
+					this.OnDepthChanging(value);
+					this.SendPropertyChanging();
+					this._Depth = value;
+					this.SendPropertyChanged("Depth");
+					this.OnDepthChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardThickness", DbType="Real NOT NULL")]
 		public float BoardThickness
 		{
@@ -373,7 +397,7 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX)")]
 		public string Texture
 		{
 			get
@@ -686,6 +710,16 @@ namespace Database
 		
 		private string _Texture;
 		
+		private bool _vertikalno;
+		
+		private bool _horizontalno;
+		
+		private float _globalX;
+		
+		private float _globalY;
+		
+		private float _globalZ;
+		
 		private EntitySet<Board> _Boards;
 		
 		private EntitySet<Door> _Doors;
@@ -720,6 +754,16 @@ namespace Database
     partial void OnNameChanged();
     partial void OnTextureChanging(string value);
     partial void OnTextureChanged();
+    partial void OnvertikalnoChanging(bool value);
+    partial void OnvertikalnoChanged();
+    partial void OnhorizontalnoChanging(bool value);
+    partial void OnhorizontalnoChanged();
+    partial void OnglobalXChanging(float value);
+    partial void OnglobalXChanged();
+    partial void OnglobalYChanging(float value);
+    partial void OnglobalYChanged();
+    partial void OnglobalZChanging(float value);
+    partial void OnglobalZChanged();
     #endregion
 		
 		public Box()
@@ -935,7 +979,7 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX)")]
 		public string Texture
 		{
 			get
@@ -951,6 +995,106 @@ namespace Database
 					this._Texture = value;
 					this.SendPropertyChanged("Texture");
 					this.OnTextureChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vertikalno", DbType="Bit NOT NULL")]
+		public bool vertikalno
+		{
+			get
+			{
+				return this._vertikalno;
+			}
+			set
+			{
+				if ((this._vertikalno != value))
+				{
+					this.OnvertikalnoChanging(value);
+					this.SendPropertyChanging();
+					this._vertikalno = value;
+					this.SendPropertyChanged("vertikalno");
+					this.OnvertikalnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_horizontalno", DbType="Bit NOT NULL")]
+		public bool horizontalno
+		{
+			get
+			{
+				return this._horizontalno;
+			}
+			set
+			{
+				if ((this._horizontalno != value))
+				{
+					this.OnhorizontalnoChanging(value);
+					this.SendPropertyChanging();
+					this._horizontalno = value;
+					this.SendPropertyChanged("horizontalno");
+					this.OnhorizontalnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_globalX", DbType="Real NOT NULL")]
+		public float globalX
+		{
+			get
+			{
+				return this._globalX;
+			}
+			set
+			{
+				if ((this._globalX != value))
+				{
+					this.OnglobalXChanging(value);
+					this.SendPropertyChanging();
+					this._globalX = value;
+					this.SendPropertyChanged("globalX");
+					this.OnglobalXChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_globalY", DbType="Real NOT NULL")]
+		public float globalY
+		{
+			get
+			{
+				return this._globalY;
+			}
+			set
+			{
+				if ((this._globalY != value))
+				{
+					this.OnglobalYChanging(value);
+					this.SendPropertyChanging();
+					this._globalY = value;
+					this.SendPropertyChanged("globalY");
+					this.OnglobalYChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_globalZ", DbType="Real NOT NULL")]
+		public float globalZ
+		{
+			get
+			{
+				return this._globalZ;
+			}
+			set
+			{
+				if ((this._globalZ != value))
+				{
+					this.OnglobalZChanging(value);
+					this.SendPropertyChanging();
+					this._globalZ = value;
+					this.SendPropertyChanged("globalZ");
+					this.OnglobalZChanged();
 				}
 			}
 		}
@@ -1099,7 +1243,7 @@ namespace Database
 		
 		private float _Height;
 		
-		private float _BoardThickness;
+		private float _Depth;
 		
 		private float _PositionX;
 		
@@ -1110,6 +1254,8 @@ namespace Database
 		private string _Name;
 		
 		private string _Texture;
+		
+		private int _pregrada;
 		
 		private EntityRef<Box> _Box;
 		
@@ -1125,8 +1271,8 @@ namespace Database
     partial void OnWidthChanged();
     partial void OnHeightChanging(float value);
     partial void OnHeightChanged();
-    partial void OnBoardThicknessChanging(float value);
-    partial void OnBoardThicknessChanged();
+    partial void OnDepthChanging(float value);
+    partial void OnDepthChanged();
     partial void OnPositionXChanging(float value);
     partial void OnPositionXChanged();
     partial void OnPositionYChanging(float value);
@@ -1137,6 +1283,8 @@ namespace Database
     partial void OnNameChanged();
     partial void OnTextureChanging(string value);
     partial void OnTextureChanged();
+    partial void OnpregradaChanging(int value);
+    partial void OnpregradaChanged();
     #endregion
 		
 		public Door()
@@ -1229,22 +1377,22 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardThickness", DbType="Real NOT NULL")]
-		public float BoardThickness
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Depth", DbType="Real NOT NULL")]
+		public float Depth
 		{
 			get
 			{
-				return this._BoardThickness;
+				return this._Depth;
 			}
 			set
 			{
-				if ((this._BoardThickness != value))
+				if ((this._Depth != value))
 				{
-					this.OnBoardThicknessChanging(value);
+					this.OnDepthChanging(value);
 					this.SendPropertyChanging();
-					this._BoardThickness = value;
-					this.SendPropertyChanged("BoardThickness");
-					this.OnBoardThicknessChanged();
+					this._Depth = value;
+					this.SendPropertyChanged("Depth");
+					this.OnDepthChanged();
 				}
 			}
 		}
@@ -1329,7 +1477,7 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX)")]
 		public string Texture
 		{
 			get
@@ -1345,6 +1493,26 @@ namespace Database
 					this._Texture = value;
 					this.SendPropertyChanged("Texture");
 					this.OnTextureChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pregrada", DbType="Int NOT NULL")]
+		public int pregrada
+		{
+			get
+			{
+				return this._pregrada;
+			}
+			set
+			{
+				if ((this._pregrada != value))
+				{
+					this.OnpregradaChanging(value);
+					this.SendPropertyChanging();
+					this._pregrada = value;
+					this.SendPropertyChanged("pregrada");
+					this.OnpregradaChanged();
 				}
 			}
 		}
@@ -1432,6 +1600,8 @@ namespace Database
 		
 		private string _Texture;
 		
+		private int _pregrada;
+		
 		private EntityRef<Box> _Box;
 		
     #region Extensibility Method Definitions
@@ -1460,6 +1630,8 @@ namespace Database
     partial void OnNameChanged();
     partial void OnTextureChanging(string value);
     partial void OnTextureChanged();
+    partial void OnpregradaChanging(int value);
+    partial void OnpregradaChanged();
     #endregion
 		
 		public Drawer()
@@ -1672,7 +1844,7 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Texture", DbType="VarChar(MAX)")]
 		public string Texture
 		{
 			get
@@ -1688,6 +1860,26 @@ namespace Database
 					this._Texture = value;
 					this.SendPropertyChanged("Texture");
 					this.OnTextureChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pregrada", DbType="Int NOT NULL")]
+		public int pregrada
+		{
+			get
+			{
+				return this._pregrada;
+			}
+			set
+			{
+				if ((this._pregrada != value))
+				{
+					this.OnpregradaChanging(value);
+					this.SendPropertyChanging();
+					this._pregrada = value;
+					this.SendPropertyChanged("pregrada");
+					this.OnpregradaChanged();
 				}
 			}
 		}

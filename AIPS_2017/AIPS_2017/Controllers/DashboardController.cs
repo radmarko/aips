@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Business.DTO;
-using ServiceStack.Text;
+using AIPS_2017.Models;
 
 namespace AIPS_2017.Controllers
 {
@@ -16,10 +15,11 @@ namespace AIPS_2017.Controllers
             return View();
         }
 
-        public ActionResult SaveConfiguration(string ArrayOfObjects)
+        public ActionResult SaveConfiguration(string ArrayOfObjects, int planID)
         {
-            List<BoxDTO> boxes = (List<BoxDTO>)JsonSerializer.DeserializeFromString(ArrayOfObjects, typeof(List<BoxDTO>));
-            return View();
+            HomeModel homeModel = new HomeModel();
+            homeModel.SaveConfiguration(ArrayOfObjects, planID);
+            return Json(new { success = 1 }, JsonRequestBehavior.AllowGet);
         }
 
     }

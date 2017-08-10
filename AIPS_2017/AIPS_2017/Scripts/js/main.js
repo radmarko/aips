@@ -769,9 +769,11 @@ function dodajFioke() {
             //var obj = createMesh(mesh, "wood-2.jpg");
             previousObject.add(mesh);
             //meshes.push(mesh);
-            tmp[i] = checks[i].firstChild.checked;
-            selected.fioke.push(f);
+            tmp[i] = true;
+            selected.nizFioka.push(f);
         }
+        else
+            tmp[i] = false;
     }
 
     selected.pozicije_fioka = tmp;
@@ -806,8 +808,10 @@ function dodajVrata() {
             //meshes.push(mesh);
             previousObject.add(mesh);
             tmp[i] = checks[i].firstChild.checked;
-            selected.vrata.push(v);
+            selected.nizVrata.push(v);
         }
+        else
+            tmp[i] = false;
     }
 
     selected.pozicije_vrata = tmp;
@@ -819,18 +823,23 @@ $(document).on("click", "#dodajVrata", function (event) {
     dodajVrata();
 });
 
-function SaveConfiguration()
+function SaveConfiguration(planId)
 {
-    $.ajax({
-        url: '/Dashboard/SaveConfiguration',
-        data: { ArrayOfObjects : JSON.stringify(objectsOnScene) },
-        datatype: 'json',
-        traditional: true,
-        success: function (data) {
-
-        },
-        error: function () {
-            alert("error");
-        }
-    });
+    for (var i = 0; i < objectsOnScene.length; i++)
+    {
+        $.ajax({
+            url: '/Dashboard/SaveConfiguration',
+            data: { ArrayOfObjects: JSON.stringify(objectsOnScene[i]), planId: planId },
+            datatype: 'json',
+            traditional: true,
+            success: function (data) {
+                if (i == (objectsOnScene.length - 1))
+                    alert("Succesful saving!");
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+    
 }

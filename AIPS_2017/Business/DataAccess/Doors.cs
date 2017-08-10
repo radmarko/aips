@@ -21,12 +21,13 @@ namespace Business.DataAccess
                     BoxId = doorCreate.BoxId,
                     Width = doorCreate.Width,
                     Height = doorCreate.Height,
-                    BoardThickness = doorCreate.Depth,
+                    Depth = doorCreate.Depth,
                     PositionX = doorCreate.PositionX,
                     PositionY = doorCreate.PositionY,
                     PositionZ = doorCreate.PositionZ,
                     Name = doorCreate.Name,
-                    Texture = doorCreate.Texture
+                    Texture = doorCreate.Texture,
+                    pregrada = doorCreate.pregrada
                 };
 
                 db.Doors.InsertOnSubmit(door);
@@ -61,12 +62,13 @@ namespace Business.DataAccess
                     BoxId = find.BoxId,
                     Width = find.Width,
                     Height = find.Height,
-                    Depth = find.BoardThickness,
+                    Depth = find.Depth,
                     PositionX = find.PositionX,
                     PositionY = find.PositionY,
                     PositionZ = find.PositionZ,
                     Name = find.Name,
-                    Texture = find.Texture
+                    Texture = find.Texture,
+                    pregrada = find.pregrada
                 };
             }
             catch (Exception e)
@@ -91,12 +93,13 @@ namespace Business.DataAccess
                 find.BoxId = updateDoor.BoxId;
                 find.Width = updateDoor.Width;
                 find.Height = updateDoor.Height;
-                find.BoardThickness = updateDoor.Depth;
+                find.Depth = updateDoor.Depth;
                 find.PositionX = updateDoor.PositionX;
                 find.PositionY = updateDoor.PositionY;
                 find.PositionZ = updateDoor.PositionZ;
                 find.Name = updateDoor.Name;
                 find.Texture = updateDoor.Texture;
+                find.pregrada = updateDoor.pregrada;
 
                 db.SubmitChanges();
             }

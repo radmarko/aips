@@ -86,7 +86,7 @@ function Fioka(w, h, d, debljina, x, y, z, n) {
 
         var geometry = mergeMeshes(meshes);
         var obj = createMesh(geometry, "wood-2.jpg");
-        obj.Name = Name;
+        obj.Name = this.Name;
         obj.id = "fioka12";
         //obj.position.y -= visinaPola - debljinaDaskePola;
         objects.push(obj);
@@ -169,7 +169,7 @@ function Fioka(w, h, d, debljina, x, y, z, n) {
 
         var geometry = mergeMeshes(meshes);
         var obj = createMesh(geometry, "wood-2.jpg");
-        obj.Name = Name;
+        obj.Name = this.Name;
         obj.id = "fioka12";
         //obj.position.y -= visinaPola - debljinaDaskePola;
         //objects.push(obj);

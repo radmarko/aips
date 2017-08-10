@@ -6,12 +6,13 @@
       <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Depth" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="Box_Board" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
     </Type>
   </Table>
@@ -38,7 +39,12 @@
       <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vertikalno" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="horizontalno" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="globalX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="globalY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="globalZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Association Name="Box_Board" Member="Boards" ThisKey="Id" OtherKey="BoxId" Type="Board" />
       <Association Name="Box_Door" Member="Doors" ThisKey="Id" OtherKey="BoxId" Type="Door" />
       <Association Name="Box_Drawer" Member="Drawers" ThisKey="Id" OtherKey="BoxId" Type="Drawer" />
@@ -51,12 +57,13 @@
       <Column Name="BoxId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Width" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Height" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
-      <Column Name="BoardThickness" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Depth" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionX" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="pregrada" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Box_Door" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
     </Type>
   </Table>
@@ -72,7 +79,8 @@
       <Column Name="PositionY" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="PositionZ" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Texture" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="pregrada" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Box_Drawer" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
     </Type>
   </Table>

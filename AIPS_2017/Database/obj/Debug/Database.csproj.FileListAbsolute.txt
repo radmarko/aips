@@ -8,3 +8,4 @@ D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\bin\Debug\Database.exe
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\bin\Debug\Database.pdb
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.exe
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.pdb
+D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache

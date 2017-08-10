@@ -21,6 +21,7 @@ namespace Business.DataAccess
                     BoxId = boardCreate.BoxId,
                     Width = boardCreate.Width,
                     Height = boardCreate.Height,
+                    Depth = boardCreate.Depth,
                     BoardThickness = boardCreate.BoardThickness,
                     PositionX = boardCreate.PositionX,
                     PositionY = boardCreate.PositionY,
@@ -61,6 +62,7 @@ namespace Business.DataAccess
                     BoxId = find.BoxId,
                     Width = find.Width,
                     Height = find.Height,
+                    Depth = find.Depth,
                     BoardThickness = find.BoardThickness,
                     PositionX = find.PositionX,
                     PositionY = find.PositionY,
@@ -91,6 +93,7 @@ namespace Business.DataAccess
                 find.BoxId = updateBoard.BoxId;
                 find.Width = updateBoard.Width;
                 find.Height = updateBoard.Height;
+                find.Depth = updateBoard.Depth;
                 find.BoardThickness = updateBoard.BoardThickness;
                 find.PositionX = updateBoard.PositionX;
                 find.PositionY = updateBoard.PositionY;

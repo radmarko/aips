@@ -27,7 +27,12 @@ namespace Business.DataAccess
                     PositionY = boxCreate.PositionY,
                     PositionZ = boxCreate.PositionZ,
                     Name = boxCreate.Name,
-                    Texture = boxCreate.Texture
+                    Texture = boxCreate.Texture,
+                    vertikalno = boxCreate.vertikalno,
+                    horizontalno = boxCreate.horizontalno,
+                    globalX = boxCreate.globalX,
+                    globalY = boxCreate.globalY,
+                    globalZ = boxCreate.globalZ
                 };
 
                 db.Boxes.InsertOnSubmit(box);
@@ -68,7 +73,12 @@ namespace Business.DataAccess
                     PositionY = find.PositionY,
                     PositionZ = find.PositionZ,
                     Name = find.Name,
-                    Texture = find.Texture
+                    Texture = find.Texture,
+                    vertikalno = find.vertikalno,
+                    horizontalno = find.horizontalno,
+                    globalX = find.globalX,
+                    globalY = find.globalY,
+                    globalZ = find.globalZ
                 };
             }
             catch (Exception e)
@@ -100,6 +110,11 @@ namespace Business.DataAccess
                 find.PositionZ = updateBox.PositionZ;
                 find.Name = updateBox.Name;
                 find.Texture = updateBox.Texture;
+                find.vertikalno = updateBox.vertikalno;
+                find.horizontalno = updateBox.horizontalno;
+                find.globalX = updateBox.globalX;
+                find.globalY = updateBox.globalY;
+                find.globalZ = updateBox.globalZ;
 
                 db.SubmitChanges();
             }

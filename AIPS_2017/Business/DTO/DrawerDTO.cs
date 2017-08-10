@@ -19,6 +19,6 @@ namespace Business.DTO
         public float PositionZ { get; set; }
         public string Name { get; set; }
         public string Texture { get; set; }
-
+        public int pregrada { get; set; }
     }
 }
