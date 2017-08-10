@@ -825,21 +825,20 @@ $(document).on("click", "#dodajVrata", function (event) {
 
 function SaveConfiguration(planId)
 {
-    for (var i = 0; i < objectsOnScene.length; i++)
-    {
+    $.each(objectsOnScene, function (index, object) {
         $.ajax({
             url: '/Dashboard/SaveConfiguration',
-            data: { ArrayOfObjects: JSON.stringify(objectsOnScene[i]), planId: planId },
+            data: { ArrayOfObjects: JSON.stringify(object), planId: planId },
             datatype: 'json',
             traditional: true,
             success: function (data) {
-                if (i == (objectsOnScene.length - 1))
+                if (index == (objectsOnScene.length - 1))
                     alert("Succesful saving!");
             },
             error: function () {
                 alert("error");
             }
         });
-    }
-    
+    });
+   
 }
