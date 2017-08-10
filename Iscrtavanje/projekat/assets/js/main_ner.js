@@ -702,4 +702,19 @@ function dodajVrata(){
 
 $(document).on("click", "#dodajVrata", function(event){
         dodajVrata(); 
-}); 
+});
+
+function createScene(){
+	for(var i = 0; i < objectsOnScene.length; i++){
+		var obj = objectsOnScene[i].CreateGeometry();
+		obj.position.x += objectsOnScene[i].globalX;
+		obj.position.y += objectsOnScene[i].globalY;
+		obj.position.z += objectsOnScene[i].globalZ;
+		objects.push(obj);
+		scene.add(obj);
+	}
+} 
+
+$(document).on("click", "#kreiraj", function(event){
+        createScene();
+});
