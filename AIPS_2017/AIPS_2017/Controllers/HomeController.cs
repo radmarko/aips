@@ -22,9 +22,15 @@ namespace AIPS_2017.Controllers
             return View(model);
         }
 
-        public ActionResult CheckPlan(int planId)
+        public ActionResult CheckPlan(int planId, HomeModel model)
         {
-            return null;
+            return View("~/Views/Home/SceneReconstruction.cshtml", model);
+        }
+
+        public ActionResult GetObjects(HomeModel model)
+        {
+            model.SceneReconstruction();
+            return Json(new { success = 1 }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeletePlan(int planId, HomeModel model)
