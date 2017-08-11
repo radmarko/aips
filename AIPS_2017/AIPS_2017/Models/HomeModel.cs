@@ -155,5 +155,10 @@ namespace AIPS_2017.Models
             }
         }
 
+        public void SceneReconstruction()
+        {
+
+        }
+
     }
 }
