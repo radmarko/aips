@@ -35,7 +35,7 @@
     <link href="~/Content/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 
-<body style="background-image: url('../../Content/img/home/home.jpg');">
+<body style="background-image: url(http://e-partenaire.com/wp-content/uploads/2016/10/incredible-awesome-design-your-home-interior-what-is-interior-classic-home-interior-designing.jpg);">
 
     <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px; opacity:1; background-color: white;">
         <div class="container-fluid" style="padding-top:0px; padding-bottom:0px;">
@@ -77,13 +77,11 @@
     @*start*@
     <div style="margin-top:100px; margin-left:50px; margin-right:50px">
 
-        <p style="text-align:center; color:white; font-size:30px">Create a new room or join an existing</p>
-
-        <div class="row" style="padding-bottom: 2px; padding-top:5px;">
-            <div class="col-md-12" style="text-align:center;">
-                <button type="button" style="color:#337ab7;" data-toggle="modal" data-target="#AddRoomModal"> Add Room </button>
-            </div>
+        
+        <div class="col-lg-8 col-md-8 col-sm-12" style ="width: 100%; text-align: center;">
+            <button style="display:inline-block; width:75%; color:white; background-color: #337ab7;font-size: x-large;/* color:#337ab7; */" data-toggle="modal" data-target="#AddRoomModal" class="btn btn-block btn-lg">Create A New Room</button>
         </div>
+        
 
         <div id="AddRoomModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -111,7 +109,7 @@
 
         <br><br>
 
-        <p style="text-align:center; color:white; font-size:30px">Join to an existing room:</p>
+        <p style="clear: left; text-align:center; color:white; font-size:30px">Or Join To An Existing Room:</p>
 
 
         @*ovde se dodaju sobe*@
@@ -121,7 +119,79 @@
             </tbody>
         </table>
 
+        <div style ="width: 100%; text-align: center;"class="col-md-8 col-sm-12" id="rooms">
+            <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title ">
+                            <a data-toggle="collapse" href="#collapse1" class="panel-title btn-block" aria-expanded="true" style="font-size: xx-large; color: #337ab7;">Room1</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div>
+                                <a style ="font-size:large;" class="list-group-item active">Nikola Ranković</a>
+                                <a style ="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
+                                <a style ="font-size:large; background-color: #c7d2de;" class="list-group-item">Marko Radosavljević</a>
+                                <a style ="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button style ="color: white; background-color: #337ab7; font-size: large;"class="btn btn-block">Join This Room</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title ">
+                            <a data-toggle="collapse" href="#collapse2" class="panel-title btn-block" aria-expanded="true" style="font-size: xx-large; color: #337ab7;">Room2</a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div>
+                                <a style="font-size:large;" class="list-group-item active">Nikola Ranković</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Marko Radosavljević</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button style="color: white; background-color: #337ab7; font-size: large;" class="btn btn-block">Join This Room</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title ">
+                            <a data-toggle="collapse" href="#collapse3" class="panel-title btn-block" aria-expanded="true" style="font-size: xx-large; color: #337ab7;">Room3</a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div>
+                                <a style="font-size:large;" class="list-group-item active">Nikola Ranković</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Marko Radosavljević</a>
+                                <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button style="color: white; background-color: #337ab7; font-size: large;" class="btn btn-block">Join This Room</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    
     </div>
 
 
