@@ -14,17 +14,19 @@ namespace AIPS_2017.Models
         public int UserId { get; set; }
         public string Status { get; set; }
         public string Name { get; set; }
+        public int PlanId { get; set; }
 
         public HomeModel()
         {
 
         }
 
-        public HomeModel(int UserId, string Status, string Name)
+        public HomeModel(int UserId, string Status, string Name, int PlanId)
         {
             this.UserId = UserId;
             this.Status = Status;
             this.Name = Name;
+            this.PlanId = PlanId;
         }
 
         public List<PlanDTO> SviPlanovi()

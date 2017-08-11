@@ -10,15 +10,15 @@ namespace AIPS_2017.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Home(int UserId, string Status, string Name)
+        public ActionResult Home(int UserId, string Status, string Name, int PlanId)
         {
-            HomeModel model = new HomeModel(UserId, Status, Name);
+            HomeModel model = new HomeModel(UserId, Status, Name, PlanId);
             return View(model);
         }
 
-        public ActionResult Admin(int UserId, string Status, string Name)
+        public ActionResult Admin(int UserId, string Status, string Name, int PlanId)
         {
-            HomeModel model = new HomeModel(UserId, Status, Name);
+            HomeModel model = new HomeModel(UserId, Status, Name, PlanId);
             return View(model);
         }
 
