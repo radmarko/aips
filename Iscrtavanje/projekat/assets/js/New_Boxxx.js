@@ -8,7 +8,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 	this.posX = x;
 	this.posY = y;
 	this.posZ = z;
-	this.texture;
+	this.texture = "wood-2.jpg";
 	this.geometry;
 	this.childs = [];
 	this.fioke = [];
@@ -32,7 +32,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//donja
 		var cube = new THREE.BoxGeometry(this.sirina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane = createMesh(cube, "wood-2.jpg");
+		var plane = createMesh(cube, this.texture);
 		plane.rotation.x += PiPola;
 		plane.position.x = this.posX;
 		plane.position.y = this.posY - visinaPola + debljinaDaskePola;	
@@ -42,7 +42,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//leva
 		var cube2 = new THREE.BoxGeometry(this.visina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane2 = createMesh(cube2, "wood-2.jpg");
+		var plane2 = createMesh(cube2, this.texture);
 		plane2.rotation.x += PiPola;
 		plane2.rotation.y += PiPola;
 		plane2.position.x = this.posX - sirinaPola;
@@ -53,7 +53,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 
 		//desna
 		var cube3 = new THREE.BoxGeometry(this.visina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane3 = createMesh(cube3, "wood-2.jpg");
+		var plane3 = createMesh(cube3, this.texture);
 		plane3.rotation.x += PiPola;
 		plane3.rotation.y += PiPola;
 		plane3.position.x = this.posX + sirinaPola;
@@ -64,7 +64,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//zadnja
 		var cube4 = new THREE.BoxGeometry(this.sirina, this.visina, this.debljinaDaske, 1, 1, 1);
-		var plane4 = createMesh(cube4, "wood-2.jpg");
+		var plane4 = createMesh(cube4, this.texture);
 		plane4.position.x = this.posX;
 		plane4.position.y = this.posY;	
 		plane4.position.z = this.posZ - dubinaPola + debljinaDaskePola;
@@ -73,7 +73,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//gornja
 		var cube5 = new THREE.BoxGeometry(this.sirina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane5 = createMesh(cube5, "wood-2.jpg");
+		var plane5 = createMesh(cube5, this.texture);
 		plane5.rotation.x += PiPola;
 		plane5.position.x = this.posX;
 		plane5.position.y = this.posY + visinaPola - debljinaDaskePola;	
@@ -82,7 +82,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		meshes.push(plane5);
 		
 		var geometry = mergeMeshes(meshes);
-		var obj = createMesh(geometry, "wood-2.jpg");
+		var obj = createMesh(geometry, this.texture);
 		//obj.position.y -= visinaPola;
 		obj.name = this.name;
 		objects.push(obj);
@@ -101,7 +101,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//donja
 		var cube = new THREE.BoxGeometry(this.sirina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane = createMesh(cube, "wood-2.jpg");
+		var plane = createMesh(cube, this.texture);
 		plane.rotation.x += PiPola;
 		plane.position.x = this.posX;
 		plane.position.y = this.posY - visinaPola + debljinaDaskePola;	
@@ -111,7 +111,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//leva
 		var cube2 = new THREE.BoxGeometry(this.visina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane2 = createMesh(cube2, "wood-2.jpg");
+		var plane2 = createMesh(cube2, this.texture);
 		plane2.rotation.x += PiPola;
 		plane2.rotation.y += PiPola;
 		plane2.position.x = this.posX - sirinaPola;
@@ -122,7 +122,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 
 		//desna
 		var cube3 = new THREE.BoxGeometry(this.visina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane3 = createMesh(cube3, "wood-2.jpg");
+		var plane3 = createMesh(cube3, this.texture);
 		plane3.rotation.x += PiPola;
 		plane3.rotation.y += PiPola;
 		plane3.position.x = this.posX + sirinaPola;
@@ -133,7 +133,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//zadnja
 		var cube4 = new THREE.BoxGeometry(this.sirina, this.visina, this.debljinaDaske, 1, 1, 1);
-		var plane4 = createMesh(cube4, "wood-2.jpg");
+		var plane4 = createMesh(cube4, this.texture);
 		plane4.position.x = this.posX;
 		plane4.position.y = this.posY;	
 		plane4.position.z = this.posZ - dubinaPola + debljinaDaskePola;
@@ -142,7 +142,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		
 		//gornja
 		var cube5 = new THREE.BoxGeometry(this.sirina, this.dubina, this.debljinaDaske, 1, 1, 1);
-		var plane5 = createMesh(cube5, "wood-2.jpg");
+		var plane5 = createMesh(cube5, this.texture);
 		plane5.rotation.x += PiPola;
 		plane5.position.x = this.posX;
 		plane5.position.y = this.posY + visinaPola - debljinaDaskePola;	
@@ -151,7 +151,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 		meshes.push(plane5);
 		
 		geometry = mergeMeshes(meshes);
-		var obj = createMesh(geometry, "wood-2.jpg");
+		var obj = createMesh(geometry, this.texture);
 		
 		if(this.vertikalno == true){
 			if(this.childs != null){
@@ -160,6 +160,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 				for(var k = 0; k < this.childs.length; k++)
 				{
 					this.childs[k] = new Daska(this.debljinaDaske, this.visina, this.dubina, - this.sirina / 2 + (k + 1) * i + this.posX, this.posY, this.posZ, "daska" + k);
+					this.childs[k].texture = this.texture;
 					var mesh  = this.childs[k].CreateGeometry();
 					obj.add(mesh);
 				}
@@ -173,6 +174,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 					if(this.pozicije_fioka[i] == true){
 						this.fioke[i] = new Fioka(duz, this.visina, this.dubina, this.debljinaDaske, start + (i * duz) + this.posX, this.posY, this.posZ, "Fioka" + i);
 						//var f = new Fioka(duz, selected.visina, selected.dubina, selected.debljinaDaske, start + (i * duz) + startX, previousObject.position.y + startY, previousObject.position.z + startZ, "Fioka" + i);
+						this.fioke[i].texture = this.texture;
 						var mesh = this.fioke[i].CreateGeometry();
 						obj.add(mesh);
 					}
@@ -187,6 +189,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 				for(var i = 0; i < this.childs.length+ 1; i++){
 					if(this.pozicije_vrata[i] == true){
 						this.vrata[i] = new Vrata(duz, this.visina, this.debljinaDaske, start + (i * duz) + this.posX, this.posY,  this.posZ + this.dubina / 2 - this.debljinaDaske / 2, "Vrata" + i);
+						this.vrata[i].texture = this.texture;
 						var mesh = this.vrata[i].CreateGeometry();
 						obj.add(mesh);
 					}
@@ -200,7 +203,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 				for(var k = 0; k <  this.childs.length; k++){
 					
 					this.childs[k] = new Daska(this.sirina, this.debljinaDaske, this.dubina, this.posX, - this.visina / 2 + (k + 1) * i + this.posY, this.posZ, "daska" + k);
-					
+					this.childs[k].texture = this.texture;
 					var mesh  = this.childs[k].CreateGeometry();
 					obj.add(mesh);
 				}
@@ -214,6 +217,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 					if(this.pozicije_fioka[i] == true){
 						this.fioke[i] = new Fioka(this.sirina, duz, this.dubina, this.debljinaDaske, this.posX, start - (i * duz) + this.posY, this.posZ, "Fioka" + i);
 						//var f = new Fioka(duz, selected.visina, selected.dubina, selected.debljinaDaske, start + (i * duz) + startX, previousObject.position.y + startY, previousObject.position.z + startZ, "Fioka" + i);
+						this.fioke[i].texture = this.texture;
 						var mesh = this.fioke[i].CreateGeometry();
 						obj.add(mesh);
 					}
@@ -227,6 +231,7 @@ function Box(w, h, d, debljina, x, y, z, n){
 				for(var i = 0; i < this.childs.length+ 1; i++){
 					if(this.pozicije_vrata[i] == true){
 						this.vrata[i] = new Vrata(this.sirina, duz, this.debljinaDaske,this.posX, start - (i * duz) + this.posY,  this.posZ + this.dubina / 2 - this.debljinaDaske / 2, "Vrata" + i);
+						this.vrata[i].texture = this.texture;
 						var mesh = this.vrata[i].CreateGeometry();
 						obj.add(mesh);
 					}
