@@ -7,7 +7,7 @@ function Vrata(w, h, d, x, y, z, n) {
     this.PositionX = x;
     this.PositionY = y;
     this.PositionZ = z;
-    this.Texture;
+    this.Texture = "wood-2.jpg";
 
     this.Draw = function () {
 
@@ -15,7 +15,7 @@ function Vrata(w, h, d, x, y, z, n) {
 
         var PiPola = 3.14 / 2;
         var cube = new THREE.BoxGeometry(this.Width, this.Height, this.Depth, 1, 1, 1);
-        var plane = createMesh(cube, "wood-2.jpg");
+        var plane = createMesh(cube, this.Texture);
         plane.position.x = this.PositionX;
         plane.position.y = this.PositionY;
         plane.position.z = this.PositionZ;
@@ -31,7 +31,7 @@ function Vrata(w, h, d, x, y, z, n) {
         var thetaStart = 0;
         var thetaLength = Math.PI;
         var sph = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
-        var sphere = createMesh(sph, "wood-2.jpg");
+        var sphere = createMesh(sph, this.Texture);
 
         sphere.position.x = this.PositionX + 2 / 5 * this.Width;
         sphere.position.y = this.PositionY;
@@ -40,7 +40,7 @@ function Vrata(w, h, d, x, y, z, n) {
         meshes.push(sphere);
 
         var geometry = mergeMeshes(meshes);
-        var obj = createMesh(geometry, "wood-2.jpg");
+        var obj = createMesh(geometry, this.Texture);
         obj.Name = this.Name;
         objects.push(obj);
         scene.add(obj);
@@ -51,7 +51,7 @@ function Vrata(w, h, d, x, y, z, n) {
 
         var PiPola = 3.14 / 2;
         var cube = new THREE.BoxGeometry(this.Width, this.Height, this.Depth, 1, 1, 1);
-        var plane = createMesh(cube, "wood-2.jpg");
+        var plane = createMesh(cube, this.Texture);
         plane.position.x = this.PositionX;
         plane.position.y = this.PositionY;
         plane.position.z = this.PositionZ;
@@ -67,7 +67,7 @@ function Vrata(w, h, d, x, y, z, n) {
         var thetaStart = 0;
         var thetaLength = Math.PI;
         var sph = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
-        var sphere = createMesh(sph, "wood-2.jpg");
+        var sphere = createMesh(sph, this.Texture);
 
         sphere.position.x = this.PositionX + 2 / 5 * this.Width;
         sphere.position.y = this.PositionY;
@@ -76,7 +76,7 @@ function Vrata(w, h, d, x, y, z, n) {
         meshes.push(sphere);
 
         var geometry = mergeMeshes(meshes);
-        var obj = createMesh(geometry, "wood-2.jpg");
+        var obj = createMesh(geometry, this.Texture);
         obj.Name = this.Name;
         return obj;
     }
