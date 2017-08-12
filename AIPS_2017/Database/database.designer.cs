@@ -33,9 +33,9 @@ namespace Database
     partial void InsertBoard(Board instance);
     partial void UpdateBoard(Board instance);
     partial void DeleteBoard(Board instance);
-    partial void InsertUser(User instance);
-    partial void UpdateUser(User instance);
-    partial void DeleteUser(User instance);
+    partial void InsertUserPlan(UserPlan instance);
+    partial void UpdateUserPlan(UserPlan instance);
+    partial void DeleteUserPlan(UserPlan instance);
     partial void InsertBox(Box instance);
     partial void UpdateBox(Box instance);
     partial void DeleteBox(Box instance);
@@ -48,6 +48,9 @@ namespace Database
     partial void InsertPlan(Plan instance);
     partial void UpdatePlan(Plan instance);
     partial void DeletePlan(Plan instance);
+    partial void InsertUser(User instance);
+    partial void UpdateUser(User instance);
+    partial void DeleteUser(User instance);
     #endregion
 		
 		public databaseDataContext() : 
@@ -88,11 +91,11 @@ namespace Database
 			}
 		}
 		
-		public System.Data.Linq.Table<User> Users
+		public System.Data.Linq.Table<UserPlan> UserPlans
 		{
 			get
 			{
-				return this.GetTable<User>();
+				return this.GetTable<UserPlan>();
 			}
 		}
 		
@@ -125,6 +128,14 @@ namespace Database
 			get
 			{
 				return this.GetTable<Plan>();
+			}
+		}
+		
+		public System.Data.Linq.Table<User> Users
+		{
+			get
+			{
+				return this.GetTable<User>();
 			}
 		}
 	}
@@ -472,25 +483,21 @@ namespace Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
-	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserPlan")]
+	public partial class UserPlan : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private string _FirstName;
+		private int _UserId;
 		
-		private string _LastName;
+		private int _PlanId;
 		
-		private string _UserName;
+		private EntityRef<Plan> _Plan;
 		
-		private string _Password;
-		
-		private string _Status;
-		
-		private EntitySet<Plan> _Plans;
+		private EntityRef<User> _User;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -498,21 +505,16 @@ namespace Database
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnUserNameChanging(string value);
-    partial void OnUserNameChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
-    partial void OnStatusChanging(string value);
-    partial void OnStatusChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnPlanIdChanging(int value);
+    partial void OnPlanIdChanged();
     #endregion
 		
-		public User()
+		public UserPlan()
 		{
-			this._Plans = new EntitySet<Plan>(new Action<Plan>(this.attach_Plans), new Action<Plan>(this.detach_Plans));
+			this._Plan = default(EntityRef<Plan>);
+			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -536,116 +538,119 @@ namespace Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string FirstName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
 		{
 			get
 			{
-				return this._FirstName;
+				return this._UserId;
 			}
 			set
 			{
-				if ((this._FirstName != value))
+				if ((this._UserId != value))
 				{
-					this.OnFirstNameChanging(value);
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
 					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string LastName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlanId", DbType="Int NOT NULL")]
+		public int PlanId
 		{
 			get
 			{
-				return this._LastName;
+				return this._PlanId;
 			}
 			set
 			{
-				if ((this._LastName != value))
+				if ((this._PlanId != value))
 				{
-					this.OnLastNameChanging(value);
+					if (this._Plan.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPlanIdChanging(value);
 					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
+					this._PlanId = value;
+					this.SendPropertyChanged("PlanId");
+					this.OnPlanIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string UserName
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Plan_UserPlan", Storage="_Plan", ThisKey="PlanId", OtherKey="Id", IsForeignKey=true)]
+		public Plan Plan
 		{
 			get
 			{
-				return this._UserName;
+				return this._Plan.Entity;
 			}
 			set
 			{
-				if ((this._UserName != value))
+				Plan previousValue = this._Plan.Entity;
+				if (((previousValue != value) 
+							|| (this._Plan.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnUserNameChanging(value);
 					this.SendPropertyChanging();
-					this._UserName = value;
-					this.SendPropertyChanged("UserName");
-					this.OnUserNameChanged();
+					if ((previousValue != null))
+					{
+						this._Plan.Entity = null;
+						previousValue.UserPlans.Remove(this);
+					}
+					this._Plan.Entity = value;
+					if ((value != null))
+					{
+						value.UserPlans.Add(this);
+						this._PlanId = value.Id;
+					}
+					else
+					{
+						this._PlanId = default(int);
+					}
+					this.SendPropertyChanged("Plan");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Password
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserPlan", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public User User
 		{
 			get
 			{
-				return this._Password;
+				return this._User.Entity;
 			}
 			set
 			{
-				if ((this._Password != value))
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnPasswordChanging(value);
 					this.SendPropertyChanging();
-					this._Password = value;
-					this.SendPropertyChanged("Password");
-					this.OnPasswordChanged();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.UserPlans.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.UserPlans.Add(this);
+						this._UserId = value.Id;
+					}
+					else
+					{
+						this._UserId = default(int);
+					}
+					this.SendPropertyChanged("User");
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Plan", Storage="_Plans", ThisKey="Id", OtherKey="UserId")]
-		public EntitySet<Plan> Plans
-		{
-			get
-			{
-				return this._Plans;
-			}
-			set
-			{
-				this._Plans.Assign(value);
 			}
 		}
 		
@@ -667,18 +672,6 @@ namespace Database
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Plans(Plan entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_Plans(Plan entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
 		}
 	}
 	
@@ -1951,6 +1944,8 @@ namespace Database
 		
 		private string _Name;
 		
+		private EntitySet<UserPlan> _UserPlans;
+		
 		private EntitySet<Box> _Boxes;
 		
 		private EntityRef<User> _User;
@@ -1969,6 +1964,7 @@ namespace Database
 		
 		public Plan()
 		{
+			this._UserPlans = new EntitySet<UserPlan>(new Action<UserPlan>(this.attach_UserPlans), new Action<UserPlan>(this.detach_UserPlans));
 			this._Boxes = new EntitySet<Box>(new Action<Box>(this.attach_Boxes), new Action<Box>(this.detach_Boxes));
 			this._User = default(EntityRef<User>);
 			OnCreated();
@@ -2035,6 +2031,19 @@ namespace Database
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Plan_UserPlan", Storage="_UserPlans", ThisKey="Id", OtherKey="PlanId")]
+		public EntitySet<UserPlan> UserPlans
+		{
+			get
+			{
+				return this._UserPlans;
+			}
+			set
+			{
+				this._UserPlans.Assign(value);
 			}
 		}
 		
@@ -2105,6 +2114,18 @@ namespace Database
 			}
 		}
 		
+		private void attach_UserPlans(UserPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Plan = this;
+		}
+		
+		private void detach_UserPlans(UserPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.Plan = null;
+		}
+		
 		private void attach_Boxes(Box entity)
 		{
 			this.SendPropertyChanging();
@@ -2115,6 +2136,244 @@ namespace Database
 		{
 			this.SendPropertyChanging();
 			entity.Plan = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
+	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _FirstName;
+		
+		private string _LastName;
+		
+		private string _UserName;
+		
+		private string _Password;
+		
+		private string _Status;
+		
+		private EntitySet<UserPlan> _UserPlans;
+		
+		private EntitySet<Plan> _Plans;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnStatusChanging(string value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public User()
+		{
+			this._UserPlans = new EntitySet<UserPlan>(new Action<UserPlan>(this.attach_UserPlans), new Action<UserPlan>(this.detach_UserPlans));
+			this._Plans = new EntitySet<Plan>(new Action<Plan>(this.attach_Plans), new Action<Plan>(this.detach_Plans));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this.OnFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._FirstName = value;
+					this.SendPropertyChanged("FirstName");
+					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this.OnLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._LastName = value;
+					this.SendPropertyChanged("LastName");
+					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_UserPlan", Storage="_UserPlans", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<UserPlan> UserPlans
+		{
+			get
+			{
+				return this._UserPlans;
+			}
+			set
+			{
+				this._UserPlans.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Plan", Storage="_Plans", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<Plan> Plans
+		{
+			get
+			{
+				return this._Plans;
+			}
+			set
+			{
+				this._Plans.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UserPlans(UserPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_UserPlans(UserPlan entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_Plans(Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_Plans(Plan entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 }

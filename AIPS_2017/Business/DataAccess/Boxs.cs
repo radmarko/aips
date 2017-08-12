@@ -143,5 +143,52 @@ namespace Business.DataAccess
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static List<BoxDTO> BoxesInPlan(int planId)
+        {
+            List<BoxDTO> boxes = new List<BoxDTO>();
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from box in db.Boxes
+                     where box.PlanId == planId
+                     select box);
+
+                foreach (var f in find)
+                {
+                    BoxDTO boxRead = new BoxDTO()
+                    {
+                        Id = f.Id,
+                        PlanId = f.PlanId,
+                        Width = f.Width,
+                        Height = f.Height,
+                        Depth = f.Depth,
+                        BoardThickness = f.BoardThickness,
+                        PositionX = f.PositionX,
+                        PositionY = f.PositionY,
+                        PositionZ = f.PositionZ,
+                        Name = f.Name,
+                        Texture = f.Texture,
+                        vertikalno = f.vertikalno,
+                        horizontalno = f.horizontalno,
+                        globalX = f.globalX,
+                        globalY = f.globalY,
+                        globalZ = f.globalZ
+                    };
+
+                    boxes.Add(boxRead);
+                }               
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return boxes;
+        }
+
     }
 }

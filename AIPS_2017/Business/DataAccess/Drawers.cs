@@ -131,5 +131,47 @@ namespace Business.DataAccess
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static List<DrawerDTO> DrawersInBox(int boxId)
+        {
+            List<DrawerDTO> drawers = new List<DrawerDTO>();
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from drawer in db.Drawers
+                     where drawer.BoxId == boxId
+                     select drawer);
+
+                foreach (var d in find)
+                {
+                    DrawerDTO drawerRead = new DrawerDTO()
+                    {
+                        Id = d.Id,
+                        BoxId = d.BoxId,
+                        Width = d.Width,
+                        Height = d.Height,
+                        Depth = d.Depth,
+                        BoardThickness = d.BoardThickness,
+                        PositionX = d.PositionX,
+                        PositionY = d.PositionY,
+                        PositionZ = d.PositionZ,
+                        Name = d.Name,
+                        Texture = d.Texture,
+                        pregrada = d.pregrada
+                    };
+
+                    drawers.Add(drawerRead);
+                }                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return drawers;
+        }
     }
 }

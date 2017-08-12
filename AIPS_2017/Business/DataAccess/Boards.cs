@@ -129,5 +129,46 @@ namespace Business.DataAccess
             }
         }
 
+        public static List<BoardDTO> BoardsInBox(int boxId)
+        {
+            List<BoardDTO> boards = new List<BoardDTO>();
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from board in db.Boards
+                     where board.BoxId == boxId
+                     select board);
+
+                foreach (var f in find)
+                {
+                    BoardDTO boardRead = new BoardDTO()
+                    {
+                        Id = f.Id,
+                        BoxId = f.BoxId,
+                        Width = f.Width,
+                        Height = f.Height,
+                        Depth = f.Depth,
+                        BoardThickness = f.BoardThickness,
+                        PositionX = f.PositionX,
+                        PositionY = f.PositionY,
+                        PositionZ = f.PositionZ,
+                        Name = f.Name,
+                        Texture = f.Texture
+                    };
+
+                    boards.Add(boardRead);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return boards;
+        }
+
     }
 }

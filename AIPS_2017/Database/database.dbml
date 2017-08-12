@@ -16,15 +16,13 @@
       <Association Name="Box_Board" Member="Box" ThisKey="BoxId" OtherKey="Id" Type="Box" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[User]" Member="Users">
-    <Type Name="User">
+  <Table Name="dbo.UserPlan" Member="UserPlans">
+    <Type Name="UserPlan">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="UserName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="User_Plan" Member="Plans" ThisKey="Id" OtherKey="UserId" Type="Plan" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PlanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Plan_UserPlan" Member="Plan" ThisKey="PlanId" OtherKey="Id" Type="Plan" IsForeignKey="true" />
+      <Association Name="User_UserPlan" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Box" Member="Boxes">
@@ -89,8 +87,21 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Plan_UserPlan" Member="UserPlans" ThisKey="Id" OtherKey="PlanId" Type="UserPlan" />
       <Association Name="Plan_Box" Member="Boxes" ThisKey="Id" OtherKey="PlanId" Type="Box" />
       <Association Name="User_Plan" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="User_UserPlan" Member="UserPlans" ThisKey="Id" OtherKey="UserId" Type="UserPlan" />
+      <Association Name="User_Plan" Member="Plans" ThisKey="Id" OtherKey="UserId" Type="Plan" />
     </Type>
   </Table>
 </Database>

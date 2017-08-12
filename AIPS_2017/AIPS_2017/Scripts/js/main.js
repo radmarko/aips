@@ -842,3 +842,76 @@ function SaveConfiguration(planId)
     });
    
 }
+
+function createScene(planId) {
+    $.ajax({
+        url: '/Home/GetObjects',
+        data: { planId : planId },
+        datatype: 'json',
+        success: function (data) {
+            objectsOnScene = data.objects;
+
+            for (var i = 0; i < objectsOnScene.length; i++) {
+                var o = objectsOnScene[i];
+                var b = new Box(o.Width, o.Height, o.Depth, o.BoardThickness, o.PositionX, o.PositionY, o.PositionZ, o.Name);
+                b.Texture = o.Texture;
+                b.vertikalno = o.vertikalno;
+                b.horizontalno = o.horizontalno;
+                b.globalX = o.globalX;
+                b.globalY = o.globalY;
+                b.globalZ = o.globalZ;
+
+                //daske
+                for (var j = 0; j < o.childs.length; j++)
+                {
+                    var child = o.childs[j];
+                    b.childs[j] = new Daska(child.Width, child.Height, child.Depth, child.positionX, child.positionY, child.positionZ, child.Name);
+                    b.childs[j].Texture = child.Texture;
+                }
+
+                //pozicije fioka
+                //b.pozicije_fioka = [];
+                //for (var j = 0; j < o.pozicije_fioka; j++)
+                //    b.pozicije_fioka.push(o.pozicije_fioka[j]);
+                b.pozicije_fioka = o.pozicije_fioka;
+
+                //pozicije vrata
+                //b.pozicije_vrata = [];
+                //for (var j = 0; j < o.pozicije_vrata; j++)
+                //    b.pozicije_vrata.push(o.pozicije_vrata[j]);
+                b.pozicije_vrata = o.pozicije_vrata;
+
+                //fioke
+                for (var j = 0; j < o.nizFioka.length; j++) {
+                    var f = o.nizFioka[j];
+                    b.nizFioka[j] = new Fioka(f.Width, f.Height, f.Depth, f.BoardThickness, f.positionX, f.positionY, f.positionZ, f.Name);
+                    b.nizFioka[j].Texture = f.Texture;
+                }
+
+                //vrata
+                for (var j = 0; j < o.nizVrata.length; j++) {
+                    var v = o.nizVrata[j];
+                    b.nizVrata[j] = new Vrata(v.Width, v.Height, v.Depth, v.positionX, v.positionY, v.positionZ, v.Name);
+                    b.nizVrata[j].Texture = v.Texture;
+                }
+
+                var obj = b.CreateGeometry();
+                obj.position.x += b.globalX;
+                obj.position.y += b.globalY;
+                obj.position.z += b.globalZ;
+                objects.push(obj);
+                scene.add(obj);
+            }
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+
+
+    
+}
+
+//$(document).on("click", "#kreiraj", function (event) {
+//    createScene();
+//});

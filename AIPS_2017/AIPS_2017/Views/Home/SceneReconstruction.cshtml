@@ -16,11 +16,6 @@
     <meta name="viewport" content="width=device-width" />
 
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-    <script src="/signalr/hubs"></script>
-
-
     <script type="text/javascript" src="~/Scripts/libs/three.js"></script>
     <script type="text/javascript" src="~/Scripts/libs/stats.js"></script>
     <script type="text/javascript" src="~/Scripts/libs/dat.gui.js"></script>
@@ -253,11 +248,11 @@
             <ul class="nav">
 
                 @*<li id="daska" class="active">
-                    <a>
-                        <i class="pe-7s-photo-gallery"></i>
-                        <input type="button" id="daska1" value="Daska" />
-                    </a>
-                </li>*@
+                        <a>
+                            <i class="pe-7s-photo-gallery"></i>
+                            <input type="button" id="daska1" value="Daska" />
+                        </a>
+                    </li>*@
                 <li id="kutija" class="active">
                     <a>
                         <i class="pe-7s-box2"></i>
@@ -266,95 +261,18 @@
                     </a>
                 </li>
                 @*<li id="fioka" class="active">
-                    <a>
-                        <i class="pe-7s-menu"></i>
-                        <input type="button" id="fioka1" value="Fioka" />
-                    </a>
-                </li>*@
+                        <a>
+                            <i class="pe-7s-menu"></i>
+                            <input type="button" id="fioka1" value="Fioka" />
+                        </a>
+                    </li>*@
                 @*<li id="vrata" class="active">
-                    <a>
-                        <i class="pe-7s-door-lock"></i>
-                        <input type="button" id="vrata1" value="Vrata" />
-                    </a>
-                </li>*@
+                        <a>
+                            <i class="pe-7s-door-lock"></i>
+                            <input type="button" id="vrata1" value="Vrata" />
+                        </a>
+                    </li>*@
             </ul>
-
-
-
-            @*start*@
-            <script>
-                $.connection.hub.start().done(function () {
-
-                    //dodavanje objekata
-                    $('#dodajPregrade').click(function () {
-                        $.connection.serverHub.server.drawBoard('@Request["id"]');
-                    });
-
-                    $('#kutija').click(function () {
-                        $.connection.serverHub.server.drawBox('@Request["id"]');
-                    });
-
-                    $('#dodajFioke').click(function () {
-                        $.connection.serverHub.server.drawDrawer('@Request["id"]');
-                    });
-
-                    $('#dodajVrata').click(function () {
-                        $.connection.serverHub.server.drawDoor('@Request["id"]');
-                    });
-
-                    //pozivanje funkcije servera
-                    $('#WebGL-output').mousedown(function (e) {
-                        $.connection.serverHub.server.mouseDownObject(e.clientX, e.clientY, '@Request["id"]');
-                    });
-
-                    $('#WebGL-output').mousemove(function (e) {
-                        $.connection.serverHub.server.mouseMoveObject(e.clientX, e.clientY, '@Request["id"]');
-                    });
-
-                    $('#WebGL-output').mouseup(function (e) {
-                        $.connection.serverHub.server.mouseUpObject(e.clientX, e.clientY, '@Request["id"]');
-                    });
-
-                });
-
-                //odgovor klijenta na dodavanje objekta
-                $.connection.serverHub.client.drawBoard = function (getParameter) {
-                    if (@Request["id"] == getParameter)
-                        dodajPregrade();
-                };
-
-                $.connection.serverHub.client.drawBox = function (getParameter) {
-                    if (@Request["id"] == getParameter)
-                        addKutija();
-                };
-
-                $.connection.serverHub.client.drawDrawer = function (getParameter) {
-                    if (@Request["id"] == getParameter)
-                        dodajFioke();
-                };
-
-                $.connection.serverHub.client.drawDoor = function (getParameter) {
-                    if (@Request["id"] == getParameter)
-                        dodajVrata();
-                };
-
-                //manevracije objektom
-                $.connection.serverHub.client.mouseDownObject = function (x, y, getParameter) {
-                    if (@Request["id"] == getParameter)
-                        ObjectMouseDown(x, y);
-                };
-
-                $.connection.serverHub.client.mouseMoveObject = function (x, y, getParameter) {
-                    if (@Request["id"] == getParameter)
-                        ObjectMouseMove(x, y);
-                };
-
-                $.connection.serverHub.client.mouseUpObject = function (x, y, getParameter) {
-                    if (@Request["id"] == getParameter)
-                        ObjectMouseUp(x, y);
-                };
-            </script>
-            @*end*@
 
 
             <div class="panel panel-default" id="context-menu" style="background-color:rgba(97, 112, 127, 0.39); margin: 5px 10px">
@@ -476,13 +394,13 @@
                     <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button id="btn_upd" class="btn btn-primary">Update</button>
                 </div>
-                
+
                 <div class="modal-footer">
                     @*<button type="button" class="btn btn-primary" onclick="">Save Configuration</button>*@
                     @*videti da li treba neki model, za sad nek bude ovako*@
                     <input type="button" class="btn btn-secondary" value="Delete Configuration" onclick="location.href='@Url.Action("DeleteConfiguration", "Dashboard")'" />
                     @*<input type="button" class="btn btn-primary" value="Save Configuration" onclick="location.href='@Url.Action("SaveConfiguration", "Dashboard")'" />*@
-                    <input type="button" class="btn btn-primary" id="SaveConfiguration" value="Save Configuration" onclick="SaveConfiguration('@Request["id"]')" />
+                    <input type="button" class="btn btn-primary" id="SaveConfiguration" value="Save Configuration" onclick="SaveConfiguration('@Model.PlanId')" />
                 </div>
             </div>
             <!--
@@ -500,22 +418,26 @@
 
     </div>
 
-    
+
     <!--   Core JS Files   -->
-    @*<script src="~/Scripts/js/jquery-1.10.2.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="~/Scripts/js/bootstrap.min.js" type="text/javascript"></script>
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="~/Scripts/js/bootstrap-checkbox-radio-switch.js"></script>
     <!--  Charts Plugin -->
     <script src="~/Scripts/js/chartist.min.js"></script>
-    
+
     <script src="~/Scripts/js/main.js"></script>
     <script src="~/Scripts/js/Box.js"></script>
     <script src="~/Scripts/js/Daska.js"></script>
     <script src="~/Scripts/js/Fioka.js"></script>
-    <script src="~/Scripts/js/Vrata.js"></script>      
+    <script src="~/Scripts/js/Vrata.js"></script>
     <script src="~/Scripts/js/Circles.js"></script>
     <script src="~/Scripts/js/objekt.js"></script>
+
+    <script>
+        createScene('@Model.PlanId');
+    </script>
 
 
     <!--  Notifications Plugin    -->

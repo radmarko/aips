@@ -128,5 +128,46 @@ namespace Business.DataAccess
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static List<DoorDTO> DoorsInBox(int boxId)
+        {
+            List<DoorDTO> doors = new List<DoorDTO>();
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from door in db.Doors
+                     where door.BoxId == boxId
+                     select door);
+
+                foreach (var d in find)
+                {
+                    DoorDTO doorRead = new DoorDTO()
+                    {
+                        Id = d.Id,
+                        BoxId = d.BoxId,
+                        Width = d.Width,
+                        Height = d.Height,
+                        Depth = d.Depth,
+                        PositionX = d.PositionX,
+                        PositionY = d.PositionY,
+                        PositionZ = d.PositionZ,
+                        Name = d.Name,
+                        Texture = d.Texture,
+                        pregrada = d.pregrada
+                    };
+
+                    doors.Add(doorRead);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return doors;
+        }
     }
 }

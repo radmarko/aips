@@ -33,9 +33,16 @@ namespace AIPS_2017.Controllers
             }
         }
         //GET: Dashboard
-        public ActionResult Dashboard()
+        //public ActionResult Dashboard()
+        //{
+        //    return View();
+        //}
+
+        public ActionResult Dashboard(int id, int UserId, string Status, string Name)
         {
-            return View();
+            HomeModel model = new HomeModel(UserId, Status, Name);
+            model.PlanId = id;
+            return View(model);
         }
 
 

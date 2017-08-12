@@ -21,12 +21,12 @@ namespace AIPS_2017.Models
 
         }
 
-        public HomeModel(int UserId, string Status, string Name, int PlanId)
+        //PlanId postavljati po potrebi
+        public HomeModel(int UserId, string Status, string Name)
         {
             this.UserId = UserId;
             this.Status = Status;
             this.Name = Name;
-            this.PlanId = PlanId;
         }
 
         public List<PlanDTO> SviPlanovi()
@@ -157,9 +157,65 @@ namespace AIPS_2017.Models
             }
         }
 
-        public void SceneReconstruction()
+        public List<ObjectDTO> SceneReconstruction(int planId)
         {
+            List<ObjectDTO> objects = new List<ObjectDTO>();
 
+            List<BoxDTO> BoxesInPlan = Boxs.BoxesInPlan(planId);
+
+            foreach (BoxDTO box in BoxesInPlan)
+            {
+                List<BoardDTO> BoardsInBox = Boards.BoardsInBox(box.Id);
+                List<DrawerDTO> DrawersInBox = Drawers.DrawersInBox(box.Id);
+                List<DoorDTO> DoorsInBox = Doors.DoorsInBox(box.Id);
+
+                List<bool> PozicijeFioka = new List<bool>();
+                List<bool> PozicijeVrata = new List<bool>();
+
+                for (int i = 0; i < BoardsInBox.Count + 1; i++)
+                {
+                    PozicijeFioka.Add(false);
+                    PozicijeVrata.Add(false);
+                }
+
+                foreach (DrawerDTO d in DrawersInBox)
+                {
+                    PozicijeFioka[d.pregrada] = true;
+                }
+
+                foreach (DoorDTO d in DoorsInBox)
+                {
+                    PozicijeVrata[d.pregrada] = true;
+                }
+
+                ObjectDTO o = new ObjectDTO()
+                {
+                    Width = box.Width,
+                    Height = box.Height,
+                    Depth = box.Depth,
+                    Name = box.Name,
+                    BoardThickness = box.BoardThickness,
+                    PositionX = box.PositionX,
+                    PositionY = box.PositionY,
+                    PositionZ = box.PositionZ,
+                    Texture = box.Texture,
+                    childs = BoardsInBox,
+                    nizFioka = DrawersInBox,
+                    pozicije_fioka = PozicijeFioka,
+                    nizVrata = DoorsInBox,
+                    pozicije_vrata = PozicijeVrata,
+                    vertikalno = box.vertikalno,
+                    horizontalno = box.horizontalno,
+                    globalX = box.globalX,
+                    globalY = box.globalY,
+                    globalZ = box.globalZ
+                };
+
+                objects.Add(o);
+
+            }
+
+            return objects;
         }
 
     }
