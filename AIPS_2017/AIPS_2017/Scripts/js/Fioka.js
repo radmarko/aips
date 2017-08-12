@@ -86,7 +86,7 @@ function Fioka(w, h, d, debljina, x, y, z, n) {
 
         var geometry = mergeMeshes(meshes);
         var obj = createMesh(geometry, this.Texture);
-        obj.Name = Name;
+        obj.Name = this.Name;
         obj.id = "fioka12";
         //obj.position.y -= HeightPola - BoardThicknessPola;
         objects.push(obj);

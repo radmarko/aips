@@ -241,6 +241,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
 
         //scene.add(obj);
         //objects.push(obj);
+        obj.Name = this.Name;
         return obj;
     }
 }

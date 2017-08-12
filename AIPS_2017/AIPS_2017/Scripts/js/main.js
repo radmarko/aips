@@ -451,7 +451,7 @@ btn_upd.onclick = function () {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.Name) {
+        if (objectsOnScene[i].Name == previousObject.name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -486,7 +486,7 @@ btn_upd.onclick = function () {
 
 btn_del.onclick = function () {
 
-    var Name = previousObject.Name;
+    var Name = previousObject.name;
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
@@ -796,22 +796,26 @@ $(document).on("click", "#kreiraj", function (event) {
     createScene();
 });
 */
-/*
-var event = $(document).click(function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-});
 
-// disable right click
-$(document).bind('contextmenu', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-});
-*/
+
+function SaveConfiguration(planId) {
+    $.each(objectsOnScene, function (index, object) {
+        $.ajax({
+            url: '/Dashboard/SaveConfiguration',
+            data: { ArrayOfObjects: JSON.stringify(object), planId: planId },
+            datatype: 'json',
+            traditional: true,
+            success: function (data) {
+                if (index == (objectsOnScene.length - 1))
+                    alert("Succesful saving!");
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    });
+
+}
 
 $(document).on("click", "#new_texture", function (event) {
 

@@ -45,6 +45,7 @@ function Daska(w, h, d, x, y, z, n) {
 
         geometry = mergeMeshes(meshes);
         var obj = createMesh(geometry, this.Texture);
+        obj.Name = this.Name;
         return obj;
     }
 }
