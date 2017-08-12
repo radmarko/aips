@@ -119,7 +119,37 @@
             </tbody>
         </table>
 
+        
+
         <div style ="width: 100%; text-align: center;"class="col-md-8 col-sm-12" id="rooms">
+            
+            @for (var i = 0; i < Model.SviPlanovi().Count; i++)
+            {
+                var planovi = Model.SviPlanovi();
+                <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title ">
+                                <a data-toggle="collapse" href="#@planovi[i].Id" class="panel-title btn-block" aria-expanded="true" style="font-size: xx-large; color: #337ab7;">@planovi[i].Name</a>
+                            </h4>
+                        </div>
+                        <div id=@planovi[i].Id class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div>
+                                    <a style="font-size:large;" class="list-group-item active">Nikola Ranković</a>
+                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
+                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Marko Radosavljević</a>
+                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button onclick="joinRoom(@planovi[i].Id, @Model.UserId, @planovi[i].UserId)" id="#join@planovi[i].Id"style="color: white; background-color: #337ab7; font-size: large;" class="btn btn-block">Join This Room</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
             <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -197,6 +227,15 @@
 
 
     <script>
+
+        function joinRoom(planId, userId, masterId) {
+            if (userId == masterId) {
+
+            }
+            else {
+
+            }
+        }
 
         $.connection.hub.start().done(function () {
             $('#AddingRoomButton').click(function () {
