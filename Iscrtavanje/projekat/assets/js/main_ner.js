@@ -40,8 +40,16 @@ var indexOfSelected = 0;
 
 var inc = 0;
 
+var mousedownEvent;
+var mouseupEvent;
+var mousemoveEvent;
+
+var blockedClicks = true;
+
 function init(){
-			
+	
+	//stopClicks();
+	
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 	webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
 	//webGLRenderer.setSize(host.offsetWidth, window.innerHeight - 15);
@@ -186,6 +194,7 @@ function addKutija(){
 	b.Draw();
 	objectsOnScene.push(b);
 	inc++;
+	kutija.disabled = true;
 }
 
 var fioka = document.getElementById("fioka");    
@@ -252,6 +261,12 @@ function addSpotLights(){
 }
 
 function onDocumentMouseDown(event) {
+	if(blockedClicks){
+		mousedownEvent = event;
+		event.stopPropagation();
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	}
 	var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
 	//var vector = new THREE.Vector3((event.clientX / host.outerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
 	
@@ -323,7 +338,13 @@ function onDocumentMouseDown(event) {
 }
 
 function onDocumentMouseMove(event) {
-
+		
+		if(blockedClicks){
+			mousemoveEvent = event;
+			event.stopPropagation();
+			event.preventDefault();
+			event.stopImmediatePropagation();
+		}
 		var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
 
 		vector = vector.unproject(camera);
@@ -378,6 +399,13 @@ function onDocumentMouseMove(event) {
 
 
 function onmouseup (event) {
+		
+		if(blockedClicks){
+			mouseupEvent = event;
+			event.stopPropagation();
+			event.preventDefault();
+			event.stopImmediatePropagation();
+		}
 		
 		if(selectedObject != null){
 		document.getElementById("item-posX").value = selectedObject.position.x;
@@ -460,7 +488,7 @@ btn_upd.onclick = function(){
 }
 
 btn_del.onclick = function(){
-	
+
 	var name = previousObject.name;
 	
 	var o;
@@ -718,3 +746,105 @@ function createScene(){
 $(document).on("click", "#kreiraj", function(event){
         createScene();
 });
+
+/*
+var event = $(document).click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
+});
+
+// disable right click
+$(document).bind('contextmenu', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
+});
+*/
+
+$(document).on("click", "#new_texture", function(event){
+	
+		var o;
+		for(var i = 0; i < objectsOnScene.length; i++)
+		{
+			if(objectsOnScene[i].name == previousObject.name){
+				o = objectsOnScene[i];
+				objectsOnScene.splice(i, 1);
+				break;
+			}
+		}
+		scene.remove(previousObject);
+		
+		var img_src = document.getElementById("new_texture").src;
+		var niz = img_src.split("/");
+		var tex = niz[niz.length - 1];
+        selected.texture = tex;
+		
+		var pomerajX = selected.posX;
+		var pomerajY = selected.posY;
+		var pomerajZ = selected.posZ;
+		
+		selected.posX += selected.globalX;
+		selected.posY += selected.globalY;
+		selected.posZ += selected.globalZ;
+		
+		selected.globalX += pomerajX;
+		selected.globalY += pomerajY;
+		selected.globalZ+= pomerajZ;
+		
+		var obj = selected.CreateGeometry();
+		scene.add(obj);
+		objects.push(obj);
+		
+		objectsOnScene.push(selected);
+});
+
+
+function stopClicks(){
+	
+	$( "a" ).click(function( event ) {
+		event.stopPropagation();
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	});
+	$( "li" ).click(function( event ) {
+		event.stopPropagation();
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	});
+	$( "div" ).click(function( event ) {
+		event.stopPropagation();
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	});
+	$("button").click(function( event ) {
+		event.stopPropagation();
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	});
+	
+}
+
+function startClicks(){
+	
+	blockedClicks = false;
+	$("a").unbind("click");
+	$("li").unbind("click");
+	$("div").unbind("click");
+	$("button").unbind("click");
+	
+	for(var i = 0; i < mousedownEvent.path.length; i++){
+		mousedownEvent.path[i].unbind("click");
+	}
+	
+	for(var i = 0; i < mousedownEvent.path.length; i++){
+		mousemoveEvent.path[i].unbind("click");
+	}
+	
+	for(var i = 0; i < mousedownEvent.path.length; i++){
+		mouseupEvent.path[i].unbind("click");
+	}
+	
+}

@@ -26,8 +26,8 @@ namespace Database.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PEDJA-PC\\SQLEXPRESS;Initial Catalog=AIPS2017_Database;Integrated Secu" +
-            "rity=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-ACOJ5D6\\SQLEXPRESS;Initial Catalog=AIPS2017_Database;Integrat" +
+            "ed Security=True")]
         public string AIPS2017_DatabaseConnectionString {
             get {
                 return ((string)(this["AIPS2017_DatabaseConnectionString"]));
