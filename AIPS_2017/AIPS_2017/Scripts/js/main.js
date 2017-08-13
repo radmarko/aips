@@ -92,14 +92,14 @@ function init() {
         if (tube) scene.remove(tube)
     });
 
-    var floorTex = THREE.ImageUtils.loadTexture("../assets/Textures/general/hardwood.png");
+    var floorTex = THREE.ImageUtils.loadTexture("/Content/textures/general/hardwood.png");
     var floor = new THREE.Mesh(new THREE.BoxGeometry(100, 100, 0.1, 300), new THREE.MeshPhongMaterial({
         map: floorTex
     }));
     floor.rotation.x += 3.14 / 2;
 
     //zid1
-    var wallTex = THREE.ImageUtils.loadTexture("../assets/Textures/general/wallmap_yellow.png");
+    var wallTex = THREE.ImageUtils.loadTexture("/Content/textures/general/wallmap_yellow.png");
     var wall = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 20, 300), new THREE.MeshPhongMaterial({
         map: wallTex
     }));
@@ -167,7 +167,7 @@ function animate() {
 
 
 function createMesh(geom, imageFile) {
-    var Texture = THREE.ImageUtils.loadTexture("../assets/Textures/general/" + imageFile);
+    var Texture = THREE.ImageUtils.loadTexture("/Content/textures/general/" + imageFile);
     var mat = new THREE.MeshPhongMaterial();
     mat.map = Texture;
 
@@ -617,7 +617,7 @@ btn_upd.onclick = function () {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -652,7 +652,7 @@ btn_upd.onclick = function () {
 
 btn_del.onclick = function () {
 
-    var Name = previousObject.name;
+    var Name = previousObject.Name;
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
@@ -724,7 +724,7 @@ function dodajPregrade() {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -773,7 +773,7 @@ function dodajFioke() {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -843,7 +843,7 @@ function dodajVrata() {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -997,7 +997,7 @@ $(document).on("click", "#new_texture", function (event) {
 
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.name) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
             break;
@@ -1028,6 +1028,39 @@ $(document).on("click", "#new_texture", function (event) {
 
     objectsOnScene.push(selected);
 });
+
+function changeTexture(num) {
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
+    scene.remove(previousObject);
+
+    var image = "/box/w" + num + ".jpg" 
+    selected.Texture = image;
+
+    var pomerajX = selected.PositionX;
+    var pomerajY = selected.PositionY;
+    var pomerajZ = selected.PositionZ;
+
+    selected.PositionX += selected.globalX;
+    selected.PositionY += selected.globalY;
+    selected.PositionZ += selected.globalZ;
+
+    selected.globalX += pomerajX;
+    selected.globalY += pomerajY;
+    selected.globalZ += pomerajZ;
+
+    var obj = selected.CreateGeometry();
+    scene.add(obj);
+    objects.push(obj);
+
+    objectsOnScene.push(selected);
+}
 
 
 function stopClicks() {
