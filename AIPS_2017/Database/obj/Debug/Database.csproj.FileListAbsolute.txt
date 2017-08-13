@@ -14,3 +14,4 @@ E:\AIPS\aips\AIPS_2017\Database\bin\Debug\Database.exe
 E:\AIPS\aips\AIPS_2017\Database\bin\Debug\Database.pdb
 E:\AIPS\aips\AIPS_2017\Database\obj\Debug\Database.exe
 E:\AIPS\aips\AIPS_2017\Database\obj\Debug\Database.pdb
+E:\AIPS\aips\AIPS_2017\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
