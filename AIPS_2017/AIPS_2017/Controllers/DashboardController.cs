@@ -30,7 +30,7 @@ namespace AIPS_2017.Controllers
             return Json(new { success = 1 }, JsonRequestBehavior.AllowGet);
         }
 
-        public void nesto()
+        public void promena()
         {
 
         }

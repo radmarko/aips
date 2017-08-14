@@ -89,15 +89,15 @@ namespace AIPS_2017.Hubs
         public void Join(int planId, int userId, int masterId)
         {
             if (userId == masterId)
-                MasterClick(planId, Rooms[planId], masterId);
+                MasterClick(planId, Rooms[planId]);
             else
                 JoinedUserClick(masterId, planId, userId);
         }
 
-        public void MasterClick(int planId, Queue<int> queue, int masterId)
+        public void MasterClick(int planId, Queue<int> queue)
         {
             int[] niz = queue.ToArray();
-            Clients.All.toDashboard(planId, niz, masterId);
+            Clients.All.toDashboard(planId, niz);
         }
 
         public void JoinedUserClick(int masterId, int planId, int userId)
