@@ -317,9 +317,9 @@ function onDocumentMouseDown(event) {
         document.getElementById("item-height").value = selected.Height;
         document.getElementById("item-debljina").value = selected.BoardThickness;
         document.getElementById("context-menu-name").text = selected.Name;
-        document.getElementById("item-posX").value = selected.PositionX;
-        document.getElementById("item-posY").value = selected.PositionY;
-        document.getElementById("item-posZ").value = selected.PositionZ;
+        //document.getElementById("item-posX").value = selected.PositionX;
+        //document.getElementById("item-posY").value = selected.PositionY;
+        //document.getElementById("item-posZ").value = selected.PositionZ;
         //$("#myModal").modal();
 
     }
@@ -391,9 +391,9 @@ function ObjectMouseDown(x, y) {
         document.getElementById("item-height").value = selected.Height;
         document.getElementById("item-debljina").value = selected.BoardThickness;
         document.getElementById("context-menu-name").text = selected.Name;
-        document.getElementById("item-posX").value = selected.PositionX;
-        document.getElementById("item-posY").value = selected.PositionY;
-        document.getElementById("item-posZ").value = selected.PositionZ;
+        //document.getElementById("item-posX").value = selected.PositionX;
+        //document.getElementById("item-posY").value = selected.PositionY;
+        //document.getElementById("item-posZ").value = selected.PositionZ;
         //$("#myModal").modal();
 
     }
@@ -544,9 +544,9 @@ function onmouseup(event) {
     }
 
     if (selectedObject != null) {
-        document.getElementById("item-posX").value = selectedObject.position.x;
-        document.getElementById("item-posY").value = selectedObject.position.y;
-        document.getElementById("item-posZ").value = selectedObject.position.z;
+        //document.getElementById("item-posX").value = selectedObject.position.x;
+        //document.getElementById("item-posY").value = selectedObject.position.y;
+        //document.getElementById("item-posZ").value = selectedObject.position.z;
 
         selected.PositionX = selectedObject.position.x;
         selected.PositionY = selectedObject.position.y;
@@ -586,9 +586,9 @@ function ObjectMouseUp(x, y) {
     y = y * window.innerHeight; 
 
     if (selectedObject == null) return;
-    document.getElementById("item-posX").value = selectedObject.position.x;
-    document.getElementById("item-posY").value = selectedObject.position.y;
-    document.getElementById("item-posZ").value = selectedObject.position.z;
+    //document.getElementById("item-posX").value = selectedObject.position.x;
+    //document.getElementById("item-posY").value = selectedObject.position.y;
+    //document.getElementById("item-posZ").value = selectedObject.position.z;
 
     selected.PositionX = selectedObject.position.x;
     selected.PositionY = selectedObject.position.y;
