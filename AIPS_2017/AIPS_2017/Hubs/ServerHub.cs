@@ -10,7 +10,7 @@ namespace AIPS_2017.Hubs
 {
     public class ServerHub : Hub
     {
-        public static Dictionary<int, Queue<int>> Rooms = new Dictionary<int, Queue<int>>();
+        public static Dictionary<int, Queue<int>> Rooms = Plans.CreateRooms();
 
         public void AddUserToRoom(int SceneId, int UserId)
         {

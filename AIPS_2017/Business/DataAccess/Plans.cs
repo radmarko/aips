@@ -136,5 +136,39 @@ namespace Business.DataAccess
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static Dictionary<int, Queue<int>> CreateRooms()
+        {
+            Dictionary<int, Queue<int>> Rooms = new Dictionary<int, Queue<int>>();
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var plans =
+                    (from p in db.Plans
+                     select p);
+
+                foreach (Plan plan in plans)
+                {
+                    Queue<int> queue = new Queue<int>();
+                    queue.Enqueue(plan.UserId); //master
+
+                    foreach (UserDTO user in UserPlans.JoinedUsers(plan.Id))
+                    {
+                        queue.Enqueue(user.Id);
+                    }
+
+                    Rooms.Add(plan.Id, queue);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return Rooms;
+        }
+
     }
 }
