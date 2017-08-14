@@ -69,10 +69,10 @@ function init() {
     clock = new THREE.Clock();
     orbitControls.update();
 
-    camera.position.x = -20;
+    camera.position.x = 0;
     camera.position.y = 30;
-    camera.position.z = 40;
-    camera.lookAt(new THREE.Vector3(0, 0, 50));
+    camera.position.z = 50;
+    camera.lookAt(new THREE.Vector3(0, 200, 50));
 
     addSpotLights();
 
@@ -97,45 +97,47 @@ function init() {
         map: floorTex
     }));
     floor.rotation.x += 3.14 / 2;
-
+    floor.position.z += 25;
     //zid1
     var wallTex = THREE.ImageUtils.loadTexture("/Content/textures/general/wallmap_yellow.png");
-    var wall = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 20, 300), new THREE.MeshPhongMaterial({
+    var wall = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 30, 300), new THREE.MeshPhongMaterial({
         map: wallTex
     }));
 
     wall.rotation.x += 3.14 / 2;
     wall.position.z += 50;
-    wall.position.y += 10;
+    wall.position.y += 15;
 
     //zid2
-    var wall2 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 20, 300), new THREE.MeshPhongMaterial({
+    var wall2 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 30, 300), new THREE.MeshPhongMaterial({
         map: wallTex
     }));
 
     wall2.rotation.x -= 3.14 / 2;
     wall2.position.z -= 22.5;
-    wall2.position.y += 10;
+    wall2.position.y += 15;
 
     //zid3
-    var wall3 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 20, 300), new THREE.MeshPhongMaterial({
+    var wall3 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 30, 300), new THREE.MeshPhongMaterial({
         map: wallTex
     }));
 
     wall3.rotation.x -= 3.14 / 2;
     wall3.rotation.z += 3.14 / 2;
     wall3.position.x -= 50;
-    wall3.position.y += 10;
+    wall3.position.y += 15;
+    wall3.position.z += 25;
 
     //zid4
-    var wall4 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 20, 300), new THREE.MeshPhongMaterial({
+    var wall4 = new THREE.Mesh(new THREE.BoxGeometry(100, 5, 30, 300), new THREE.MeshPhongMaterial({
         map: wallTex
     }));
 
     wall4.rotation.x -= 3.14 / 2;
     wall4.rotation.z += 3.14 / 2;
     wall4.position.x += 50;
-    wall4.position.y += 10;
+    wall4.position.y += 15;
+    wall4.position.z += 25;
 
 	/*floor.position.y  -= 20;
 	wall2.position.y  -= 20;
