@@ -59,6 +59,16 @@ namespace AIPS_2017.Hubs
             Clients.Others.deleteBox(getParameter); 
         }
 
+        public void ChangeTexture(int getParameter, int num)
+        {
+            Clients.All.changeTexture(getParameter, num);
+        }
+
+        public void UpdateBox(int getParameter, float width, float height, float depth, float thickness)
+        {
+            Clients.Others.updateBox(getParameter, width, height, depth, thickness);
+        }
+
         //manevracije objektima
         public void MouseDownObject(float x, float y, int getParameter)
         {

@@ -173,62 +173,62 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(1)" class="img-responsive" src="~/Content/textures/box/w1.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w1.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(2)" class="img-responsive" src="~/Content/textures/box/w2.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w2.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(3)" class="img-responsive" src="~/Content/textures/box/w3.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w3.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(4)" class="img-responsive" src="~/Content/textures/box/w4.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w4.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(6)" class="img-responsive" src="~/Content/textures/box/w6.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w6.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(5)" class="img-responsive" src="~/Content/textures/box/w5.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w5.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(7)" class="img-responsive" src="~/Content/textures/box/w7.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w7.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(8)" class="img-responsive" src="~/Content/textures/box/w8.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w8.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(9)" class="img-responsive" src="~/Content/textures/box/w9.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w9.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(10)" class="img-responsive" src="~/Content/textures/box/w10.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w10.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(11)" class="img-responsive" src="~/Content/textures/box/w11.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w11.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img onclick="changeTexture(12)" class="img-responsive" src="~/Content/textures/box/w12.jpg" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w12.jpg" alt="">
                         </a>
                     </div>
                 </div>
@@ -314,6 +314,20 @@
                         $.connection.serverHub.server.deleteBox('@Request["id"]');
                     });
 
+                    $.each($('.slika'), function (index, slika) {
+                        slika.onclick = function () {
+                            $.connection.serverHub.server.changeTexture('@Request["id"]', index + 1);
+                        };
+                    });
+
+                    $('#btn_upd').click(function () {
+                        var width = parseFloat(document.getElementById("item-width").value);
+                        var height = parseFloat(document.getElementById("item-height").value);
+                        var depth = parseFloat(document.getElementById("item-depth").value);
+                        var thickness = parseFloat(document.getElementById("item-debljina").value);
+                        $.connection.serverHub.server.updateBox('@Request["id"]', width, height, depth, thickness);
+                    });
+
                     //pozivanje funkcije servera
                     $('#WebGL-output').mousedown(function (e) {
                         $.connection.serverHub.server.mouseDownObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
@@ -353,6 +367,16 @@
                 $.connection.serverHub.client.deleteBox = function (getParameter) {
                     if (@Request["id"] == getParameter)
                         deleteBox();
+                };
+
+                $.connection.serverHub.client.changeTexture = function (getParameter, num) {
+                    if (@Request["id"] == getParameter)
+                        changeTexture(num);
+                };
+
+                $.connection.serverHub.client.updateBox = function (getParameter, width, height, depth, thickness) {
+                    if (@Request["id"] == getParameter)
+                        updateBox(width, height, depth, thickness);
                 };
 
                 //manevracije objektom

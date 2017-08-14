@@ -167,7 +167,7 @@ function animate() {
 
     webGLRenderer.render(scene, camera);
     var delta = clock.getDelta();
-    //orbitControls.update(delta);
+    orbitControls.update(delta);
 }
 
 
@@ -633,6 +633,7 @@ btn_upd.onclick = function () {
         if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
+            objects.splice(i, 1);
             break;
         }
     }
@@ -663,6 +664,48 @@ btn_upd.onclick = function () {
     objectsOnScene.push(selected);
 }
 
+
+function updateBox(width, height, depth, debljina) {
+
+    var o;
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name == previousObject.Name) {
+            o = objectsOnScene[i];
+            objectsOnScene.splice(i, 1);
+            objects.splice(i, 1);
+            break;
+        }
+    }
+    scene.remove(previousObject);
+
+    selected.Width = width;
+    selected.Height = height;
+    selected.Depth = depth;
+    selected.BoardThickness = debljina;
+
+    var pomerajX = selected.PositionX;
+    var pomerajY = selected.PositionY;
+    var pomerajZ = selected.PositionZ;
+
+    selected.PositionX += selected.globalX;
+    selected.PositionY += selected.globalY;
+    selected.PositionZ += selected.globalZ;
+
+    selected.globalX += pomerajX;
+    selected.globalY += pomerajY;
+    selected.globalZ += pomerajZ;
+
+    var obj = selected.CreateGeometry();
+
+    scene.add(obj);
+    objects.push(obj);
+
+    objectsOnScene.push(selected);
+}
+
+
+
+
 btn_del.onclick = function () {
 
     deleteBox();
@@ -677,6 +720,7 @@ function deleteBox()
         if (objectsOnScene[i].Name == Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
+            objects.splice(i, 1);
             break;
         }
     }
@@ -1219,6 +1263,7 @@ function changeTexture(num) {
         if (objectsOnScene[i].Name == previousObject.Name) {
             o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
+            objects.splice(i, 1);
             break;
         }
     }
@@ -1245,6 +1290,12 @@ function changeTexture(num) {
 
     objectsOnScene.push(selected);
 }
+
+$.each($('.slika'), function (index, slika) {
+    slika.onclick = function () {
+        changeTexture(index + 1);
+    };
+});
 
 
 function stopClicks() {
