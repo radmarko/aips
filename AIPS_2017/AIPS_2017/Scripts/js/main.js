@@ -338,78 +338,6 @@ function onDocumentMouseDown(event) {
 	}*/
 }
 
-//start ObjectMouseDown
-function ObjectMouseDown(x, y) {
-    var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
-    //var vector = new THREE.Vector3((event.clientX / host.outerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
-
-    vector = vector.unproject(camera);
-    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    //var intersects = raycaster.intersectObjects([plane1, plane2, plane3, plane4, plane5]);
-
-
-    var intersects = raycaster.intersectObjects(objects);
-    if (intersects.length > 0) {
-		/*
-		intersects[ 0 ].object.material.transparent = true;
-		intersects[ 0 ].object.material.opacity = 0.1;
-		var name  = intersects[ 0 ].object.name;
-		var o;
-		for(var i = 0; i < objectsOnScene.length; i++)
-		{
-			if(objectsOnScene[i].name == name){
-				o = objectsOnScene[i];
-				break;
-			}
-		}
-		*/
-        orbitControls.enabled = false;
-        // the first one is the object we'll be moving around
-        selectedObject = intersects[0].object;
-        // and calculate the offset
-        var intersects = raycaster.intersectObject(plane);
-        offset.copy(intersects[0].point).sub(plane.position);
-
-        var name = selectedObject.Name;
-
-        for (var i = 0; i < objectsOnScene.length; i++) {
-            if (objectsOnScene[i].Name == name) {
-                selected = objectsOnScene[i];
-                indexOfSelected = i;
-                break;
-            }
-        }
-
-        document.getElementById("item-width").value = selected.Width;
-        document.getElementById("item-depth").value = selected.Depth;
-        document.getElementById("item-height").value = selected.Height;
-        document.getElementById("item-debljina").value = selected.BoardThickness;
-        document.getElementById("context-menu-name").text = selected.Name;
-        document.getElementById("item-posX").value = selected.PositionX;
-        document.getElementById("item-posY").value = selected.PositionY;
-        document.getElementById("item-posZ").value = selected.PositionZ;
-        //$("#myModal").modal();
-
-    }
-    /*else {
-        var intersects = raycaster.intersectObjects([red]);
-        if (intersects.length > 0) {
-            previousObject.rotation.z += 3.14 / 2;
-        }
-
-        var intersects = raycaster.intersectObjects([green]);
-        if (intersects.length > 0) {
-            previousObject.rotation.x += 3.14 / 2;
-        }
-
-        var intersects = raycaster.intersectObjects([blue]);
-        if (intersects.length > 0) {
-            previousObject.rotation.y += 3.14 / 2;
-        }
-    }*/
-}
-//end ObjectMouseDown
-
 function onDocumentMouseMove(event) {
 
     if (blockedClicks) {
@@ -470,61 +398,6 @@ function onDocumentMouseMove(event) {
 
 }
 
-//start ObjectMouseMove
-function ObjectMouseMove(x, y) {
-
-    var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
-
-    vector = vector.unproject(camera);
-
-    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-
-    /*
-    var intersects = raycaster.intersectObjects(objects);
-
-    if (intersects.length > 0) {
-
-        var points = [];
-        points.push(new THREE.Vector3(-20, 30, 40));
-        points.push(intersects[0].point);
-
-        var mat = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity: 0.6});
-        var tubeGeometry = new THREE.TubeGeometry(new THREE.SplineCurve3(points), 60, 0.1);
-
-        if (tube) scene.remove(tube);
-    	
-        if (controls.showRay)
-        {
-            tube = new THREE.Mesh(tubeGeometry, mat);
-            scene.add(tube);
-        }
-    	
-    }
-    */
-
-    if (selectedObject) {
-        // check the position where the plane is intersected
-        var intersects = raycaster.intersectObject(plane);
-        // reposition the selectedobject based on the intersection with the plane
-        selectedObject.position.copy(intersects[0].point.sub(offset));
-    } else {
-        // if we haven't selected an object, we check if we might need
-        // to reposition our plane. We need to do this here, since
-        // we need to have this position before the onmousedown
-        // to calculate the offset.
-        var intersects = raycaster.intersectObjects(objects);
-        if (intersects.length > 0) {
-            // now reposition the plane to the selected objects position
-            plane.position.copy(intersects[0].object.position);
-            // and align with the camera.
-            //plane.lookAt(camera.position);
-        }
-    }
-
-    event.preventDefault();
-
-}
-//end ObjectMouseMove
 
 function onmouseup(event) {
 
@@ -571,45 +444,6 @@ function onmouseup(event) {
         selectedObject = null;
     }
 }
-
-//start ObjectMouseUp
-function ObjectMouseUp(x, y) {
-    if (selectedObject == null) return;
-    document.getElementById("item-posX").value = selectedObject.position.x;
-    document.getElementById("item-posY").value = selectedObject.position.y;
-    document.getElementById("item-posZ").value = selectedObject.position.z;
-
-    selected.PositionX = selectedObject.position.x;
-    selected.PositionY = selectedObject.position.y;
-    selected.PositionZ = selectedObject.position.z;
-
-    var name = selected.Name;
-
-    //brise iz niza na sceni
-    var o;
-    for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == name) {
-            o = objectsOnScene[i];
-            objectsOnScene.splice(i, 1);
-            break;
-        }
-    }
-
-    //dodaje azurirani
-    objectsOnScene.push(selected);
-
-    /*var rad = radius(selected.sirina / 2, selected.visina / 2, selected.dubina / 2);
-
-    scene.remove(red);
-    scene.remove(green);
-    scene.remove(blue);
-    circles(rad, selected.posX, selected.posY, selected.posZ);*/
-
-    orbitControls.enabled = true; //orbitControls su za rotiranje
-    previousObject = selectedObject;
-    selectedObject = null;
-}
-//end ObjectMouseUp
 
 init();
 animate();
@@ -800,12 +634,9 @@ function dodajFioke() {
                 //var obj = createMesh(mesh, "wood-2.jpg");
                 previousObject.add(mesh);
                 //meshes.push(mesh);
-                //tmp[i] = checks[i].firstChild.checked;
-                tmp[i] = true;
+                tmp[i] = checks[i].firstChild.checked;
                 selected.nizFioka.push(f);
             }
-            else
-                tmp[i] = false;
         }
     }
     else {
@@ -823,12 +654,9 @@ function dodajFioke() {
                 //var obj = createMesh(mesh, "wood-2.jpg");
                 previousObject.add(mesh);
                 //meshes.push(mesh);
-                //tmp[i] = checks[i].firstChild.checked;
-                tmp[i] = true;
+                tmp[i] = checks[i].firstChild.checked;
                 selected.nizFioka.push(f);
             }
-            else
-                tmp[i] = false;
         }
 
     }
@@ -869,8 +697,6 @@ function dodajVrata() {
                 tmp[i] = checks[i].firstChild.checked;
                 selected.nizVrata.push(v);
             }
-            else
-                tmp[i] = false;
         }
 
     }
@@ -890,8 +716,6 @@ function dodajVrata() {
                 tmp[i] = checks[i].firstChild.checked;
                 selected.nizVrata.push(v);
             }
-            else
-                tmp[i] = false;
         }
     }
     selected.pozicije_vrata = tmp;

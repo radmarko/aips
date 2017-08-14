@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AIPS2017_Database" Class="databaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=PEDJA-PC\SQLEXPRESS;Initial Catalog=AIPS2017_Database;Integrated Security=True" SettingsObjectName="Database.Properties.Settings" SettingsPropertyName="AIPS2017_DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-ACOJ5D6\SQLEXPRESS;Initial Catalog=AIPS2017_Database;Integrated Security=True" SettingsObjectName="Database.Properties.Settings" SettingsPropertyName="AIPS2017_DatabaseConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Board" Member="Boards">
     <Type Name="Board">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
