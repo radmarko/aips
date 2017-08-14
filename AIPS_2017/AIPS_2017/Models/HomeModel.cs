@@ -34,6 +34,17 @@ namespace AIPS_2017.Models
             return Plans.ReadAll();
         }
 
+        public UserDTO ReturnMaster(int planId)
+        {
+            PlanDTO plan = Plans.Read(planId);
+            return Users.Read(plan.UserId);
+        }
+
+        public List<UserDTO> ReturnJoined(int planId)
+        {
+            return UserPlans.JoinedUsers(planId);
+        }
+
         public string UsernameUserPlan(int planId)
         {
             PlanDTO plan = Plans.Read(planId);

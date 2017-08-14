@@ -136,5 +136,34 @@ namespace Business.DataAccess
                 Console.WriteLine(e.Message);
             }
         }
+
+        public static List<UserDTO> JoinedUsers(int planId)
+        {
+            List<UserDTO> users = new List<UserDTO>(); ;
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from up in db.UserPlans
+                     where up.PlanId == planId
+                     select up.UserId);
+
+                foreach (int userId in find)
+                {
+                    UserDTO user = Users.Read(userId);
+
+                    users.Add(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return users;
+        }
+
     }
 }

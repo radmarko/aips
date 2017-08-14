@@ -35,7 +35,7 @@
     <link href="~/Content/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 
-<body style="background-image: url(http://e-partenaire.com/wp-content/uploads/2016/10/incredible-awesome-design-your-home-interior-what-is-interior-classic-home-interior-designing.jpg);">
+<body style="background-image: url('../../Content/img/home/home.jpg');">
 
     <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px; opacity:1; background-color: white;">
         <div class="container-fluid" style="padding-top:0px; padding-bottom:0px;">
@@ -135,22 +135,37 @@
                         </div>
                         <div id=@planovi[i].Id class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div>
-                                    <a style="font-size:large;" class="list-group-item active">Nikola Ranković</a>
-                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
+                                <div id="AddUsersToList@(planovi[i].Id)">
+                                    @*aktivan je master*@
+                                    <a style="font-size:large;" class="list-group-item active">@Model.ReturnMaster(planovi[i].Id).FirstName @Model.ReturnMaster(planovi[i].Id).LastName</a>
+                                    @*ostali su se pridruzili*@
+                                    @foreach (var user in Model.ReturnJoined(planovi[i].Id))
+                                    {
+                                        <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">@user.FirstName @user.LastName</a>
+                                    }
+                                    @*<a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Čukalović</a>
                                     <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Marko Radosavljević</a>
-                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>
+                                    <a style="font-size:large; background-color: #c7d2de;" class="list-group-item">Predrag Nikolić</a>*@
                                 </div>
                             </div>
                             <div class="panel-footer">
-                                <button onclick="joinRoom(@planovi[i].Id, @Model.UserId, @planovi[i].UserId)" id="#join@planovi[i].Id"style="color: white; background-color: #337ab7; font-size: large;" class="btn btn-block">Join This Room</button>
+                                <button @*onclick="joinRoom(@planovi[i].Id, @Model.UserId, @planovi[i].UserId)"*@ id="JoinRoomButton@(planovi[i].Id)" style="color: white; background-color: #337ab7; font-size: large;" class="btn btn-block">Join This Room</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <script>
+                    $('#JoinRoomButton' + '@planovi[i].Id').click(function () {
+                        $.connection.serverHub.server.join('@planovi[i].Id', '@Model.UserId', '@planovi[i].UserId');
+                    });
+                </script>
+
+
             }
             
-            <div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
+            @*<div style="opacity:0.93; display: inline-block; width:75%;" class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title ">
@@ -217,7 +232,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
             
         </div>
@@ -228,30 +243,126 @@
 
     <script>
 
-        function joinRoom(planId, userId, masterId) {
-            if (userId == masterId) {
+        //function joinRoom(planId, userId, masterId) {
+        //    if (userId == masterId) {
+        //        //login u sobu
 
-            }
-            else {
-
-            }
-        }
+        //    }
+        //    else {
+        //        //dodavanje clana
+        //    }
+        //}
 
         $.connection.hub.start().done(function () {
             $('#AddingRoomButton').click(function () {
-                $.connection.serverHub.server.addRoom('@Model.UserId.ToString()', $("#RoomToAdd").val());
+                //window.location.href = "/Dashboard/AddUserToRoom/?SceneId=" + sceneId + "&UserId=" + "Model.UserId"; //dodavanje u dictionary
+                $.connection.serverHub.server.addRoom('@Model.UserId', $("#RoomToAdd").val());
             });
+
+
 
         });
 
-        $.connection.serverHub.client.addRoom = function (planId, name) {
-            AddRoom(planId, name)
+        $.connection.serverHub.client.addRoom = function (planId, name, firstName, lastName, userId) {
+            AddRoom(planId, name, firstName, lastName, userId)
         };
 
 
-        function AddRoom(planId, name)
+
+        $.connection.serverHub.client.joinRoom = function (planId, firstName, lastName) {
+            var a = $('<a></a>', {
+                style: 'font-size:large; background-color: #c7d2de;',
+                class: 'list-group-item',
+                text: firstName + " " + lastName
+            });
+
+            $("#AddUsersToList" + planId).append(a);
+        };
+
+
+
+        $.connection.serverHub.client.toDashboard = function (planId, niz, masterId) {
+            if ($.inArray(masterId, niz) != -1)
+                location.href = '@Url.Action("Dashboard", "Dashboard")?id=' + planId + '&UserId=' + '@Model.UserId' + '&Status=' + '@Model.Status' + '&Name=' + '@Model.Name';
+        };
+
+
+        function AddRoom(planId, name, firstName, lastName, userId)
         {
-            $.ajax({
+            var div1 = $('<div></div>', {
+                style: 'opacity:0.93; display: inline-block; width:75%;',
+                class: 'panel-group'
+            });
+
+            var div2 = $('<div></div>', {
+                class: 'panel panel-default'
+            });
+            div1.append(div2);
+
+            var div3 = $('<div></div>', {
+                class: 'panel-heading'
+            });
+            div2.append(div3);
+
+            var h4 = $('<h4></h4>', {
+                class: 'panel - title'
+            });
+            div3.append(h4);
+
+            var a1 = $('<a></a>', {
+                class: 'panel-title btn-block',
+                style: 'font-size: xx-large; color: #337ab7;',
+                text: name
+            });
+            a1.attr("data-toggle", "collapse");
+            a1.attr("href", "#" + planId);
+            a1.attr("aria-expanded", true);
+            h4.append(a1);
+
+            var div4 = $('<div></div>', {
+                class: 'panel-collapse collapse',
+                id: planId
+            });
+            div2.append(div4);
+
+            var div5 = $('<div></div>', {
+                class: 'panel-body',
+            });
+            div4.append(div5);
+
+            var div6 = $('<div></div>', {
+                id: "AddUsersToList" + planId
+            });
+
+            var a2 = $('<a></a>', {
+                class: 'list-group-item active',
+                style: 'font-size:large;',
+                text: firstName + " " + lastName
+            });
+            div6.append(a2);
+            div5.append(div6);
+
+            var div7 = $('<div></div>', {
+                class: 'panel-footer',
+            });
+
+            var button = $('<button></button>', {
+                id: "JoinRoomButton" + planId,
+                style: 'color: white; background-color: #337ab7; font-size: large;',
+                class: 'btn btn-block',
+                text: "Join This Room"
+            });
+            div7.append(button);
+            div4.append(div7);
+
+            button.click(function () {
+                $.connection.serverHub.server.join(planId, '@Model.UserId', userId);
+            });
+
+
+
+            $("#rooms").append(div1);
+            @*$.ajax({
                 data: {},
                 datatype: 'json',
                 success: function (data) {
@@ -326,7 +437,7 @@
                 error: function () {
                     alert("error");
                 }
-            });
+            });*@
         }
 
     </script >
