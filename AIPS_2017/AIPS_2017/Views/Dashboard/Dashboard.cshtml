@@ -287,7 +287,7 @@
 
                     //dodavanje objekata
                     $('#dodajPregrade').click(function () {
-                        $.connection.serverHub.server.drawBoard('@Request["id"]');
+                        $.connection.serverHub.server.drawBoard('@Request["id"]', $("#brojPregrada").val(), document.getElementById("pregradeVertikalno").checked);
                     });
 
                     $('#kutija').click(function () {
@@ -295,32 +295,44 @@
                     });
 
                     $('#dodajFioke').click(function () {
-                        $.connection.serverHub.server.drawDrawer('@Request["id"]');
+                        var nodes = document.getElementById("FiokeContainer").childNodes;
+                        var niz = [];
+                        for (var i = 0; i < nodes.length; i++)
+                            niz.push(nodes[i].firstChild.checked);
+                        $.connection.serverHub.server.drawDrawer('@Request["id"]', niz);
                     });
 
                     $('#dodajVrata').click(function () {
-                        $.connection.serverHub.server.drawDoor('@Request["id"]');
+                        var nodes = document.getElementById("VrataContainer").childNodes;
+                        var niz = [];
+                        for (var i = 0; i < nodes.length; i++)
+                            niz.push(nodes[i].firstChild.checked);
+                        $.connection.serverHub.server.drawDoor('@Request["id"]', niz);
+                    });
+
+                    $('#context-menu-delete').click(function () {
+                        $.connection.serverHub.server.deleteBox('@Request["id"]');
                     });
 
                     //pozivanje funkcije servera
                     $('#WebGL-output').mousedown(function (e) {
-                        $.connection.serverHub.server.mouseDownObject(e.clientX, e.clientY, '@Request["id"]');
+                        $.connection.serverHub.server.mouseDownObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
                     });
 
                     $('#WebGL-output').mousemove(function (e) {
-                        $.connection.serverHub.server.mouseMoveObject(e.clientX, e.clientY, '@Request["id"]');
+                        $.connection.serverHub.server.mouseMoveObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
                     });
 
                     $('#WebGL-output').mouseup(function (e) {
-                        $.connection.serverHub.server.mouseUpObject(e.clientX, e.clientY, '@Request["id"]');
+                        $.connection.serverHub.server.mouseUpObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
                     });
 
                 });
 
                 //odgovor klijenta na dodavanje objekta
-                $.connection.serverHub.client.drawBoard = function (getParameter) {
+                $.connection.serverHub.client.drawBoard = function (getParameter, brojPregrada, vertikalno) {
                     if (@Request["id"] == getParameter)
-                        dodajPregrade();
+                        dodajPregradeSignalR(brojPregrada, vertikalno);
                 };
 
                 $.connection.serverHub.client.drawBox = function (getParameter) {
@@ -328,14 +340,19 @@
                         addKutija();
                 };
 
-                $.connection.serverHub.client.drawDrawer = function (getParameter) {
+                $.connection.serverHub.client.drawDrawer = function (getParameter, niz) {
                     if (@Request["id"] == getParameter)
-                        dodajFioke();
+                        dodajFiokeSignalR(niz);
                 };
 
-                $.connection.serverHub.client.drawDoor = function (getParameter) {
+                $.connection.serverHub.client.drawDoor = function (getParameter, niz) {
                     if (@Request["id"] == getParameter)
-                        dodajVrata();
+                        dodajVrataSignalR(niz);
+                };
+
+                $.connection.serverHub.client.deleteBox = function (getParameter) {
+                    if (@Request["id"] == getParameter)
+                        deleteBox();
                 };
 
                 //manevracije objektom

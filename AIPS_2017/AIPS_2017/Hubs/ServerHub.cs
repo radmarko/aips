@@ -34,9 +34,9 @@ namespace AIPS_2017.Hubs
         }
 
         //dodavanje objekata
-        public void DrawBoard(int getParameter)
+        public void DrawBoard(int getParameter, int brojPregrada, bool vertikalno)
         {
-            Clients.Others.drawBoard(getParameter); //daska
+            Clients.Others.drawBoard(getParameter, brojPregrada, vertikalno); //daska
         }
 
         public void DrawBox(int getParameter)
@@ -44,28 +44,33 @@ namespace AIPS_2017.Hubs
             Clients.Others.drawBox(getParameter); //kutija
         }
 
-        public void DrawDrawer(int getParameter)
+        public void DrawDrawer(int getParameter, bool[] niz)
         {
-            Clients.Others.drawDrawer(getParameter); //fioka
+            Clients.Others.drawDrawer(getParameter, niz); //fioka
         }
 
-        public void DrawDoor(int getParameter)
+        public void DrawDoor(int getParameter, bool[] niz)
         {
-            Clients.Others.drawDoor(getParameter); //vrata
+            Clients.Others.drawDoor(getParameter, niz); //vrata
+        }
+        
+        public void DeleteBox(int getParameter)
+        {
+            Clients.Others.deleteBox(getParameter); 
         }
 
         //manevracije objektima
-        public void MouseDownObject(int x, int y, int getParameter)
+        public void MouseDownObject(float x, float y, int getParameter)
         {
             Clients.Others.mouseDownObject(x, y, getParameter);
         }
 
-        public void MouseMoveObject(int x, int y, int getParameter)
+        public void MouseMoveObject(float x, float y, int getParameter)
         {
             Clients.Others.mouseMoveObject(x, y, getParameter);
         }
 
-        public void MouseUpObject(int x, int y, int getParameter)
+        public void MouseUpObject(float x, float y, int getParameter)
         {
             Clients.Others.mouseUpObject(x, y, getParameter);
         }
