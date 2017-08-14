@@ -54,7 +54,7 @@
                     <span class="icon-bar" style="background-color:#337ab7;"></span>
                 </button>
                 <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Supellex </a>
-                <a id="crtac" class="navbar-brand" href="#" style="margin-left:25vw; color:#337ab7;"> Predrag Cukalovic is drawing</a>
+                <a id="crtac" class="navbar-brand" href="#" style="margin-left:25vw; color:#337ab7;"></a>
                 
             </div>
 
@@ -295,6 +295,12 @@
             <script>
                 $.connection.hub.start().done(function () {
 
+                    if ('@Model.UserId' == '@Model.MasterId')
+                    {
+                        $.connection.serverHub.server.returnMaster('@Request["id"]');
+                        $.connection.serverHub.server.denyWrite('@Request["id"]');
+                    }
+
                     //dodavanje objekata
                     $('#dodajPregrade').click(function () {
                         $.connection.serverHub.server.drawBoard('@Request["id"]', $("#brojPregrada").val(), document.getElementById("pregradeVertikalno").checked);
@@ -354,6 +360,20 @@
                 });
 
                 //odgovor klijenta na dodavanje objekta
+                $.connection.serverHub.client.returnMaster = function (getParameter, firstName, lastName) {
+                    if (@Request["id"] == getParameter)
+                        $("#crtac").html(firstName + " " + lastName + " is drawing");
+                };
+
+                $.connection.serverHub.client.denyWrite = function (getParameter) {
+                    if (@Request["id"] == getParameter)
+                    {
+                        stopClicks();
+                    }
+                        
+                    
+                };
+
                 $.connection.serverHub.client.drawBoard = function (getParameter, brojPregrada, vertikalno) {
                     if (@Request["id"] == getParameter)
                         dodajPregradeSignalR(brojPregrada, vertikalno);

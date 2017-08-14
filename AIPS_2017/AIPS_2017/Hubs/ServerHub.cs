@@ -33,6 +33,19 @@ namespace AIPS_2017.Hubs
             }
         }
 
+        public void ReturnMaster(int getParameter)
+        {
+            UserDTO user = Users.Read(Rooms[getParameter].ElementAt(0));
+            System.Threading.Thread.Sleep(2000);
+            Clients.All.returnMaster(getParameter, user.FirstName, user.LastName);
+        }
+
+        public void DenyWrite(int getParameter)
+        {
+            System.Threading.Thread.Sleep(2000);
+            Clients.Others.denyWrite(getParameter);
+        }
+
         //dodavanje objekata
         public void DrawBoard(int getParameter, int brojPregrada, bool vertikalno)
         {
@@ -104,15 +117,15 @@ namespace AIPS_2017.Hubs
         public void Join(int planId, int userId, int masterId)
         {
             if (userId == masterId)
-                MasterClick(planId, Rooms[planId]);
+                MasterClick(planId, Rooms[planId], masterId);
             else
                 JoinedUserClick(masterId, planId, userId);
         }
 
-        public void MasterClick(int planId, Queue<int> queue)
+        public void MasterClick(int planId, Queue<int> queue, int masterId)
         {
             int[] niz = queue.ToArray();
-            Clients.All.toDashboard(planId, niz);
+            Clients.All.toDashboard(planId, niz, masterId);
         }
 
         public void JoinedUserClick(int masterId, int planId, int userId)

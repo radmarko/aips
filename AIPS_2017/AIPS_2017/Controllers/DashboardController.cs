@@ -15,10 +15,11 @@ namespace AIPS_2017.Controllers
         //    return View();
         //}
 
-        public ActionResult Dashboard(int id, int UserId, string Status, string Name)
+        public ActionResult Dashboard(int id, int UserId, string Status, string Name, int masterId)
         {
             HomeModel model = new HomeModel(UserId, Status, Name);
             model.PlanId = id;
+            model.MasterId = masterId;
             return View(model);
         }
 

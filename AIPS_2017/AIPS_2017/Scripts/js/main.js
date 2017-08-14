@@ -346,6 +346,13 @@ function ObjectMouseDown(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
 
+    if (blockedClicks) {
+        mousedownEvent = event;
+        event.stopPropagation();
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
     var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
     //var vector = new THREE.Vector3((event.clientX / host.outerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
 
@@ -481,6 +488,13 @@ function ObjectMouseMove(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
 
+    if (blockedClicks) {
+        mousemoveEvent = event;
+        event.stopPropagation();
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
     var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
 
     vector = vector.unproject(camera);
@@ -584,6 +598,13 @@ function onmouseup(event) {
 function ObjectMouseUp(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
+
+    if (blockedClicks) {
+        mouseupEvent = event;
+        event.stopPropagation();
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
 
     if (selectedObject == null) return;
     //document.getElementById("item-posX").value = selectedObject.position.x;
@@ -1299,6 +1320,7 @@ $.each($('.slika'), function (index, slika) {
 
 
 function stopClicks() {
+    blockedClicks = true;
 
     $("a").click(function (event) {
         event.stopPropagation();
