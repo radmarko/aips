@@ -12,90 +12,141 @@ namespace AIPS_2017.Hubs
     {
         public static Dictionary<int, Queue<int>> Rooms = Plans.CreateRooms();
 
-        public void AddUserToRoom(int SceneId, int UserId)
+        public void ChangeMaster(int planId, int userId)
         {
-            if (Rooms.ContainsKey(SceneId))
-                Rooms[SceneId].Enqueue(UserId);
-            else
+            int masterId = Rooms[planId].ElementAt(0);
+
+            if (userId == masterId)
             {
-                Queue<int> queue = new Queue<int>();
-                queue.Enqueue(UserId);
-                Rooms.Add(SceneId, queue);
+                if (Rooms.ContainsKey(planId))
+                {
+                    int MasterId = Rooms[planId].Dequeue();
+                    Rooms[planId].Enqueue(MasterId);
+                }
+
+                //promena u bazi
+                Plans.ChangeMaster(planId);
+
+                //novi master
+                masterId = Rooms[planId].ElementAt(0);
+                UserDTO master = Users.Read(masterId);
+
+                Clients.All.changeMaster(planId, master.FirstName, master.LastName);
             }
-        }
-
-        public void ChangeMaster(int SceneId)
-        {
-            if (Rooms.ContainsKey(SceneId))
-            {
-                int MasterId = Rooms[SceneId].Dequeue();
-                Rooms[SceneId].Enqueue(MasterId);
-            }
-        }
-
-        public void ReturnMaster(int getParameter)
-        {
-            UserDTO user = Users.Read(Rooms[getParameter].ElementAt(0));
-            System.Threading.Thread.Sleep(2000);
-            Clients.All.returnMaster(getParameter, user.FirstName, user.LastName);
-        }
-
-        public void DenyWrite(int getParameter)
-        {
-            System.Threading.Thread.Sleep(2000);
-            Clients.Others.denyWrite(getParameter);
+     
         }
 
         //dodavanje objekata
-        public void DrawBoard(int getParameter, int brojPregrada, bool vertikalno)
+        public void DrawBoard(int getParameter, int brojPregrada, bool vertikalno, int userId)
         {
-            Clients.Others.drawBoard(getParameter, brojPregrada, vertikalno); //daska
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.drawBoard(getParameter, brojPregrada, vertikalno); //daska
+            }
+            
         }
 
-        public void DrawBox(int getParameter)
+        public void DrawBox(int getParameter, int userId)
         {
-            Clients.Others.drawBox(getParameter); //kutija
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.drawBox(getParameter); //kutija
+            }
+            
         }
 
-        public void DrawDrawer(int getParameter, bool[] niz)
+        public void DrawDrawer(int getParameter, bool[] niz, int userId)
         {
-            Clients.Others.drawDrawer(getParameter, niz); //fioka
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.drawDrawer(getParameter, niz); //fioka
+            }
+            
         }
 
-        public void DrawDoor(int getParameter, bool[] niz)
+        public void DrawDoor(int getParameter, bool[] niz, int userId)
         {
-            Clients.Others.drawDoor(getParameter, niz); //vrata
-        }
-        
-        public void DeleteBox(int getParameter)
-        {
-            Clients.Others.deleteBox(getParameter); 
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.drawDoor(getParameter, niz); //vrata
+            }
+            
         }
 
-        public void ChangeTexture(int getParameter, int num)
+        public void DeleteBox(int getParameter, int userId)
         {
-            Clients.All.changeTexture(getParameter, num);
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.deleteBox(getParameter);
+            }
+            
         }
 
-        public void UpdateBox(int getParameter, float width, float height, float depth, float thickness)
+        public void ChangeTexture(int getParameter, int num, int userId)
         {
-            Clients.Others.updateBox(getParameter, width, height, depth, thickness);
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.changeTexture(getParameter, num);
+            }
+            
         }
+
+        public void UpdateBox(int getParameter, float width, float height, float depth, float thickness, int userId)
+        {
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.updateBox(getParameter, width, height, depth, thickness);
+            }
+            
+        }
+
 
         //manevracije objektima
-        public void MouseDownObject(float x, float y, int getParameter)
+        public void MouseDownObject(float x, float y, int getParameter, int userId)
         {
-            Clients.Others.mouseDownObject(x, y, getParameter);
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.mouseDownObject(x, y, getParameter);
+            }
+            
         }
 
-        public void MouseMoveObject(float x, float y, int getParameter)
+        public void MouseMoveObject(float x, float y, int getParameter, int userId)
         {
-            Clients.Others.mouseMoveObject(x, y, getParameter);
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.mouseMoveObject(x, y, getParameter);
+            }
+            
         }
 
-        public void MouseUpObject(float x, float y, int getParameter)
+        public void MouseUpObject(float x, float y, int getParameter, int userId)
         {
-            Clients.Others.mouseUpObject(x, y, getParameter);
+            int masterId = Rooms[getParameter].ElementAt(0);
+
+            if (userId == masterId)
+            {
+                Clients.All.mouseUpObject(x, y, getParameter);
+            }
+            
         }
 
         public void AddRoom(int userId, string name)
@@ -114,6 +165,18 @@ namespace AIPS_2017.Hubs
             Clients.All.addRoom(planId, name, user.FirstName, user.LastName, user.Id);
         }
 
+        public void AddUserToRoom(int SceneId, int UserId)
+        {
+            if (Rooms.ContainsKey(SceneId))
+                Rooms[SceneId].Enqueue(UserId);
+            else
+            {
+                Queue<int> queue = new Queue<int>();
+                queue.Enqueue(UserId);
+                Rooms.Add(SceneId, queue);
+            }
+        }
+
         public void Join(int planId, int userId, int masterId)
         {
             if (userId == masterId)
@@ -130,18 +193,22 @@ namespace AIPS_2017.Hubs
 
         public void JoinedUserClick(int masterId, int planId, int userId)
         {
-            //dodati usera u bazu
-            UserPlanDTO userplan = new UserPlanDTO()
+            if (!Rooms[planId].Contains(userId))
             {
-                UserId = userId,
-                PlanId = planId
-            };
-            int userplanId = UserPlans.Create(userplan);
-            UserDTO user = Users.Read(userId);
+                //dodati usera u bazu
+                UserPlanDTO userplan = new UserPlanDTO()
+                {
+                    UserId = userId,
+                    PlanId = planId
+                };
+                int userplanId = UserPlans.Create(userplan);
+                UserDTO user = Users.Read(userId);
 
-            AddUserToRoom(planId, userId); //dodavanje u dictionary
+                AddUserToRoom(planId, userId); //dodavanje u dictionary
 
-            Clients.All.joinRoom(planId, user.FirstName, user.LastName);
+                Clients.All.joinRoom(planId, user.FirstName, user.LastName);
+            }
+            
         }
 
     }

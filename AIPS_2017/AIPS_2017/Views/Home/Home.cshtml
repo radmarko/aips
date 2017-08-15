@@ -204,7 +204,7 @@
 
         $.connection.serverHub.client.toDashboard = function (planId, niz, masterId) {
             if ($.inArray(@Model.UserId, niz) != -1)
-                location.href = '@Url.Action("Dashboard", "Dashboard")?id=' + planId + '&UserId=' + '@Model.UserId' + '&Status=' + '@Model.Status' + '&Name=' + '@Model.Name' + '&MasterId=' + masterId;
+                location.href = '@Url.Action("Dashboard", "Dashboard")?id=' + planId + '&UserId=' + '@Model.UserId' + '&Status=' + '@Model.Status' + '&Name=' + '@Model.Name';
         };
 
 

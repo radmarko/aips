@@ -46,7 +46,7 @@ namespace Business.DataAccess
                 var find =
                     (from plan in db.Plans
                      where plan.Id == planId
-                     select plan).Single();
+                     select plan).FirstOrDefault();
 
                 planRead = new PlanDTO()
                 {
@@ -104,7 +104,7 @@ namespace Business.DataAccess
                 var find =
                     (from plan in db.Plans
                      where plan.Id == updatePlan.Id
-                     select plan).Single();
+                     select plan).FirstOrDefault();
 
                 find.UserId = updatePlan.UserId;
                 find.Name = updatePlan.Name;
@@ -168,6 +168,30 @@ namespace Business.DataAccess
             }
 
             return Rooms;
+        }
+
+        public static void ChangeMaster(int planId)
+        {
+            PlanDTO plan = Plans.Read(planId);
+            UserPlanDTO userPlan = UserPlans.ReadPlanId(planId);
+
+            UserPlanDTO newUserPlan = new UserPlanDTO()
+            {
+                UserId = plan.UserId,
+                PlanId = plan.Id
+            };
+
+            PlanDTO updatePlan = new PlanDTO()
+            {
+                Id = planId,
+                UserId = userPlan.UserId,
+                Name = plan.Name
+            };
+
+            Plans.Update(updatePlan);
+            UserPlans.Delete(userPlan.Id);
+            UserPlans.Create(newUserPlan);
+
         }
 
     }

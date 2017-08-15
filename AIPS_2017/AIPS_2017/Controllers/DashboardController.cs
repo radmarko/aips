@@ -15,11 +15,9 @@ namespace AIPS_2017.Controllers
         //    return View();
         //}
 
-        public ActionResult Dashboard(int id, int UserId, string Status, string Name, int masterId)
+        public ActionResult Dashboard(int id, int UserId, string Status, string Name)
         {
             HomeModel model = new HomeModel(UserId, Status, Name);
-            model.PlanId = id;
-            model.MasterId = masterId;
             return View(model);
         }
 
@@ -29,11 +27,6 @@ namespace AIPS_2017.Controllers
             HomeModel homeModel = new HomeModel();
             homeModel.SaveConfiguration(ArrayOfObjects, planID);
             return Json(new { success = 1 }, JsonRequestBehavior.AllowGet);
-        }
-
-        public void promena()
-        {
-
         }
 
     }

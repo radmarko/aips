@@ -63,6 +63,34 @@ namespace Business.DataAccess
             return upRead;
         }
 
+        public static UserPlanDTO ReadPlanId(int planId)
+        {
+            UserPlanDTO upRead = null;
+
+            try
+            {
+                databaseDataContext db = new databaseDataContext();
+
+                var find =
+                    (from up in db.UserPlans
+                     where up.PlanId == planId
+                     select up).First();
+
+                upRead = new UserPlanDTO()
+                {
+                    Id = find.Id,
+                    UserId = find.UserId,
+                    PlanId = find.PlanId
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return upRead;
+        }
+
         public static List<UserPlanDTO> ReadAll()
         {
             List<UserPlanDTO> ups = new List<UserPlanDTO>(); ;

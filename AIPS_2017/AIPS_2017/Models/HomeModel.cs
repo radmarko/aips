@@ -15,7 +15,6 @@ namespace AIPS_2017.Models
         public string Status { get; set; }
         public string Name { get; set; }
         public int PlanId { get; set; }
-        public int MasterId { get; set; }
 
         public HomeModel()
         {

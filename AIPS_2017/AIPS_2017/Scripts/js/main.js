@@ -79,9 +79,9 @@ function init() {
 
     addSpotLights();
 
-    document.addEventListener('mousedown', onDocumentMouseDown, false);
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-    document.addEventListener('mouseup', onmouseup, false);
+    //document.addEventListener('mousedown', onDocumentMouseDown, false);
+    //document.addEventListener('mousemove', onDocumentMouseMove, false);
+    //document.addEventListener('mouseup', onmouseup, false);
 
 
     document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
@@ -167,7 +167,7 @@ function animate() {
 
     webGLRenderer.render(scene, camera);
     var delta = clock.getDelta();
-    orbitControls.update(delta);
+    //orbitControls.update(delta);
 }
 
 
@@ -191,8 +191,8 @@ function addDaska(){
 	objectsOnScene.push(d);
 }
 */
-var kutija = document.getElementById("kutija");
-kutija.addEventListener("click", addKutija, false);
+//var kutija = document.getElementById("kutija");
+//kutija.addEventListener("click", addKutija, false);
 
 function addKutija() {
     var b = new Box(10, 4, 6, 0.7, startX, startY, startZ, "box" + inc);
@@ -202,8 +202,8 @@ function addKutija() {
     kutija.disabled = true;
 }
 
-var fioka = document.getElementById("fioka");
-fioka.addEventListener("click", addFioka, false);
+//var fioka = document.getElementById("fioka");
+//fioka.addEventListener("click", addFioka, false);
 
 function addFioka() {
 	/*o = new Fioka(selected.sirina, selected.visina, selected.dubina, selected.debljinaDaske, selected.posX, selected.posY, selected.posZ, "fioka");
@@ -216,8 +216,8 @@ function addFioka() {
     }
 }
 
-var vrata = document.getElementById("vrata");
-vrata.addEventListener("click", addVrata, false);
+//var vrata = document.getElementById("vrata");
+//vrata.addEventListener("click", addVrata, false);
 
 function addVrata() {
 	/*var v = new nizVrata(10, 7, 1, 0, 0, 0, "nizVrata");
@@ -266,12 +266,12 @@ function addSpotLights() {
 }
 
 function onDocumentMouseDown(event) {
-    if (blockedClicks) {
-        mousedownEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mousedownEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
     var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
     //var vector = new THREE.Vector3((event.clientX / host.outerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
 
@@ -346,12 +346,12 @@ function ObjectMouseDown(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
 
-    if (blockedClicks) {
-        mousedownEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mousedownEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
 
     var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
     //var vector = new THREE.Vector3((event.clientX / host.outerWidth) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1,0.5);
@@ -425,12 +425,12 @@ function ObjectMouseDown(x, y) {
 
 function onDocumentMouseMove(event) {
 
-    if (blockedClicks) {
-        mousemoveEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mousemoveEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
     var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5);
 
     vector = vector.unproject(camera);
@@ -488,12 +488,12 @@ function ObjectMouseMove(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
 
-    if (blockedClicks) {
-        mousemoveEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mousemoveEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
 
     var vector = new THREE.Vector3((x / window.innerWidth) * 2 - 1, -(y / window.innerHeight) * 2 + 1, 0.5);
 
@@ -550,12 +550,12 @@ function ObjectMouseMove(x, y) {
 
 function onmouseup(event) {
 
-    if (blockedClicks) {
-        mouseupEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mouseupEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
 
     if (selectedObject != null) {
         //document.getElementById("item-posX").value = selectedObject.position.x;
@@ -599,12 +599,12 @@ function ObjectMouseUp(x, y) {
     x = x * host.offsetWidth;
     y = y * window.innerHeight; 
 
-    if (blockedClicks) {
-        mouseupEvent = event;
-        event.stopPropagation();
-        event.preventDefault();
-        event.stopImmediatePropagation();
-    }
+    //if (blockedClicks) {
+    //    mouseupEvent = event;
+    //    event.stopPropagation();
+    //    event.preventDefault();
+    //    event.stopImmediatePropagation();
+    //}
 
     if (selectedObject == null) return;
     //document.getElementById("item-posX").value = selectedObject.position.x;
@@ -647,43 +647,43 @@ init();
 animate();
 
 
-btn_upd.onclick = function () {
+//btn_upd.onclick = function () {
 
-    var o;
-    for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.Name) {
-            o = objectsOnScene[i];
-            objectsOnScene.splice(i, 1);
-            objects.splice(i, 1);
-            break;
-        }
-    }
-    scene.remove(previousObject);
+//    var o;
+//    for (var i = 0; i < objectsOnScene.length; i++) {
+//        if (objectsOnScene[i].Name == previousObject.Name) {
+//            o = objectsOnScene[i];
+//            objectsOnScene.splice(i, 1);
+//            objects.splice(i, 1);
+//            break;
+//        }
+//    }
+//    scene.remove(previousObject);
 
-    selected.Width = parseFloat(document.getElementById("item-width").value);
-    selected.Height = parseFloat(document.getElementById("item-height").value);
-    selected.Depth = parseFloat(document.getElementById("item-depth").value);
-    selected.BoardThickness = parseFloat(document.getElementById("item-debljina").value);
+//    selected.Width = parseFloat(document.getElementById("item-width").value);
+//    selected.Height = parseFloat(document.getElementById("item-height").value);
+//    selected.Depth = parseFloat(document.getElementById("item-depth").value);
+//    selected.BoardThickness = parseFloat(document.getElementById("item-debljina").value);
 
-    var pomerajX = selected.PositionX;
-    var pomerajY = selected.PositionY;
-    var pomerajZ = selected.PositionZ;
+//    var pomerajX = selected.PositionX;
+//    var pomerajY = selected.PositionY;
+//    var pomerajZ = selected.PositionZ;
 
-    selected.PositionX += selected.globalX;
-    selected.PositionY += selected.globalY;
-    selected.PositionZ += selected.globalZ;
+//    selected.PositionX += selected.globalX;
+//    selected.PositionY += selected.globalY;
+//    selected.PositionZ += selected.globalZ;
 
-    selected.globalX += pomerajX;
-    selected.globalY += pomerajY;
-    selected.globalZ += pomerajZ;
+//    selected.globalX += pomerajX;
+//    selected.globalY += pomerajY;
+//    selected.globalZ += pomerajZ;
 
-    var obj = selected.CreateGeometry();
+//    var obj = selected.CreateGeometry();
 
-    scene.add(obj);
-    objects.push(obj);
+//    scene.add(obj);
+//    objects.push(obj);
 
-    objectsOnScene.push(selected);
-}
+//    objectsOnScene.push(selected);
+//}
 
 
 function updateBox(width, height, depth, debljina) {
@@ -727,10 +727,10 @@ function updateBox(width, height, depth, debljina) {
 
 
 
-btn_del.onclick = function () {
+//btn_del.onclick = function () {
 
-    deleteBox();
-}
+//    deleteBox();
+//}
 
 function deleteBox()
 {
@@ -893,9 +893,9 @@ function dodajPregradeSignalR(brojPregrada, pregradeVertikalno) {
 
 
 
-$(document).on("click", "#dodajPregrade", function (event) {
-    dodajPregrade();
-});
+//$(document).on("click", "#dodajPregrade", function (event) {
+//    dodajPregrade();
+//});
 
 
 function dodajFioke() {
@@ -968,6 +968,9 @@ function dodajFioke() {
 
 function dodajFiokeSignalR(cont) {
 
+
+
+
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
         if (objectsOnScene[i].Name == previousObject.Name) {
@@ -1030,9 +1033,9 @@ function dodajFiokeSignalR(cont) {
 
 
 
-$(document).on("click", "#dodajFioke", function (event) {
-    dodajFioke();
-});
+//$(document).on("click", "#dodajFioke", function (event) {
+//    dodajFioke();
+//});
 
 function dodajVrata() {
 
@@ -1094,6 +1097,8 @@ function dodajVrata() {
 
 function dodajVrataSignalR(cont) {
 
+
+
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
         if (objectsOnScene[i].Name == previousObject.Name) {
@@ -1146,9 +1151,9 @@ function dodajVrataSignalR(cont) {
     objectsOnScene.push(selected);
 }
 
-$(document).on("click", "#dodajVrata", function (event) {
-    dodajVrata();
-});
+//$(document).on("click", "#dodajVrata", function (event) {
+//    dodajVrata();
+//});
 
 
 function createScene(planId) {
@@ -1242,41 +1247,41 @@ function SaveConfiguration(planId) {
 
 }
 
-$(document).on("click", "#new_texture", function (event) {
+//$(document).on("click", "#new_texture", function (event) {
 
-    var o;
-    for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.Name) {
-            o = objectsOnScene[i];
-            objectsOnScene.splice(i, 1);
-            break;
-        }
-    }
-    scene.remove(previousObject);
+//    var o;
+//    for (var i = 0; i < objectsOnScene.length; i++) {
+//        if (objectsOnScene[i].Name == previousObject.Name) {
+//            o = objectsOnScene[i];
+//            objectsOnScene.splice(i, 1);
+//            break;
+//        }
+//    }
+//    scene.remove(previousObject);
 
-    var img_src = document.getElementById("new_texture").src;
-    var niz = img_src.split("/");
-    var tex = niz[niz.length - 1];
-    selected.Texture = tex;
+//    var img_src = document.getElementById("new_texture").src;
+//    var niz = img_src.split("/");
+//    var tex = niz[niz.length - 1];
+//    selected.Texture = tex;
 
-    var pomerajX = selected.PositionX;
-    var pomerajY = selected.PositionY;
-    var pomerajZ = selected.PositionZ;
+//    var pomerajX = selected.PositionX;
+//    var pomerajY = selected.PositionY;
+//    var pomerajZ = selected.PositionZ;
 
-    selected.PositionX += selected.globalX;
-    selected.PositionY += selected.globalY;
-    selected.PositionZ += selected.globalZ;
+//    selected.PositionX += selected.globalX;
+//    selected.PositionY += selected.globalY;
+//    selected.PositionZ += selected.globalZ;
 
-    selected.globalX += pomerajX;
-    selected.globalY += pomerajY;
-    selected.globalZ += pomerajZ;
+//    selected.globalX += pomerajX;
+//    selected.globalY += pomerajY;
+//    selected.globalZ += pomerajZ;
 
-    var obj = selected.CreateGeometry();
-    scene.add(obj);
-    objects.push(obj);
+//    var obj = selected.CreateGeometry();
+//    scene.add(obj);
+//    objects.push(obj);
 
-    objectsOnScene.push(selected);
-});
+//    objectsOnScene.push(selected);
+//});
 
 function changeTexture(num) {
     var o;
@@ -1312,11 +1317,11 @@ function changeTexture(num) {
     objectsOnScene.push(selected);
 }
 
-$.each($('.slika'), function (index, slika) {
-    slika.onclick = function () {
-        changeTexture(index + 1);
-    };
-});
+//$.each($('.slika'), function (index, slika) {
+//    slika.onclick = function () {
+//        changeTexture(index + 1);
+//    };
+//});
 
 
 function stopClicks() {

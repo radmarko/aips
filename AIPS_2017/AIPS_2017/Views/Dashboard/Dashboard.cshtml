@@ -54,7 +54,7 @@
                     <span class="icon-bar" style="background-color:#337ab7;"></span>
                 </button>
                 <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Supellex </a>
-                <a id="crtac" class="navbar-brand" href="#" style="margin-left:25vw; color:#337ab7;"></a>
+                <a id="crtac" class="navbar-brand" href="#" style="margin-left:25vw; color:#337ab7;">@Model.ReturnMaster(Int32.Parse(Request["id"])).FirstName @Model.ReturnMaster(Int32.Parse(Request["id"])).LastName is drawing</a>
                 
             </div>
 
@@ -260,7 +260,7 @@
                         <input type="button" id="daska1" value="Daska" />
                     </a>
                 </li>*@
-                <li class="active">
+                <li id="ZavrsiCrtanje" class="active">
                     
                     <a href="#" style="color:white;">
                         <i class="glyphicon glyphicon-ok"></i>
@@ -295,19 +295,18 @@
             <script>
                 $.connection.hub.start().done(function () {
 
-                    if ('@Model.UserId' == '@Model.MasterId')
-                    {
-                        $.connection.serverHub.server.returnMaster('@Request["id"]');
-                        $.connection.serverHub.server.denyWrite('@Request["id"]');
-                    }
+                    //change master
+                    $('#ZavrsiCrtanje').click(function () {
+                        $.connection.serverHub.server.changeMaster('@Request["id"]', '@Model.UserId');
+                    });
 
                     //dodavanje objekata
                     $('#dodajPregrade').click(function () {
-                        $.connection.serverHub.server.drawBoard('@Request["id"]', $("#brojPregrada").val(), document.getElementById("pregradeVertikalno").checked);
+                        $.connection.serverHub.server.drawBoard('@Request["id"]', $("#brojPregrada").val(), document.getElementById("pregradeVertikalno").checked, '@Model.UserId');
                     });
 
                     $('#kutija').click(function () {
-                        $.connection.serverHub.server.drawBox('@Request["id"]');
+                        $.connection.serverHub.server.drawBox('@Request["id"]', '@Model.UserId');
                     });
 
                     $('#dodajFioke').click(function () {
@@ -315,7 +314,7 @@
                         var niz = [];
                         for (var i = 0; i < nodes.length; i++)
                             niz.push(nodes[i].firstChild.checked);
-                        $.connection.serverHub.server.drawDrawer('@Request["id"]', niz);
+                        $.connection.serverHub.server.drawDrawer('@Request["id"]', niz, '@Model.UserId');
                     });
 
                     $('#dodajVrata').click(function () {
@@ -323,16 +322,16 @@
                         var niz = [];
                         for (var i = 0; i < nodes.length; i++)
                             niz.push(nodes[i].firstChild.checked);
-                        $.connection.serverHub.server.drawDoor('@Request["id"]', niz);
+                        $.connection.serverHub.server.drawDoor('@Request["id"]', niz, '@Model.UserId');
                     });
 
                     $('#context-menu-delete').click(function () {
-                        $.connection.serverHub.server.deleteBox('@Request["id"]');
+                        $.connection.serverHub.server.deleteBox('@Request["id"]', '@Model.UserId');
                     });
 
                     $.each($('.slika'), function (index, slika) {
                         slika.onclick = function () {
-                            $.connection.serverHub.server.changeTexture('@Request["id"]', index + 1);
+                            $.connection.serverHub.server.changeTexture('@Request["id"]', index + 1, '@Model.UserId');
                         };
                     });
 
@@ -341,47 +340,48 @@
                         var height = parseFloat(document.getElementById("item-height").value);
                         var depth = parseFloat(document.getElementById("item-depth").value);
                         var thickness = parseFloat(document.getElementById("item-debljina").value);
-                        $.connection.serverHub.server.updateBox('@Request["id"]', width, height, depth, thickness);
+                        $.connection.serverHub.server.updateBox('@Request["id"]', width, height, depth, thickness, '@Model.UserId');
                     });
 
                     //pozivanje funkcije servera
                     $('#WebGL-output').mousedown(function (e) {
-                        $.connection.serverHub.server.mouseDownObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
+                        $.connection.serverHub.server.mouseDownObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]', '@Model.UserId');
                     });
 
                     $('#WebGL-output').mousemove(function (e) {
-                        $.connection.serverHub.server.mouseMoveObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
+                        $.connection.serverHub.server.mouseMoveObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]', '@Model.UserId');
                     });
 
                     $('#WebGL-output').mouseup(function (e) {
-                        $.connection.serverHub.server.mouseUpObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]');
+                        $.connection.serverHub.server.mouseUpObject(e.clientX / host.offsetWidth, e.clientY / window.innerHeight, '@Request["id"]', '@Model.UserId');
                     });
 
                 });
 
+
+
                 //odgovor klijenta na dodavanje objekta
-                $.connection.serverHub.client.returnMaster = function (getParameter, firstName, lastName) {
+                $.connection.serverHub.client.changeMaster = function (getParameter, firstName, lastName) {
                     if (@Request["id"] == getParameter)
                         $("#crtac").html(firstName + " " + lastName + " is drawing");
                 };
 
-                $.connection.serverHub.client.denyWrite = function (getParameter) {
-                    if (@Request["id"] == getParameter)
-                    {
-                        stopClicks();
-                    }
-                        
-                    
-                };
-
                 $.connection.serverHub.client.drawBoard = function (getParameter, brojPregrada, vertikalno) {
                     if (@Request["id"] == getParameter)
+                    {
                         dodajPregradeSignalR(brojPregrada, vertikalno);
+                        addFioka();
+                        addVrata();
+                    }
+                        
                 };
 
                 $.connection.serverHub.client.drawBox = function (getParameter) {
                     if (@Request["id"] == getParameter)
+                    {
                         addKutija();
+                    }
+                        
                 };
 
                 $.connection.serverHub.client.drawDrawer = function (getParameter, niz) {
@@ -424,6 +424,7 @@
                     if (@Request["id"] == getParameter)
                         ObjectMouseUp(x, y);
                 };
+
             </script>
             @*end*@
 
