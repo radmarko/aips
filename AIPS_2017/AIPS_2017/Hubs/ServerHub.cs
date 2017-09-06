@@ -127,11 +127,11 @@ namespace AIPS_2017.Hubs
             
         }
 
-        public void MouseMoveObject(float x, float y, int getParameter, int userId)
+        public void MouseMoveObject(float x, float y, int getParameter, int userId/*, bool presecanje*/)
         {
             int masterId = Rooms[getParameter].ElementAt(0);
 
-            if (userId == masterId)
+            if (userId == masterId/* && presecanje == false*/)
             {
                 Clients.All.mouseMoveObject(x, y, getParameter);
             }

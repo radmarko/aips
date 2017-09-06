@@ -19,7 +19,10 @@ function Box(w, h, d, debljina, x, y, z, n) {
     this.globalX = startX;
     this.globalY = startY;
     this.globalZ = startZ;
-
+    this.obj;
+    this.originalWidth = w;
+    this.originalHeight = h;
+    this.originalDepth = d;
     this.Draw = function () {
         var WidthPola = this.Width / 2;
         var HeightPola = this.Height / 2;
@@ -81,11 +84,11 @@ function Box(w, h, d, debljina, x, y, z, n) {
         meshes.push(plane5);
 
         var geometry = mergeMeshes(meshes);
-        var obj = createMesh(geometry, this.Texture);
+        this.obj = createMesh(geometry, this.Texture);
         //obj.position.y -= HeightPola;
-        obj.Name = this.Name;
-        objects.push(obj);
-        scene.add(obj);
+        this.obj.Name = this.Name;
+        objects.push(this.obj);
+        scene.add(this.obj);
 
     }
 
@@ -150,7 +153,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
         meshes.push(plane5);
 
         geometry = mergeMeshes(meshes);
-        var obj = createMesh(geometry, this.Texture);
+        this.obj = createMesh(geometry, this.Texture);
 
         if (this.vertikalno == true) {
             if (this.childs != null) {
@@ -160,7 +163,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
                     this.childs[k] = new Daska(this.BoardThickness, this.Height, this.Depth, - this.Width / 2 + (k + 1) * i + this.PositionX, this.PositionY, this.PositionZ, "daska" + k);
                     this.childs[k].Texture = this.Texture;
                     var mesh = this.childs[k].CreateGeometry();
-                    obj.add(mesh);
+                    this.obj.add(mesh);
                 }
 
             }
@@ -174,7 +177,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
                         //var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + startX, previousObject.position.y + startY, previousObject.position.z + startZ, "Fioka" + i);
                         this.nizFioka[i].Texture = this.Texture;
                         var mesh = this.nizFioka[i].CreateGeometry();
-                        obj.add(mesh);
+                        this.obj.add(mesh);
                     }
                 }
             }
@@ -189,7 +192,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
                         this.nizVrata[i] = new Vrata(duz, this.Height, this.BoardThickness, start + (i * duz) + this.PositionX, this.PositionY, this.PositionZ + this.Depth / 2 - this.BoardThickness / 2, "nizVrata" + i);
                         this.nizVrata[i].Texture = this.Texture;
                         var mesh = this.nizVrata[i].CreateGeometry();
-                        obj.add(mesh);
+                        this.obj.add(mesh);
                     }
                 }
             }
@@ -203,7 +206,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
                     this.childs[k] = new Daska(this.Width, this.BoardThickness, this.Depth, this.PositionX, - this.Height / 2 + (k + 1) * i + this.PositionY, this.PositionZ, "daska" + k);
                     this.childs[k].Texture = this.Texture;
                     var mesh = this.childs[k].CreateGeometry();
-                    obj.add(mesh);
+                    this.obj.add(mesh);
                 }
 
             }
@@ -217,7 +220,7 @@ function Box(w, h, d, debljina, x, y, z, n) {
                         //var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + startX, previousObject.position.y + startY, previousObject.position.z + startZ, "Fioka" + i);
                         this.nizFioka[i].Texture = this.Texture;
                         var mesh = this.nizFioka[i].CreateGeometry();
-                        obj.add(mesh);
+                        this.obj.add(mesh);
                     }
                 }
             }
@@ -231,17 +234,74 @@ function Box(w, h, d, debljina, x, y, z, n) {
                         this.nizVrata[i] = new Vrata(this.Width, duz, this.BoardThickness, this.PositionX, start - (i * duz) + this.PositionY, this.PositionZ + this.Depth / 2 - this.BoardThickness / 2, "nizVrata" + i);
                         this.nizVrata[i].Texture = this.Texture;
                         var mesh = this.nizVrata[i].CreateGeometry();
-                        obj.add(mesh);
+                        this.obj.add(mesh);
                     }
                 }
             }
         }
 
 
-
         //scene.add(obj);
         //objects.push(obj);
-        obj.Name = this.Name;
-        return obj;
+        this.obj.Name = this.Name;
+        return this.obj;
+    }
+
+
+    Box.prototype.addDrawer = fluent(function(selected, drawer){
+        var mesh = drawer.CreateGeometry();
+        //this.obj.add(mesh);
+        selected.add(mesh);
+    })
+
+    Box.prototype.addBoard = fluent(function addBoard(selected, board){
+        var mesh = board.CreateGeometry();
+        //this.obj.add(mesh);
+        selected.add(mesh);
+    })
+
+    Box.prototype.addDoor = fluent(function addBoard(selected, door) {
+        var mesh = door.CreateGeometry();
+        //this.obj.add(mesh);
+        selected.add(mesh);
+    })
+    
+
+}
+
+
+function fluent(fn) {
+    return function (...args) {
+        fn.apply(this, args);
+        return this;
     }
 }
+
+function decorateWith(decorator) {
+    return (target, name, descriptor) => {
+        descriptor.value = decorator.call(target, descriptor.value);
+    }
+}
+
+/*
+
+@decorateWith(fluent)
+adddDrawer(selected, drawer){
+    var mesh = drawer.CreateGeometry();
+    //this.obj.add(mesh);
+    selected.add(mesh);
+}
+
+@decorateWith(fluent)
+addDoor(selected, door){
+    var mesh = drawer.CreateGeometry();
+    //this.obj.add(mesh);
+    selected.add(mesh);
+}
+
+@decorateWith(fluent)
+addBoard(selected, board){
+    var mesh = drawer.CreateGeometry();
+    //this.obj.add(mesh);
+    selected.add(mesh);
+}*/

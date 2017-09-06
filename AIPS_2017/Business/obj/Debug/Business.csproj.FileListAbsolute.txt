@@ -7,15 +7,6 @@ C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\bin\Debu
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.exe
 C:\Users\Pedja\Documents\Visual Studio 2017\Projects\AIPS_2017\Business\obj\Debug\Business.pdb
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.exe.config
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.exe
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.pdb
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.exe
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.pdb
-E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.exe.config
-E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
-E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.exe
-E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.pdb
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\bin\Debug\Business.exe.config
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\bin\Debug\Business.exe
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\bin\Debug\Business.pdb
@@ -25,3 +16,12 @@ D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\bin\Debug\Database.exe.confi
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\obj\Debug\Business.exe
 D:\GitHubProjects\AIPS_2017\aips\AIPS_2017\Business\obj\Debug\Business.pdb
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.exe.config
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.exe
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Business.pdb
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.exe
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.pdb
+E:\AIPS\aips\AIPS_2017\Business\bin\Debug\Database.exe.config
+E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.exe
+E:\AIPS\aips\AIPS_2017\Business\obj\Debug\Business.pdb
