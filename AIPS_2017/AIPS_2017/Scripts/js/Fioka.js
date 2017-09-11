@@ -11,6 +11,18 @@ function Fioka(w, h, d, debljina, x, y, z, n) {
     this.Texture = "wood-2.jpg";
     this.geometry;
 
+    this.Update = function (w, h, d, debljina, x, y, z, texture) {
+        this.Width = w;
+        this.Height = h;
+        this.Depth = d;
+        this.Name = n;
+        this.BoardThickness = debljina;
+        this.PositionX = x;
+        this.PositionY = y;
+        this.PositionZ = z;
+        this.Texture = texture;
+    }
+
     this.Draw = function () {
         var meshes = [];
 

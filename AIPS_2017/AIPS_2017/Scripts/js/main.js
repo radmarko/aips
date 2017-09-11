@@ -121,7 +121,7 @@ function init() {
     }));
 
     wall2.rotation.x -= 3.14 / 2;
-    wall2.position.z -= 22.5;
+    wall2.position.z -= 23.5;
     wall2.position.y += 15;
 
     //zid3
@@ -569,6 +569,23 @@ function ObjectMouseMove(x, y) {
         var intersects = raycaster.intersectObject(plane);
         // reposition the selectedobject based on the intersection with the plane
         selectedObject.position.copy(intersects[0].point.sub(offset));
+        //var intersects = raycaster.intersectObject(plane);
+        // reposition the selectedobject based on the intersection with the plane
+        //var novox = intersects[0].point.sub(offset).x;
+        //var novoy = intersects[0].point.sub(offset).y;
+        //if (novox + (selected.Width / 2) > 40 || novox - (selected.Width / 2) < -40)
+        //    return;
+
+        //if (novoy + (selected.Height / 2) > 20 || novoy - (selected.Height) < -10)
+        //    return;
+        //selectedObject.position.copy(intersects[0].point.sub(offset));
+
+
+
+
+
+
+
     } else {
         // if we haven't selected an object, we check if we might need
         // to reposition our plane. We need to do this here, since
@@ -655,10 +672,13 @@ function ObjectMouseUp(x, y) {
     //document.getElementById("item-posY").value = selectedObject.position.y;
     //document.getElementById("item-posZ").value = selectedObject.position.z;
 
+    //pozicije pre pomeranja
     var oldPositionX = selected.PositionX;
     var oldPositionY = selected.PositionY;
     var oldPositionZ = selected.PositionZ;
-    var temp = selected;
+
+    var temp = new Box(selected.Width, selected.Height, selected.Depth, selected.BoardThickness, selected.PositionX, selected.PositionY, selected.PositionZ, selected.Name);
+    //selectedObject - azurirran objekt
     temp.PositionX = selectedObject.position.x;
     temp.PositionY = selectedObject.position.y;
     temp.PositionZ = selectedObject.position.z;
@@ -667,6 +687,14 @@ function ObjectMouseUp(x, y) {
     var mogucePomeriti = true;
 
     //brise iz niza na sceni
+
+    for (var i = 0; i < objectsOnScene.length; i++) {
+        if (objectsOnScene[i].Name != name)  {
+            if (sekuSe(temp, objectsOnScene[i]) == true)
+                mogucePomeriti = false;
+        }
+    }
+
     var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
         if (objectsOnScene[i].Name == name) {
@@ -674,10 +702,6 @@ function ObjectMouseUp(x, y) {
             objectsOnScene.splice(i, 1);
             break;
         } 
-        else {
-            if (sekuSe(temp, objectsOnScene[i]) == true)
-                mogucePomeriti = false;
-        }
     }
 
     if (mogucePomeriti == false) 
@@ -702,6 +726,34 @@ function ObjectMouseUp(x, y) {
     scene.remove(green);
     scene.remove(blue);
     circles(rad, selected.posX, selected.posY, selected.posZ);*/
+
+    //desno
+    if (selectedObject.position.x + selected.Width / 2 > 45)
+    {
+        selectedObject.position.x = 45 - selected.Width / 2;
+    }
+
+    //levo
+    if (selectedObject.position.x - selected.Width / 2 < -45)
+    {
+        selectedObject.position.x = -45 + selected.Width / 2;
+    }
+
+    //gore
+    if (selectedObject.position.y + selected.Height / 2 > 20)
+    {
+        selectedObject.position.y = 20 - selected.Height / 2;
+    }
+
+    //dole
+    if (selectedObject.position.y - selected.Height / 2 < -10)
+    {
+        selectedObject.position.y = -10 + selected.Height / 2;
+    }
+
+
+
+
 
     orbitControls.enabled = true; //orbitControls su za rotiranje
     previousObject = selectedObject;
@@ -754,11 +806,16 @@ animate();
 
 function updateBox(width, height, depth, debljina) {
 
-    var o;
+
     for (var i = 0; i < objectsOnScene.length; i++) {
         if (objectsOnScene[i].Name == previousObject.Name) {
-            o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
+
+    for (var i = 0; i < objects.length; i++) {
+        if (objects[i].Name == previousObject.Name) {
             objects.splice(i, 1);
             break;
         }
@@ -772,6 +829,9 @@ function updateBox(width, height, depth, debljina) {
     selected.Width = width;
     selected.Height = height;
     selected.Depth = depth;
+
+    //observer
+    selected.PropagateChange();
 
     previousObject.scale.x = ratioWidth;
     previousObject.scale.y = ratioHeight;
@@ -820,11 +880,15 @@ function deleteBox()
 {
     var Name = previousObject.Name;
 
-    var o;
     for (var i = 0; i < objectsOnScene.length; i++) {
         if (objectsOnScene[i].Name == Name) {
-            o = objectsOnScene[i];
             objectsOnScene.splice(i, 1);
+            break;
+        }
+    }
+
+    for (var i = 0; i < objects.length; i++) {
+        if (objects[i].Name == Name) {
             objects.splice(i, 1);
             break;
         }
@@ -902,7 +966,10 @@ function dodajPregrade() {
         var i = selected.Width / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
             //var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + startX, startY, startZ, "daska" + k);
-            var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + selected.globalX, selected.globalY, selected.globalZ, "daska" + k);
+            //var d = new Daska(selected.BoardThickness * selected.originalWidth / selected.Width, selected.originalHeight, selected.originalDepth, - selected.Width / 2 + (k + 1) * i + selected.globalX * selected.originalWidth / selected.Width, selected.globalY * selected.originalHeight / selected.Height, selected.globalZ * selected.originalDepth / selected.Depth, "daska" + k);
+
+            var d = new Daska(selected.BoardThickness /** selected.originalWidth / selected.Width*/, selected.originalHeight, selected.originalDepth, (- selected.Width / 2 + (k + 1) * i + selected.globalX) * selected.originalWidth / selected.Width, selected.globalY * selected.originalHeight / selected.Height, selected.globalZ * selected.originalDepth / selected.Depth, "daska" + k);
+
             selected.addBoard(previousObject, d);
             //var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
@@ -917,7 +984,10 @@ function dodajPregrade() {
         var i = selected.Height / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
             //var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, startX, - selected.Height / 2 + (k + 1) * i + startY, startZ, "daska" + k);
-            var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, selected.globalX, - selected.Height / 2 + (k + 1) * i + selected.globalY, selected.globalZ, "daska" + k);
+            //var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, selected.globalX, - selected.Height / 2 + (k + 1) * i + selected.globalY, selected.globalZ, "daska" + k);
+
+            var d = new Daska(selected.originalWidth, selected.BoardThickness, selected.originalDepth, selected.globalX, (- selected.Height / 2 + (k + 1) * i + selected.globalY) * selected.originalHeight / selected.Height, selected.globalZ, "daska" + k);
+
             selected.addBoard(previousObject, d);
             //var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
@@ -948,7 +1018,9 @@ function dodajPregradeSignalR(brojPregrada, pregradeVertikalno) {
         var i = selected.Width / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
             //var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + startX, startY, startZ, "daska" + k);
-            var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + selected.globalX, selected.globalY, selected.globalZ, "daska" + k);
+            //var d = new Daska(selected.BoardThickness, selected.Height, selected.Depth, - selected.Width / 2 + (k + 1) * i + selected.globalX, selected.globalY, selected.globalZ, "daska" + k);
+            var d = new Daska(selected.BoardThickness /** selected.originalWidth / selected.Width*/, selected.originalHeight, selected.originalDepth, (- selected.Width / 2 + (k + 1) * i + selected.globalX) * selected.originalWidth / selected.Width, selected.globalY * selected.originalHeight / selected.Height, selected.globalZ * selected.originalDepth / selected.Depth, "daska" + k);
+            d.Texture = selected.Texture;
             selected.addBoard(previousObject, d).add;
             //var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
@@ -963,7 +1035,10 @@ function dodajPregradeSignalR(brojPregrada, pregradeVertikalno) {
         var i = selected.Height / brojPregrada;
         for (var k = 0; k < brojPregrada - 1; k++) {
             //var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, startX, - selected.Height / 2 + (k + 1) * i + startY, startZ, "daska" + k);
-            var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, selected.globalX, - selected.Height / 2 + (k + 1) * i + selected.globalY, selected.globalZ, "daska" + k);
+            //var d = new Daska(selected.Width, selected.BoardThickness, selected.Depth, selected.globalX, - selected.Height / 2 + (k + 1) * i + selected.globalY, selected.globalZ, "daska" + k);
+
+            var d = new Daska(selected.originalWidth, selected.BoardThickness, selected.originalDepth, selected.globalX, (- selected.Height / 2 + (k + 1) * i + selected.globalY) * selected.originalHeight / selected.Height, selected.globalZ, "daska" + k);
+            d.Texture = selected.Texture;
             selected.addBoard(previousObject, d);
             //var mesh = d.CreateGeometry();
             //objectsOnScene.push(d);
@@ -1001,16 +1076,16 @@ function dodajFioke() {
 
 
     if (selected.vertikalno) {
-        var duz = selected.Width / (selected.childs.length + 1);
+        var duz = selected.originalWidth / (selected.childs.length + 1);
         var cont = document.getElementById("FiokeContainer");
         var checks = cont.childNodes;
 
-        var start = - selected.Width / 2 + duz / 2;
+        var start = - selected.originalWidth / 2 + duz / 2;
         //var start = previousObject.position.x - selected.Width / 2 + duz / 2
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (checks[i].firstChild.checked == true) {
                 //var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + startX, startY, startZ, "Fioka" + i);
-                var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ, "Fioka" + i);
+                var f = new Fioka(duz, selected.originalHeight, selected.originalDepth, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ, "Fioka" + i);
 
 
                 //var mesh = f.CreateGeometry();
@@ -1028,16 +1103,16 @@ function dodajFioke() {
         }
     }
     else {
-        var duz = selected.Height / (selected.childs.length + 1);
+        var duz = selected.originalHeight / (selected.childs.length + 1);
         var cont = document.getElementById("FiokeContainer");
         var checks = cont.childNodes;
 
-        var start = selected.Height / 2 - duz / 2;
+        var start = selected.originalHeight / 2 - duz / 2;
         //var start = previousObject.position.x - selected.Width / 2 + duz / 2
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (checks[i].firstChild.checked == true) {
 
-                var f = new Fioka(selected.Width, duz, selected.Depth, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ, "Fioka" + i);
+                var f = new Fioka(selected.originalWidth, duz, selected.originalDepth, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ, "Fioka" + i);
 
                 selected.addDrawer(previousObject, f);
                 //var mesh = f.CreateGeometry();
@@ -1074,14 +1149,15 @@ function dodajFiokeSignalR(cont) {
 
 
     if (selected.vertikalno) {
-        var duz = selected.Width / (selected.childs.length + 1);
+        var duz = selected.originalWidth / (selected.childs.length + 1);
 
-        var start = - selected.Width / 2 + duz / 2;
+        var start = - selected.originalWidth / 2 + duz / 2;
         //var start = previousObject.position.x - selected.Width / 2 + duz / 2
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (cont[i] == true) {
                 //var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + startX, startY, startZ, "Fioka" + i);
-                var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ, "Fioka" + i);
+                var f = new Fioka(duz, selected.originalHeight, selected.originalDepth, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ, "Fioka" + i);
+                f.Texture = selected.Texture;
                 //var mesh = f.CreateGeometry();
                 //var obj = createMesh(mesh, "wood-2.jpg");
                 //previousObject.add(mesh);
@@ -1097,14 +1173,15 @@ function dodajFiokeSignalR(cont) {
         }
     }
     else {
-        var duz = selected.Height / (selected.childs.length + 1);
+        var duz = selected.originalHeight / (selected.childs.length + 1);
 
-        var start = selected.Height / 2 - duz / 2;
+        var start = selected.originalHeight / 2 - duz / 2;
         //var start = previousObject.position.x - selected.Width / 2 + duz / 2
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (cont[i] == true) {
                 //var f = new Fioka(duz, selected.Height, selected.Depth, selected.BoardThickness, start + (i * duz) + startX, startY, startZ, "Fioka" + i);
-                var f = new Fioka(selected.Width, duz, selected.Depth, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ, "Fioka" + i);
+                var f = new Fioka(selected.originalWidth, duz, selected.originalDepth, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ, "Fioka" + i);
+                f.Texture = selected.Texture;
                 selected.addDrawer(previousObject, f);
 
                 //var mesh = f.CreateGeometry();
@@ -1144,15 +1221,15 @@ function dodajVrata() {
 
     var tmp = [];
     if (selected.vertikalno) {
-        var duz = selected.Width / (selected.childs.length + 1);
+        var duz = selected.originalWidth / (selected.childs.length + 1);
         var cont = document.getElementById("VrataContainer");
         var checks = cont.childNodes;
 
-        var start = - selected.Width / 2 + duz / 2;
+        var start = - selected.originalWidth / 2 + duz / 2;
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (checks[i].firstChild.checked == true) {
                 //var v = new nizVrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + startX, startY,  startZ + selected.Depth / 2 - selected.BoardThickness / 2, "nizVrata" + i);
-                var v = new Vrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                var v = new Vrata(duz, selected.originalHeight, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
 
                 selected.addDoor(previousObject, v);
                 //var mesh = v.CreateGeometry();
@@ -1167,15 +1244,15 @@ function dodajVrata() {
 
     }
     else {
-        var duz = selected.Height / (selected.childs.length + 1);
+        var duz = selected.originalHeight / (selected.childs.length + 1);
         var cont = document.getElementById("VrataContainer");
         var checks = cont.childNodes;
 
-        var start = selected.Height / 2 - duz / 2;
+        var start = selected.originalHeight / 2 - duz / 2;
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (checks[i].firstChild.checked == true) {
                 //var v = new nizVrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + startX, startY,  startZ + selected.Depth / 2 - selected.BoardThickness / 2, "nizVrata" + i);
-                var v = new Vrata(selected.Width, duz, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                var v = new Vrata(selected.originalWidth, duz, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
                 selected.addDoor(previousObject, v);
                 //var mesh = v.CreateGeometry();
                 //meshes.push(mesh);
@@ -1205,13 +1282,14 @@ function dodajVrataSignalR(cont) {
 
     var tmp = [];
     if (selected.vertikalno) {
-        var duz = selected.Width / (selected.childs.length + 1);
+        var duz = selected.originalWidth / (selected.childs.length + 1);
 
-        var start = - selected.Width / 2 + duz / 2;
+        var start = - selected.originalWidth / 2 + duz / 2;
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (cont[i] == true) {
                 //var v = new nizVrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + startX, startY,  startZ + selected.Depth / 2 - selected.BoardThickness / 2, "nizVrata" + i);
-                var v = new Vrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                var v = new Vrata(duz, selected.originalHeight, selected.BoardThickness, start + (i * duz) + selected.globalX, selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                v.Texture = selected.Texture;
                 selected.addDoor(previousObject, v);
                 //var mesh = v.CreateGeometry();
                 //meshes.push(mesh);
@@ -1225,13 +1303,14 @@ function dodajVrataSignalR(cont) {
 
     }
     else {
-        var duz = selected.Height / (selected.childs.length + 1);
+        var duz = selected.originalHeight / (selected.childs.length + 1);
 
-        var start = selected.Height / 2 - duz / 2;
+        var start = selected.originalHeight / 2 - duz / 2;
         for (var i = 0; i < selected.childs.length + 1; i++) {
             if (cont[i] == true) {
                 //var v = new nizVrata(duz, selected.Height, selected.BoardThickness, start + (i * duz) + startX, startY,  startZ + selected.Depth / 2 - selected.BoardThickness / 2, "nizVrata" + i);
-                var v = new Vrata(selected.Width, duz, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                var v = new Vrata(selected.originalWidth, duz, selected.BoardThickness, selected.globalX, start - (i * duz) + selected.globalY, selected.globalZ + selected.Depth / 2 - selected.BoardThickness / 2, "Vrata" + i);
+                v.Texture = selected.Texture;
                 selected.addDoor(previousObject, v);
                 //var mesh = v.CreateGeometry();
                 //meshes.push(mesh);
@@ -1271,11 +1350,18 @@ function createScene(planId) {
                 b.globalY = o.globalY;
                 b.globalZ = o.globalZ;
 
+                
+                
+                
+
                 //daske
                 for (var j = 0; j < o.childs.length; j++) {
                     var child = o.childs[j];
                     b.childs[j] = new Daska(child.Width, child.Height, child.Depth, child.positionX, child.positionY, child.positionZ, child.Name);
                     b.childs[j].Texture = child.Texture;
+                    //b.addBoard(obj, b.childs[j]);
+                    //obj.geometry.verticesNeedUpdate = true;
+
                 }
 
                 //pozicije fioka
@@ -1294,6 +1380,7 @@ function createScene(planId) {
                     var f = o.nizFioka[j];
                     b.nizFioka[j] = new Fioka(f.Width, f.Height, f.Depth, f.BoardThickness, f.positionX, f.positionY, f.positionZ, f.Name);
                     b.nizFioka[j].Texture = f.Texture;
+                    //b.addDrawer(obj, b.nizFioka[j]);
                 }
 
                 //vrata
@@ -1301,14 +1388,17 @@ function createScene(planId) {
                     var v = o.nizVrata[j];
                     b.nizVrata[j] = new Vrata(v.Width, v.Height, v.Depth, v.positionX, v.positionY, v.positionZ, v.Name);
                     b.nizVrata[j].Texture = v.Texture;
+                    //b.addDoor(obj, b.nizVrata[j]);
                 }
 
-                var obj = b.CreateGeometry();
-                obj.position.x += b.globalX;
+                
+                /*obj.position.x += b.globalX;
                 obj.position.y += b.globalY;
-                obj.position.z += b.globalZ;
-                objects.push(obj);
+                obj.position.z += b.globalZ;*/
+
+                var obj = b.CreateGeometry();
                 scene.add(obj);
+                objects.push(obj);
             }
         },
         error: function () {
@@ -1381,41 +1471,61 @@ function SaveConfiguration(planId) {
 //});
 
 function changeTexture(num) {
-    var o;
-    for (var i = 0; i < objectsOnScene.length; i++) {
-        if (objectsOnScene[i].Name == previousObject.Name) {
-            o = objectsOnScene[i];
-            objectsOnScene.splice(i, 1);
-            objects.splice(i, 1);
-            break;
-        }
-    }
-    scene.remove(previousObject);
 
     var image = "/box/w" + num + ".jpg"
     selected.Texture = image;
 
-    var pomerajX = selected.PositionX;
-    var pomerajY = selected.PositionY;
-    var pomerajZ = selected.PositionZ;
+    var Texture = THREE.ImageUtils.loadTexture("/Content/textures/general/" + image);
+    previousObject.material.map = Texture;
+    previousObject.material.needsUpdate = true;
 
-    //selected.PositionX += selected.globalX;
-    //selected.PositionY += selected.globalY;
-    //selected.PositionZ += selected.globalZ;
+    for (var i = 0; i < previousObject.children.length; i++) {
+        previousObject.children[i].material.map = Texture;
+        previousObject.children[i].material.needsUpdate = true;
+    }
 
-    selected.globalX += pomerajX;
-    selected.globalY += pomerajY;
-    selected.globalZ += pomerajZ;
 
-    selected.PositionX = 0;
-    selected.PositionY = 0;
-    selected.PositionZ = 0;
+    selected.PropagateChange();
+    //var o;
+    //for (var i = 0; i < objectsOnScene.length; i++) {
+    //    if (objectsOnScene[i].Name == previousObject.Name) {
+    //        objectsOnScene.splice(i, 1);
+    //        break;
+    //    }
+    //}
 
-    var obj = selected.CreateGeometry();
-    scene.add(obj);
-    objects.push(obj);
+    //for (var i = 0; i < objects.length; i++) {
+    //    if (objects[i].Name == previousObject.Name) {
+    //        objects.splice(i, 1);
+    //        break;
+    //    }
+    //}
+    //scene.remove(previousObject);
 
-    objectsOnScene.push(selected);
+    //var image = "/box/w" + num + ".jpg"
+    //selected.Texture = image;
+
+    //var pomerajX = selected.PositionX;
+    //var pomerajY = selected.PositionY;
+    //var pomerajZ = selected.PositionZ;
+
+    ////selected.PositionX += selected.globalX;
+    ////selected.PositionY += selected.globalY;
+    ////selected.PositionZ += selected.globalZ;
+
+    //selected.globalX += pomerajX;
+    //selected.globalY += pomerajY;
+    //selected.globalZ += pomerajZ;
+
+    //selected.PositionX = 0;
+    //selected.PositionY = 0;
+    //selected.PositionZ = 0;
+
+    //var obj = selected.CreateGeometry();
+    //scene.add(obj);
+    //objects.push(obj);
+
+    //objectsOnScene.push(selected);
 }
 
 //$.each($('.slika'), function (index, slika) {

@@ -9,6 +9,18 @@ function Vrata(w, h, d, x, y, z, n) {
     this.PositionZ = z;
     this.Texture = "wood-2.jpg";
 
+
+    this.Update = function (w, h, d, x, y, z, texture) {
+        this.Width = w;
+        this.Height = h;
+        this.Depth = d;
+        this.Name = n;
+        this.PositionX = x;
+        this.PositionY = y;
+        this.PositionZ = z;
+        this.Texture = texture;
+    }
+
     this.Draw = function () {
 
         var meshes = [];

@@ -16,6 +16,11 @@
     <meta name="viewport" content="width=device-width" />
 
 
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+
     <script type="text/javascript" src="~/Scripts/libs/three.js"></script>
     <script type="text/javascript" src="~/Scripts/libs/stats.js"></script>
     <script type="text/javascript" src="~/Scripts/libs/dat.gui.js"></script>
@@ -48,7 +53,9 @@
                     <span class="icon-bar" style="background-color:#337ab7;"></span>
                     <span class="icon-bar" style="background-color:#337ab7;"></span>
                 </button>
-                <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Creative Tim </a>
+                <a class="navbar-brand" href="~/Home/Home" style="color:#337ab7;"> Supellex </a>
+                @*<a id="crtac" class="navbar-brand" href="#" style="margin-left:25vw; color:#337ab7;">Model.ReturnMaster(Int32.Parse(Request["id"])).FirstName Model.ReturnMaster(Int32.Parse(Request["id"])).LastName is drawing</a>*@
+
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -164,66 +171,66 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Thumbnail Gallery</h1>
+                        <h1 class="page-header">Odabir Teksture</h1>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w1.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w2.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w3.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w4.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w6.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w5.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w7.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w8.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w9.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w10.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w11.jpg" alt="">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive slika" src="~/Content/textures/box/w12.jpg" alt="">
                         </a>
                     </div>
                 </div>
@@ -241,8 +248,8 @@
         -->
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="#" class="simple-text">
+                    Supellex
                 </a>
             </div>
             <ul class="nav">
@@ -253,6 +260,14 @@
                             <input type="button" id="daska1" value="Daska" />
                         </a>
                     </li>*@
+                <li id="ZavrsiCrtanje" class="active">
+
+                    <a href="#" style="color:white;">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        <p>Zavrsi crtanje</p>
+                    </a>
+                </li>
+
                 <li id="kutija" class="active">
                     <a>
                         <i class="pe-7s-box2"></i>
@@ -273,7 +288,6 @@
                         </a>
                     </li>*@
             </ul>
-
 
             <div class="panel panel-default" id="context-menu" style="background-color:rgba(97, 112, 127, 0.39); margin: 5px 10px">
                 <div style="margin: 0 20px">
@@ -311,14 +325,15 @@
                 </ul>
 
 
-                <button class="btn btn-block btn-danger" id="context-menu-delete">
+                <button style="color: white;" class="btn btn-block" id="context-menu-delete">
                     <span class="glyphicon glyphicon-trash"></span>
                     Delete Item
                 </button>
-                <button class="btn btn-block btn-success" id="context-menu-change" data-toggle="modal" data-target="#myModal">
+                <button style="color: white;" class="btn btn-block" id="context-menu-change" data-toggle="modal" data-target="#myModal">
                     <span class="glyphicon glyphicon-th"></span>
                     Change texture
                 </button>
+                <button style="color: white;" class="btn btn-block" id="btn_upd" class="btn btn-primary">Update</button>
                 <div class="panel panel-default">
                     <div class="panel-heading">Adjust Size</div>
                     <div class="panel-body" style="color : #333333">
@@ -359,57 +374,44 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">
-                                    x
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="number" class="form-control" id="item-posX" value=0>
+                            @*<div class="form-group">
+                                    <label class="col-sm-5 control-label">
+                                        x
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="item-posX" value=0>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">
-                                    y
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="number" class="form-control" id="item-posY" value=0>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">
+                                        y
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="item-posY" value=0>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-5 control-label">
-                                    z
-                                </label>
-                                <div class="col-sm-6">
-                                    <input type="number" class="form-control" id="item-posZ" value=0>
-                                </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">
+                                        z
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="item-posZ" value=0>
+                                    </div>
+                                </div>*@
 
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="btn_upd" class="btn btn-primary">Update</button>
-                </div>
-
-                <div class="modal-footer">
-                    @*<button type="button" class="btn btn-primary" onclick="">Save Configuration</button>*@
-                    @*videti da li treba neki model, za sad nek bude ovako*@
-                    <input type="button" class="btn btn-secondary" value="Delete Configuration" onclick="location.href='@Url.Action("DeleteConfiguration", "Dashboard")'" />
-                    @*<input type="button" class="btn btn-primary" value="Save Configuration" onclick="location.href='@Url.Action("SaveConfiguration", "Dashboard")'" />*@
-                    <input type="button" class="btn btn-primary" id="SaveConfiguration" value="Save Configuration" onclick="SaveConfiguration('@Model.PlanId')" />
+                    <input style="color: white" class="btn btn-block" type="button" id="SaveConfiguration" value="Save Configuration" onclick="SaveConfiguration('@Request["id"]')" />
                 </div>
             </div>
             <!--
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
             -->
-
-
-
-
 
         </div>
     </div>
@@ -420,7 +422,7 @@
 
 
     <!--   Core JS Files   -->
-    <script src="~/Scripts/js/jquery-1.10.2.js" type="text/javascript"></script>
+    @*<script src="~/Scripts/js/jquery-1.10.2.js" type="text/javascript"></script>*@
     <script src="~/Scripts/js/bootstrap.min.js" type="text/javascript"></script>
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="~/Scripts/js/bootstrap-checkbox-radio-switch.js"></script>
@@ -437,8 +439,15 @@
 
     <script>
         createScene('@Model.PlanId');
-    </script>
 
+        $('#WebGL-output').mousedown(function (e) {
+            ObjectMouseDown(e.clientX / host.offsetWidth, e.clientY / window.innerHeight);
+        });
+
+        $('#WebGL-output').mouseup(function (e) {
+            ObjectMouseUp(e.clientX / host.offsetWidth, e.clientY / window.innerHeight);
+        });
+    </script>
 
     <!--  Notifications Plugin    -->
     <script src="~/Scripts/js/bootstrap-notify.js"></script>
